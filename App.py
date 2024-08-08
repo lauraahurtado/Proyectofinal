@@ -119,6 +119,7 @@ class App:
                 print('Ingrese una opcion contemplada en el menu: ')
 
     
+    
 ### CREACION DE OBJETOS TIPO (Pelicula) CON LOS DATOS DE LA API
 
     def crear_peliculas(self,peliculas):
