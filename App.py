@@ -110,7 +110,7 @@ class App:
             else:
                 print('Ingrese una opcion contemplada en el menu: ')
 
-    ### CREACION DE OBJETOS TIPO (Personaje) CON LOS DATOS DEL CSV
+    # CREACION DE OBJETOS TIPO (Personaje) CON LOS DATOS DEL CSV
 
     def crear_personajes_csv(self):
         with open('Proyectofinal/starwars/csv/characters.csv',newline='') as archivo_csv:
@@ -121,7 +121,7 @@ class App:
                     self.personajes_csv_obj.append(Personaje_cvs(fila[0],fila[1],fila[2],fila[3],fila[4],fila[5],fila[6],fila[7],fila[8],fila[9],fila[10],fila[11],fila[12]))
                 contador+=1
 
-    ### CREACION DE OBJETOS TIPO (Nave) CON LOS DATOS DEL CSV
+    # CREACION DE OBJETOS TIPO (Nave) CON LOS DATOS DEL CSV.
 
     def crear_naves_csv(self):
         with open ('Proyectofinal/starwars/csv/starships.csv',newline='') as archivo_csv:
@@ -132,7 +132,7 @@ class App:
                     self.naves_csv_obj.append(Nave_cvs(fila[0],fila[1],fila[2],fila[3],fila[4],fila[5],fila[6],fila[7],fila[8],fila[9],fila[10],fila[11],fila[12],fila[13],fila[14],fila[15]))
                 contador+=1
     
-    ### CREACION DE OBJETOS (Armas) CON LOS DATOS DEL CSV:
+    # CREACION DE OBJETOS (Armas) CON LOS DATOS DEL CSV.
 
     def crear_armas_csv(self):
         with open('Proyectofinal/starwars/csv/weapons.csv',newline='') as archivo_csv:
@@ -143,7 +143,7 @@ class App:
                     self.armas_csv_obj.append(Arma_csv(fila[0],fila[1],fila[2],fila[3],fila[4],fila[5],fila[6],fila[7],fila[8]))
                 contador+=1
     
-    ### CREACION DE OBJETOS (Planetas) CON LOS DATOS DE CSV
+    # CREACION DE OBJETOS (Planetas) CON LOS DATOS DE CSV.
 
     def crear_planetas_csv(self):
         with open ('Proyectofinal/starwars/csv/planets.csv') as archivo_csv:
@@ -153,3 +153,24 @@ class App:
                 if contador>0:
                     self.planetas_csv_obj.append(Planeta_csv(fila[0],fila[1],fila[2],fila[3],fila[4],fila[5],fila[6],fila[7],fila[8],fila[9],fila[10],fila[11]))
                 contador+=1
+
+    # CREACION DE LA FUNCION CUYO OBJETIVO ES GRAFICAR LA CANTIDAD DE PERSONAJES QUE HAY POR PLANETA.
+
+    def cant_personajes_por_planeta(self):
+        lista_planetas_csv_personajes=[]
+        lista_cantidad_planetas_csv_personajes=[]
+        for personaje in self.personajes_csv_obj:
+            if personaje.mundo_natal not in lista_planetas_csv_personajes:
+                lista_planetas_csv_personajes.append(personaje.mundo_natal)
+        diccionario_planetas_csv_personajes={}
+
+        for personaje in lista_planetas_csv_personajes:
+            diccionario_planetas_csv_personajes[personaje]=0
+
+        for personaje in self.personajes_csv_obj:
+            diccionario_planetas_csv_personajes[personaje.mundo_natal]+=1
+
+        for personaje, cantidad in diccionario_planetas_csv_personajes.items():
+            lista_cantidad_planetas_csv_personajes.append(cantidad)
+        
+        
