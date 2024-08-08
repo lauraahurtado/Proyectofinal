@@ -10,14 +10,11 @@ from Planeta import Planeta
 from Vehiculo import Vehiculo
 from Mision import Mision
 
-
-
-
-
-
-
-
-
+import csv
+from Personaje_csv import Personaje_cvs
+from Nave_csv import Nave_cvs
+from Arma_csv import Arma_csv
+from Planeta_csv import Planeta_csv
 
 
 # CREACION DE LA CLASE APP
@@ -31,10 +28,10 @@ class App:
     misiones_obj=[]
     cantidad_misiones=0
 
-
-
-
-
+    personajes_csv_obj=[]
+    naves_csv_obj=[]
+    armas_csv_obj=[]
+    planetas_csv_obj=[]
 
     def cargar_API(self,link):
         informacion=rq.get(link).json()
@@ -112,3 +109,16 @@ class App:
 
             else:
                 print('Ingrese una opcion contemplada en el menu: ')
+
+    ### CREACION DE OBJETOS TIPO (Personaje) CON LOS DATOS DEL CSV
+
+    def crear_personajes_csv(self):
+        with open('Proyecto/starwars/csv/characters.csv',newline='') as archivo_csv:
+            lector_csv=csv.reader(archivo_csv,delimiter=',')
+            contador=0
+            for fila in lector_csv:
+                if contador>0:
+                    self.personajes_csv_obj.append(Personaje_cvs(fila[0],fila[1],fila[2],fila[3],fila[4],fila[5],fila[6],fila[7],fila[8],fila[9],fila[10],fila[11],fila[12]))
+                contador+=1
+                
+    
