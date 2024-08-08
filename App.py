@@ -184,3 +184,83 @@ class App:
                 self.peliculas_obj.append(Pelicula(pelicula["properties"]["title"],pelicula["properties"]["episode_id"],pelicula["properties"]["release_date"],pelicula["properties"]["opening_crawl"],pelicula["properties"]["director"],personajes_pelicula, planetas_pelicula, naves_pelicula, vehiculos_pelicula, especies_pelicula, pelicula["properties"]["producer"]))
                 count+=1
             print(self.peliculas_obj)
+
+### CREACION DE OBJETOS TIPO (Personaje) CON LOS DATOS DE LA API
+
+    def crear_personajes(self):
+        informacion=rq.get('https://www.swapi.tech/api/people/').json()
+        informacion_original=informacion
+        informacion=informacion['results']
+        for personaje in informacion:
+            id=personaje['uid']
+            informacion_personaje=rq.get(personaje['url']).json()
+            print('Personaje')
+            self.personajes_obj.append(Personaje(id,informacion_personaje['result']['properties']["name"],informacion_personaje['result']['properties']["gender"],informacion_personaje['result']['properties']["height"],informacion_personaje['result']['properties']["mass"],informacion_personaje['result']['properties']["hair_color"],informacion_personaje['result']['properties']["eye_color"],informacion_personaje['result']['properties']["skin_color"],informacion_personaje['result']['properties']["birth_year"], informacion_personaje['result']['properties']["homeworld"]))
+
+### CREACION DE OBJETOS TIPO (Especies) CON LOS DATOS DE LA API
+
+    def crear_especies(self):
+        informacion=rq.get('https://www.swapi.tech/api/species/').json()
+        for especie in informacion['results']:
+            id_especie=especie['uid']
+            informacion_especie=rq.get(especie['url']).json()
+            informacion_especie=informacion_especie['result']
+            personajes_especie=[]
+            print('especie')
+            for personaje_esp in informacion_especie['properties']['people']:
+                print('especie-personaje')
+                informacion_personaje=rq.get(personaje_esp).json()
+                id=informacion_personaje['result']['uid']
+                informacion_personaje=informacion_personaje['result']['properties']
+                personajes_especie.append(Personaje(id,informacion_personaje["name"],informacion_personaje["gender"],informacion_personaje["height"],informacion_personaje["mass"],informacion_personaje["hair_color"],informacion_personaje["eye_color"],informacion_personaje["skin_color"],informacion_personaje["birth_year"],informacion_personaje["homeworld"]))
+            
+            self.especies_obj.append(Especie(id_especie,informacion_especie['properties']["name"],informacion_especie['properties']["classification"],informacion_especie['properties']["designation"],informacion_especie['properties']["average_height"],informacion_especie['properties']["average_lifespan"],informacion_especie['properties']["hair_colors"],informacion_especie['properties']["skin_colors"],informacion_especie['properties']["eyes_colors"],informacion_especie['properties']["language"],informacion_especie['properties']["homeworld"],personajes_especie))
+
+### CREACION DE OBJETOS TIPO (Planeta) CON LOS DATOS DE LA API
+
+    def crear_planetas(self):
+        informacion=rq.get('https://www.swapi.tech/api/planets/').json()
+        for planeta in informacion['results']:
+            informacion_planeta=rq.get(planeta['url']).json()
+            informacion_planeta=informacion_planeta['result']['properties']
+            self.planetas_obj.append(Planeta(informacion_planeta["name"],informacion_planeta["diameter"],informacion_planeta["rotation_period"],informacion_planeta["orbital_period"],informacion_planeta["gravity"],informacion_planeta["population"],informacion_planeta["climate"],informacion_planeta["terrain",informacion_planeta["surface_water"]]))
+            print("planeta")
+
+### CREACION DE OBJETOS TIPO (Nave) CON LOS DATOS DE LA API
+
+    def crear_naves(self):
+        informacion=rq.get('https://www.swapi.tech/api/starships/').json()
+        for nave in informacion['results']:
+            informacion_nave=rq.get(nave["url"]).json()
+            informacion_nave=informacion_nave['result']['properties']
+            print("nave")
+
+            pilotos_nave=[]
+            for piloto in informacion_nave['pilots']:
+                print('piloto-nave')
+                informacion=rq.get(piloto).json()
+                id=informacion['result']['uid']
+                informacion=informacion['result']['properties']
+                pilotos_nave.append(Personaje(id,informacion["name"],informacion["gender"],informacion["height"],informacion["mass"],informacion["hair_color"],informacion["eye_color"],informacion["skin_color"],informacion["birth_year"],informacion["homeworld"]))
+            self.naves_obj.append(Nave(informacion_nave["name"],informacion_nave["model"],informacion_nave["manufacturer"],informacion_nave["cost_in_credits"],informacion_nave["length"],informacion_nave["max_atmosphering_speed"],informacion_nave["crew"],informacion_nave["passengers"],informacion_nave["cargo_capacity"],informacion_nave["consumables"],informacion_nave["hyperdrive_rating"],informacion_nave["MGLT"],pilotos_nave))
+
+### CREACION DE OBJETOS TIPO (Vehiculo) CON LOS DATOS DE LA API
+
+
+    def crear_vehiculos(self):
+        informacion=rq.get('https://www.swapi.tech/api/vehicles/').json()
+        for vehiculo in informacion['results']:
+            informacion_vehiculo=rq.get(vehiculo["url"].json())
+            informacion_vehiculo=informacion_vehiculo['result']['properties']
+            print("vehiculo")
+
+            pilotos_vehiculo=[]
+            for piloto in informacion_vehiculo['pilots']:
+                print('piloto-nave')
+                informacion=rq.get(piloto).json()
+                id=informacion['result']['uid']
+                informacion=informacion['result']['properties']
+                pilotos_vehiculo.append(Personaje(id,informacion["name"],informacion["gender"].informacion["height"],informacion["mass"],informacion["hair_color"],informacion["eye_color"],informacion["skin_color"],informacion["birth_year"],informacion["homeworld"]))
+        
+            self.vehiculos_obj.append(Vehiculo(informacion_vehiculo["name"],informacion_vehiculo["vehicle_class"],informacion_vehiculo["manufacturer"],informacion_vehiculo["cost_in_credits"],informacion_vehiculo["length"],informacion_vehiculo["crew"],informacion_vehiculo["passangers"],informacion_vehiculo["max_atmosphering_speed"],informacion_vehiculo["cargo_capacity"],informacion_vehiculo["consumables"],pilotos_vehiculo))
+            
