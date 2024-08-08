@@ -44,7 +44,7 @@ class App:
         
         try:
             peliculas=self.cargar_API('https://www.swapi.tech/api/films/')
-            self.crear_peliculas
+            self.crear_peliculas(peliculas['result'])
             self.crear_personajes()
             self.crear_especies()
             self.crear_planetas()
@@ -52,7 +52,7 @@ class App:
             self.crear_vehiculos()
         except:
             print('''Está fallando la carga de la API, por conexión a internet u otro motivo.
-                  Vuelva a correr el programa.''')
+                    Vuelva a correr el programa.''')
             
 
 
@@ -133,7 +133,7 @@ class App:
                     informacion=rq.get(personaje).json()
                     id=informacion["result"]["uid"]
                     informacion=informacion['result']['properties']
-                    personajes_pelicula.append(Personaje(id,informacion["name",informacion["gender"]],informacion["height"],informacion["mass"],informacion["hair_color"],informacion["eye_color"],informacion["skin_color"],informacion["birth_year"],informacion["homeworld"]))
+                    personajes_pelicula.append(Personaje(id,informacion["name"],informacion["gender"],informacion["height"],informacion["mass"],informacion["hair_color"],informacion["eye_color"],informacion["skin_color"],informacion["birth_year"],informacion["homeworld"]))
 
                 for planeta in pelicula['properties']['planets']:
                     print('pelicula planeta')
@@ -216,7 +216,7 @@ class App:
                 informacion_personaje=informacion_personaje['result']['properties']
                 personajes_especie.append(Personaje(id,informacion_personaje["name"],informacion_personaje["gender"],informacion_personaje["height"],informacion_personaje["mass"],informacion_personaje["hair_color"],informacion_personaje["eye_color"],informacion_personaje["skin_color"],informacion_personaje["birth_year"],informacion_personaje["homeworld"]))
             
-            self.especies_obj.append(Especie(id_especie,informacion_especie['properties']["name"],informacion_especie['properties']["classification"],informacion_especie['properties']["designation"],informacion_especie['properties']["average_height"],informacion_especie['properties']["average_lifespan"],informacion_especie['properties']["hair_colors"],informacion_especie['properties']["skin_colors"],informacion_especie['properties']["eyes_colors"],informacion_especie['properties']["language"],informacion_especie['properties']["homeworld"],personajes_especie))
+            self.especies_obj.append(Especie(id_especie,informacion_especie['properties']["name"],informacion_especie['properties']["classification"],informacion_especie['properties']["designation"],informacion_especie['properties']["average_height"],informacion_especie['properties']["average_lifespan"],informacion_especie['properties']["hair_colors"],informacion_especie['properties']["skin_colors"],informacion_especie['properties']["eye_colors"],informacion_especie['properties']["language"],informacion_especie['properties']["homeworld"],personajes_especie))
 
 ### CREACION DE OBJETOS TIPO (Planeta) CON LOS DATOS DE LA API
 
@@ -225,7 +225,7 @@ class App:
         for planeta in informacion['results']:
             informacion_planeta=rq.get(planeta['url']).json()
             informacion_planeta=informacion_planeta['result']['properties']
-            self.planetas_obj.append(Planeta(informacion_planeta["name"],informacion_planeta["diameter"],informacion_planeta["rotation_period"],informacion_planeta["orbital_period"],informacion_planeta["gravity"],informacion_planeta["population"],informacion_planeta["climate"],informacion_planeta["terrain",informacion_planeta["surface_water"]]))
+            self.planetas_obj.append(Planeta(informacion_planeta["name"],informacion_planeta["diameter"],informacion_planeta["rotation_period"],informacion_planeta["orbital_period"],informacion_planeta["gravity"],informacion_planeta["population"],informacion_planeta["climate"],informacion_planeta["terrain"],informacion_planeta["surface_water"]))
             print("planeta")
 
 ### CREACION DE OBJETOS TIPO (Nave) CON LOS DATOS DE LA API
@@ -252,7 +252,7 @@ class App:
     def crear_vehiculos(self):
         informacion=rq.get('https://www.swapi.tech/api/vehicles/').json()
         for vehiculo in informacion['results']:
-            informacion_vehiculo=rq.get(vehiculo["url"].json())
+            informacion_vehiculo=rq.get(vehiculo["url"]).json()
             informacion_vehiculo=informacion_vehiculo['result']['properties']
             print("vehiculo")
 
@@ -262,6 +262,6 @@ class App:
                 informacion=rq.get(piloto).json()
                 id=informacion['result']['uid']
                 informacion=informacion['result']['properties']
-                pilotos_vehiculo.append(Personaje(id,informacion["name"],informacion["gender"].informacion["height"],informacion["mass"],informacion["hair_color"],informacion["eye_color"],informacion["skin_color"],informacion["birth_year"],informacion["homeworld"]))
+                pilotos_vehiculo.append(Personaje(id,informacion["name"],informacion["gender"],informacion["height"],informacion["mass"],informacion["hair_color"],informacion["eye_color"],informacion["skin_color"],informacion["birth_year"],informacion["homeworld"]))
         
-            self.vehiculos_obj.append(Vehiculo(informacion_vehiculo["name"],informacion_vehiculo["vehicle_class"],informacion_vehiculo["manufacturer"],informacion_vehiculo["cost_in_credits"],informacion_vehiculo["length"],informacion_vehiculo["crew"],informacion_vehiculo["passangers"],informacion_vehiculo["max_atmosphering_speed"],informacion_vehiculo["cargo_capacity"],informacion_vehiculo["consumables"],pilotos_vehiculo))
+            self.vehiculos_obj.append(Vehiculo(informacion_vehiculo["name"],informacion_vehiculo["model"],informacion_vehiculo["vehicle_class"],informacion_vehiculo["manufacturer"],informacion_vehiculo["cost_in_credits"],informacion_vehiculo["length"],informacion_vehiculo["crew"],informacion_vehiculo["passengers"],informacion_vehiculo["max_atmosphering_speed"],informacion_vehiculo["cargo_capacity"],informacion_vehiculo["consumables"],pilotos_vehiculo))
