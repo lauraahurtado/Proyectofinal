@@ -16,6 +16,9 @@ from Nave_csv import Nave_cvs
 from Arma_csv import Arma_csv
 from Planeta_csv import Planeta_csv
 
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 
 # CREACION DE LA CLASE APP
 class App:
@@ -85,7 +88,7 @@ class App:
                 None
 
             elif menu=='5':
-                None
+                self.cant_personajes_por_planeta()
 
             elif menu=='6':
                 None
@@ -172,5 +175,19 @@ class App:
 
         for personaje, cantidad in diccionario_planetas_csv_personajes.items():
             lista_cantidad_planetas_csv_personajes.append(cantidad)
+
+        self.grafico_cant_personajes_por_planeta(lista_planetas_csv_personajes,lista_cantidad_planetas_csv_personajes)
+
         
-        
+    # CREACION DE LA FUNCION PARA GRAFICAR LA CANTIDAD DE PERSONAJES EXISTENTES POR PLANETA
+     
+    def grafico_cant_personajes_por_planeta(self,lista_planetas_csv_personajes,lista_cantidad_planetas_csv_personajes):
+        fig, ax=plt.subplots()
+        ax.bar(lista_planetas_csv_personajes,lista_planetas_csv_personajes)
+        plt.title('Cantidad de personas por planeta')
+        plt.xlabel('Planeta')
+        plt.ylabel('Cantidad de personas')
+        plt.xticks(rotation=90) #Rotacion de la disposicion visula de cada planeta en el eje x para mejor estetica
+        plt.show()
+
+    
