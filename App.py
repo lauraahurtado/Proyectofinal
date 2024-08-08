@@ -75,14 +75,16 @@ class App:
 --->:''')
             
             if menu=="1":
-                None
+                for pelicula in self.peliculas_obj:
+                    pelicula.mostrar_peliculas()
 
 
             elif menu=='2':
                 None
 
             elif menu=='3':
-                None
+                for planeta in self.planetas_obj:
+                    planeta.mostrar_planetas(self.peliculas_obj,self.personajes_obj)
 
             elif menu=='4':
                 None
@@ -263,4 +265,3 @@ class App:
                 pilotos_vehiculo.append(Personaje(id,informacion["name"],informacion["gender"].informacion["height"],informacion["mass"],informacion["hair_color"],informacion["eye_color"],informacion["skin_color"],informacion["birth_year"],informacion["homeworld"]))
         
             self.vehiculos_obj.append(Vehiculo(informacion_vehiculo["name"],informacion_vehiculo["vehicle_class"],informacion_vehiculo["manufacturer"],informacion_vehiculo["cost_in_credits"],informacion_vehiculo["length"],informacion_vehiculo["crew"],informacion_vehiculo["passangers"],informacion_vehiculo["max_atmosphering_speed"],informacion_vehiculo["cargo_capacity"],informacion_vehiculo["consumables"],pilotos_vehiculo))
-            
