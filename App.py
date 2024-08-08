@@ -118,7 +118,7 @@ class App:
             else:
                 print('Ingrese una opcion contemplada en el menu: ')
 
-    
+#Angelina
     
 # CREACION DE OBJETOS TIPO (Pelicula) CON LOS DATOS DE LA API
 
