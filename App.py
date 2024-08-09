@@ -43,13 +43,13 @@ class App:
     def start(self):
         
         try:
-            #peliculas=self.cargar_API('https://www.swapi.tech/api/films/')
-            #self.crear_peliculas(peliculas['result'])
-            #self.crear_personajes()
-            #self.crear_especies()
-            #self.crear_planetas()
-            #self.crear_naves()
-            #self.crear_vehiculos()
+            peliculas=self.cargar_API('https://www.swapi.tech/api/films/')
+            self.crear_peliculas(peliculas['result'])
+            self.crear_personajes()
+            self.crear_especies()
+            self.crear_planetas()
+            self.crear_naves()
+            self.crear_vehiculos()
             None
         except:
             print('''Está fallando la carga de la API, por conexión a internet u otro motivo.
@@ -62,8 +62,9 @@ class App:
 
 
 # MENÚ DEL PROGRAMA
+        print('\n------------ BIENVENIDO A STARWARS METROPEDIA ------------')
         while True:
-            menu=input('''Ingrese el índice numérico correspondiente a la opcion del menu que desea realizar:
+            menu=input('''\nIngrese el índice numérico correspondiente a la opcion del menu que desea realizar:
 1. Ver lista de Peliculas
 2. Ver listado de todas las especies de la saga, ordenados por el ID
 3. Ver lista de planetas
@@ -75,7 +76,7 @@ class App:
 9. Modificar Mision                       
 10. Visualizar Mision                                           
 11. Salir
---->:''')
+---> ''')
             
             if menu=="1":
                 for pelicula in self.peliculas_obj:
@@ -90,7 +91,8 @@ class App:
                     planeta.mostrar_planetas(self.peliculas_obj,self.personajes_obj)
 
             elif menu=='4':
-                None
+                nombre_buscado=input('\nIngrese el nombre del personaje que desea buscar: ')
+                self.buscar_personajes(nombre_buscado)
 
             elif menu=='5':
                 self.cant_personajes_por_planeta()
@@ -271,6 +273,16 @@ class App:
         
             self.vehiculos_obj.append(Vehiculo(informacion_vehiculo["name"],informacion_vehiculo["model"],informacion_vehiculo["vehicle_class"],informacion_vehiculo["manufacturer"],informacion_vehiculo["cost_in_credits"],informacion_vehiculo["length"],informacion_vehiculo["crew"],informacion_vehiculo["passengers"],informacion_vehiculo["max_atmosphering_speed"],informacion_vehiculo["cargo_capacity"],informacion_vehiculo["consumables"],pilotos_vehiculo))
 
+# CREACION DE LA FUNCION BUSCAR PERSONAJES EN LA SAGA (PARTE 4 DEL MENU)
+
+    def buscar_personajes(self, nombre_buscado):
+        encontrado=0
+        for personaje in self.personajes_obj:
+            if nombre_buscado.lower() in personaje.nombre.lower():
+                personaje.mostrar_personajes_opcion_cuatro(self.peliculas_obj,self.especies_obj,self.naves_obj,self.vehiculos_obj)
+                encontrado=1
+        if encontrado==0:
+            print('No se encontró este personaje en la saga.')
 
 # CREACION DE OBJETOS TIPO (Personaje) CON LOS DATOS DEL CSV
 
