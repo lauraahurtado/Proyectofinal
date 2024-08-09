@@ -84,7 +84,24 @@ class App:
 
 
             elif menu=='2':
-                None
+                lista_indices=[]
+                lista_ordenada=[]
+                for y in range(0,len(self.especies_obj)):
+                    count=0
+                    minimo=1000
+                    objeto=-1
+                    for x in self.especies_obj:
+                        if int(x.id) <minimo and int(x.id) not in lista_indices:
+                            minimo=int(x.id)
+                            objeto=x
+                        count+=1
+                    if objeto!=-1:
+                        lista_indices.append(minimo)
+                        lista_ordenada.append(objeto)
+                    else:
+                        break
+                for especie in lista_ordenada:
+                    especie.mostrar_especies(self.peliculas_obj)
 
             elif menu=='3':
                 for planeta in self.planetas_obj:
@@ -104,7 +121,7 @@ class App:
                 None
 
             elif menu=='8':
-                None
+                self.crear_misiones()
 
             elif menu=='9':
                 None
@@ -113,14 +130,14 @@ class App:
                 None
 
             elif menu=='11':
-                
+                self.guardar_misiones()
                 print('Hasta la proxima aventura estelar')
                 break
 
             else:
                 print('Ingrese una opcion contemplada en el menu: ')
 
-    
+
     
 # CREACION DE OBJETOS TIPO (Pelicula) CON LOS DATOS DE LA API
 
@@ -480,3 +497,191 @@ class App:
                     diccionario_estadisticas_naves[nave.clase_de_nave]['costo_en_creditos'].append(float(nave.costo_en_creditos))
                 else:
                     diccionario_estadisticas_naves[nave.clase_de_nave]['costo_en_creditos'].append(0)
+    
+### CREACION DE OBJETOS TIPO (MISION) CON LOS DATOS DE LOS CSV
+
+    def crear_misiones(self):
+        if self.cantidad_misiones<5:
+            nombre_mision=input('\tNombre de la Mision: ')
+
+            count=1
+            for planeta in self.planetas_csv_obj:
+                print(f'{count}-{planeta.nombre}')
+                count+=1
+            planeta_destino_mision=input('\tIngrese el indice numérico correspondiente al Planeta de Destino de la Mision que desea seleccionar: ')
+            while planeta_destino_mision.isnumeric()==False or int(planeta_destino_mision)>len(self.planetas_csv_obj):
+                planeta_destino_mision=input('\tIngrese el índice numérico correspondiente del planeta de Destino de la Mision: ')
+            planeta_destino_mision=self.planetas_csv_obj[int(planeta_destino_mision)-1]
+
+            count=1
+            for nave in self.naves_csv_obj:
+                print(f'{count}-{nave.nombre}')
+                count+=1
+            nave_mision=input('\tIngrese el indice numérico correpondiente a la Nave a utilizar en la mision: ')
+            while nave_mision.isnumeric()==False or int(nave_mision)>len(self.naves_csv_obj):
+                nave_mision=input('\tIngrese el indice numérico correspondiente a la Nave a utilizar en la mision: ')
+            nave_mision=self.naves_csv_obj[int(nave_mision)-1]
+
+            lista_indice_armas=[]
+            lista_armas=[]
+            while len(lista_indice_armas)<7:
+                count=1
+                for arma in self.armas_csv_obj:
+                    print(f'{count}-{arma.nombre}')
+                    count+=1
+                arma_a_utilizar_mision=input(f'\tIngrese el indice numérico correspondiente al Arma {len(lista_indice_armas)+1} a utilizar en la mision: ')
+                while arma_a_utilizar_mision.isnumeric()==False or int(arma_a_utilizar_mision)>len(self.armas_csv_obj):
+                    arma_a_utilizar_mision=input(f'\tIngrese el indice numérico correspondiente al Arma {len(lista_indice_armas)+1} a utilizar en la mision: ')
+                if int(arma_a_utilizar_mision)-1 not in lista_indice_armas:
+                    lista_indice_armas.append(int(arma_a_utilizar_mision)-1)
+                    arma_a_utilizar_mision=self.armas_csv_obj[int(arma_a_utilizar_mision)-1]
+                    lista_armas.append(arma_a_utilizar_mision)
+                else:
+                    print('Ya fue escogida esta arma')
+
+                if len(lista_indice_armas)>0:
+                    opcion=input('''Pulse:
+(1) Para seguir eligiendo
+(2) Para finalizar la eleccion de armas
+''')
+                    while opcion!='1' and opcion!='2':
+                        opcion=input('Ingrese una opcion válida contemplada en el menú: ')
+
+                    if opcion=='1':
+                        continue
+
+                    elif opcion=='2': 
+                        break
+
+                
+
+            lista_indice_integrantes_mision=[]
+            lista_integrantes_mision=[]
+            while len(lista_indice_integrantes_mision)<7:
+                count=1
+                for integrante in self.personajes_csv_obj:
+                    print(f'{count}-{integrante.nombre}')
+                    count+=1
+                integrante_de_la_mision=input(f'\tIngrese el indice numérico correspondiente al Integrante {len(lista_indice_integrantes_mision)+1} a elegir para que participe en la mision: ')
+                while integrante_de_la_mision.isnumeric()==False or int(integrante_de_la_mision)>len(self.personajes_csv_obj):
+                    integrante_de_la_mision=input(f'\tIngrese el indice numérico correspondiente al Integrante {len(lista_indice_integrantes_mision)+1} a elegir para que participe en la mision: ')
+                if int(integrante_de_la_mision)-1 not in lista_indice_integrantes_mision:
+                    lista_indice_integrantes_mision.append(int(integrante_de_la_mision)-1)
+                    integrante_de_la_mision=self.personajes_csv_obj[int(integrante_de_la_mision)-1]
+                    lista_integrantes_mision.append(integrante_de_la_mision)
+                else:
+                    print('Ya fue elegido este integrante para participar en la mision')
+
+                if len(lista_indice_integrantes_mision)>0:
+                    opcion=input('''Pulse:
+(1) Para seguir eligiendo
+(2) Para finalizar la eleccion de integrantes para la mision
+''')
+                    while opcion!='1' and opcion!='2':
+                        opcion=input('Ingrese una opcion válida contemplada en el menú')
+
+                    if opcion=='1':
+                        continue
+
+                    elif opcion=='2': 
+                        break
+
+            self.misiones_obj.append(Mision(self.cantidad_misiones+1,nombre_mision,planeta_destino_mision,nave_mision,lista_armas,lista_integrantes_mision))
+            self.cantidad_misiones+=1
+
+            print(f'Su mision ha sido creada exitosamente')
+
+        else:
+            print('Ya han sido creadas el máximo de misiones (7)')
+
+#------------------------------
+
+
+    def guardar_misiones(self):
+        misiones=[]
+        for mision in self.misiones_obj:
+            mision_diccionario={}
+            mision_diccionario["numero_de_mision"]=mision.numero_de_mision
+
+            mision_diccionario["nombre"]=mision.nombre
+
+            mision_planeta_diccionario={}
+            mision_planeta_diccionario["id"]=mision.planeta.id
+            mision_planeta_diccionario["nombre"]=mision.planeta.nombre
+            mision_planeta_diccionario["diametro"]=mision.planeta.diametro
+            mision_planeta_diccionario["periodo_de_rotacion"]=mision.planeta.periodo_de_rotacion
+            mision_planeta_diccionario["periodo_de_orbita"]=mision.planeta.periodo_de_orbita
+            mision_planeta_diccionario["gravedad"]=mision.planeta.gravedad
+            mision_planeta_diccionario["poblacion"]=mision.planeta.poblacion
+            mision_planeta_diccionario["clima"]=mision.planeta.clima
+            mision_planeta_diccionario["terreno"]=mision.planeta.terreno
+            mision_planeta_diccionario["superficie_acuatica"]=mision.planeta.superficie_acuatica
+            mision_planeta_diccionario["residentes"]=mision.planeta.residentes
+            mision_planeta_diccionario["peliculas"]=mision.planeta.peliculas
+            mision_diccionario["planeta"]=mision_planeta_diccionario
+
+            mision_nave_diccionario={}
+            mision_nave_diccionario["id"]=mision.nave.id
+            mision_nave_diccionario["nombre"]=mision.nave.nombre
+            mision_nave_diccionario["modelo"]=mision.nave.modelo
+            mision_nave_diccionario["fabricante"]=mision.nave.fabricante
+            mision_nave_diccionario["costo_en_creditos"]=mision.nave.costo_en_creditos
+            mision_nave_diccionario["longitud"]=mision.nave.longitud
+            mision_nave_diccionario["velocidad_maxima"]=mision.nave.velocidad_maxima
+            mision_nave_diccionario["tripulacion"]=mision.nave.tripulacion
+            mision_nave_diccionario["pasajeros"]=mision.nave.pasajeros
+            mision_nave_diccionario["capacidad_de_carga"]=mision.nave.capacidad_de_carga
+            mision_nave_diccionario["consumibles"]=mision.nave.consumibles
+            mision_nave_diccionario["clasificacion_de_hiperimpulsor"]=mision.nave.clasificacion_de_hiperimpulsor
+            mision_nave_diccionario["mglt"]=mision.nave.mglt
+            mision_nave_diccionario["clase_de_nave"]=mision.nave.clase_de_nave
+            mision_nave_diccionario["pilotos"]=mision.nave.pilotos
+            mision_nave_diccionario["peliculas"]=mision.nave.peliculas
+            mision_diccionario["nave"]=mision_nave_diccionario
+
+            lista_armas=[]
+            for arma in mision.armas_utilizadas:
+                mision_arma_diccionario={}
+                mision_arma_diccionario["id"]=arma.id
+                mision_arma_diccionario["nombre"]=arma.nombre
+                mision_arma_diccionario["modelo"]=arma.modelo
+                mision_arma_diccionario["fabricante"]=arma.fabricante
+                mision_arma_diccionario["costo_en_creditos"]=arma.costo_en_creditos
+                mision_arma_diccionario["longitud"]=arma.longitud
+                mision_arma_diccionario["tipo"]=arma.tipo
+                mision_arma_diccionario["descripcion"]=arma.descripcion
+                mision_arma_diccionario["peliculas"]=arma.peliculas
+                lista_armas.append(mision_arma_diccionario)
+            mision_diccionario["armas_utilizadas"]=lista_armas
+
+            lista_integrantes=[]
+            for integrante in mision.integrantes_mision:
+                mision_integrante_diccionario={}
+                mision_integrante_diccionario["id"]=integrante.id
+                mision_integrante_diccionario["nombre"]=integrante.nombre
+                mision_integrante_diccionario["especie"]=integrante.especie
+                mision_integrante_diccionario["genero"]=integrante.genero
+                mision_integrante_diccionario["altura"]=integrante.altura
+                mision_integrante_diccionario["peso"]=integrante.peso
+                mision_integrante_diccionario["color_cabello"]=integrante.color_cabello
+                mision_integrante_diccionario["color_ojos"]=integrante.color_ojos
+                mision_integrante_diccionario["color_piel"]=integrante.color_piel
+                mision_integrante_diccionario["nacimiento"]=integrante.nacimiento
+                mision_integrante_diccionario["mundo_natal"]=integrante.mundo_natal
+                mision_integrante_diccionario["fallecimiento"]=integrante.fallecimiento
+                mision_integrante_diccionario["descripcion"]=integrante.descripcion
+                lista_integrantes.append(mision_integrante_diccionario)
+            mision_diccionario["integrantes_mision"]=lista_integrantes
+
+            misiones.append(mision_diccionario)
+
+        #with open(".txt","w") as f:
+            #f.write(json.dumps(misiones, indent=4))
+
+
+                
+
+
+                
+
+            
