@@ -365,3 +365,102 @@ class App:
         plt.ylabel('Cantidad de personajes')
         plt.xticks(rotation=90) #Rotacion de la disposicion visula de cada planeta en el eje x para mejor estetica
         plt.show()
+
+    
+### CREACION DE OBJETOS TIPO (MISION) CON LOS DATOS DE LOS CSV
+
+    def crear_misiones(self):
+        if self.cantidad_misiones<5:
+            nombre_mision=input('\tNombre de la Mision: ')
+
+            count=1
+            for planeta in self.planetas_csv_obj:
+                print(f'{count}-{planeta.nombre}')
+                count+=1
+            planeta_destino_mision=input('\tIngrese el indice numérico correspondiente al Planeta de Destino de la Mision que desea seleccionar: ')
+            while planeta_destino_mision.isnumeric()==False or int(planeta_destino_mision)>len(self.planetas_csv_obj):
+                planeta_destino_mision=input('\tIngrese el índice numérico correspondiente del planeta de Destino de la Mision: ')
+            planeta_destino_mision=self.planetas_csv_obj[int(planeta_destino_mision)-1]
+
+            count=1
+            for nave in self.naves_csv_obj:
+                print(f'{count}-{nave.nombre}')
+                count+=1
+            nave_mision=input('\tIngrese el indice numérico correpondiente a la Nave a utilizar en la mision: ')
+            while nave_mision.isnumeric()==False or int(nave_mision)>len(self.naves_csv_obj):
+                nave_mision=input('\tIngrese el indice numérico correspondiente a la Nave a utilizar en la mision: ')
+            nave_mision=self.naves_csv_obj[int(nave_mision)-1]
+
+            lista_indice_armas=[]
+            lista_armas=[]
+            while len(lista_indice_armas)<7:
+                count=1
+                for arma in self.armas_csv_obj:
+                    print(f'{count}-{arma.nombre}')
+                    count+=1
+                arma_a_utilizar_mision=input(f'\tIngrese el indice numérico correspondiente al Arma {len(lista_indice_armas)+1} a utilizar en la mision: ')
+                while arma_a_utilizar_mision.isnumeric()==False or int(arma_a_utilizar_mision)>len(self.armas_csv_obj):
+                    arma_a_utilizar_mision=input(f'\tIngrese el indice numérico correspondiente al Arma {len(lista_indice_armas)+1} a utilizar en la mision: ')
+                if int(arma_a_utilizar_mision)-1 not in lista_indice_armas:
+                    lista_indice_armas.append(int(arma_a_utilizar_mision)-1)
+                    arma_a_utilizar_mision=self.armas_csv_obj[int(arma_a_utilizar_mision)-1]
+                    lista_armas.append(arma_a_utilizar_mision)
+                else:
+                    print('Ya fue escogida esta arma')
+
+                if len(lista_indice_armas)>0:
+                    opcion=input('''Pulse:
+(1) Para seguir eligiendo
+(2) Para finalizar la eleccion de armas
+''')
+                    while opcion!='1' and opcion!='2':
+                        opcion=input('Ingrese una opcion válida contemplada en el menú: ')
+
+                    if opcion=='1':
+                        continue
+
+                    elif opcion=='2': 
+                        break
+
+                
+
+            lista_indice_integrantes_mision=[]
+            lista_integrantes_mision=[]
+            while len(lista_indice_integrantes_mision)<7:
+                count=1
+                for integrante in self.personajes_csv_obj:
+                    print(f'{count}-{integrante.nombre}')
+                    count+=1
+                integrante_de_la_mision=input(f'\tIngrese el indice numérico correspondiente al Integrante {len(lista_indice_integrantes_mision)+1} a elegir para que participe en la mision: ')
+                while integrante_de_la_mision.isnumeric()==False or int(integrante_de_la_mision)>len(self.personajes_csv_obj):
+                    integrante_de_la_mision=input(f'\tIngrese el indice numérico correspondiente al Integrante {len(lista_indice_integrantes_mision)+1} a elegir para que participe en la mision: ')
+                if int(integrante_de_la_mision)-1 not in lista_indice_integrantes_mision:
+                    lista_indice_integrantes_mision.append(int(integrante_de_la_mision)-1)
+                    integrante_de_la_mision=self.personajes_csv_obj[int(integrante_de_la_mision)-1]
+                    lista_integrantes_mision.append(integrante_de_la_mision)
+                else:
+                    print('Ya fue elegido este integrante para participar en la mision')
+
+                if len(lista_indice_integrantes_mision)>0:
+                    opcion=input('''Pulse:
+(1) Para seguir eligiendo
+(2) Para finalizar la eleccion de integrantes para la mision
+''')
+                    while opcion!='1' and opcion!='2':
+                        opcion=input('Ingrese una opcion válida contemplada en el menú')
+
+                    if opcion=='1':
+                        continue
+
+                    elif opcion=='2': 
+                        break
+
+            self.misiones_obj.append(Mision(self.cantidad_misiones+1,nombre_mision,planeta_destino_mision,nave_mision,lista_armas,lista_integrantes_mision))
+            self.cantidad_misiones+=1
+
+            print(f'Su mision ha sido creada exitosamente')
+
+        else:
+            print('Ya han sido creadas el máximo de misiones (7)')
+
+#------------------------------
