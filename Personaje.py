@@ -28,7 +28,28 @@ class Personaje:
     def mostrar_nombre_personajes(self):
         print(f'\tNombre: {self.nombre}')
 
-    
-
+    def mostrar_personajes_opcion_cuatro(self,peliculas_obj,especies_obj,naves_obj,vehiculos_obj):
+        print(f'\n>>  Nombre: {self.nombre}')
+        informacion=rq.get(self.mundo_natal).json()
+        print(f'    Nombre del planeta origen: {informacion['result']['properties']['name']}')
+        for pelicula in peliculas_obj:
+            for personaje in pelicula.personajes:
+                if self.nombre==personaje.nombre:
+                    print(f'    Titulos de los episodios: {pelicula.titulo}')
+        print(f'    Genero: {self.genero}')
+        for especie in especies_obj:
+            for personaje in especie.nombres_personajes_pertenecientes_especies:
+                if self.nombre==personaje.nombre:
+                    print(f'    Especie: {especie.nombre}')
+        for nave in naves_obj:
+            for piloto in nave.pilotos:
+                if self.nombre==piloto.nombre:
+                    print(f'    Nave: {nave.nombre}')
+        for vehiculo in vehiculos_obj:
+            for piloto in vehiculo.pilotos:
+                if self.nombre==piloto.nombre:
+                    print(f'    Vehiculo: {vehiculo.nombre}')
+        print('')
+        
         
         

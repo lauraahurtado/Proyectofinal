@@ -43,13 +43,13 @@ class App:
     def start(self):
         
         try:
-            #peliculas=self.cargar_API('https://www.swapi.tech/api/films/')
-            #self.crear_peliculas(peliculas['result'])
-            #self.crear_personajes()
-            #self.crear_especies()
-            #self.crear_planetas()
-            #self.crear_naves()
-            #self.crear_vehiculos()
+            peliculas=self.cargar_API('https://www.swapi.tech/api/films/')
+            self.crear_peliculas(peliculas['result'])
+            self.crear_personajes()
+            self.crear_especies()
+            self.crear_planetas()
+            self.crear_naves()
+            self.crear_vehiculos()
             None
         except:
             print('''Está fallando la carga de la API, por conexión a internet u otro motivo.
@@ -62,20 +62,21 @@ class App:
 
 
 # MENÚ DEL PROGRAMA
+        print('\n------------ BIENVENIDO A STARWARS METROPEDIA ------------')
         while True:
-            menu=input('''Ingrese el índice numérico correspondiente a la opcion del menu que desea realizar:
-1. Ver lista de Peliculas
-2. Ver listado de todas las especies de la saga, ordenados por el ID
-3. Ver lista de planetas
-4. Buscar un personaje de la saga
-5. Gráfico de cantidad de personajes nacidos en cada planeta
-6. Gráficos de características de naves
-7. Tabla estadística sobre naves
-8. Construir Mision
-9. Modificar Mision                       
-10. Visualizar Mision                                           
-11. Salir
---->:''')
+            menu=input('''\nIngrese el índice numérico correspondiente a la opcion del menu que desea realizar:
+    1. Ver lista de Peliculas
+    2. Ver listado de todas las especies de la saga, ordenados por el ID
+    3. Ver lista de planetas
+    4. Buscar un personaje de la saga
+    5. Gráfico de cantidad de personajes nacidos en cada planeta
+    6. Gráficos de características de naves
+    7. Tabla estadística sobre naves
+    8. Construir Mision
+    9. Modificar Mision                       
+    10. Visualizar Mision                                           
+    11. Salir
+    ---> ''')
             
             if menu=="1":
                 for pelicula in self.peliculas_obj:
@@ -107,13 +108,14 @@ class App:
                     planeta.mostrar_planetas(self.peliculas_obj,self.personajes_obj)
 
             elif menu=='4':
-                None
+                nombre_buscado=input('\nIngrese el nombre del personaje que desea buscar: ')
+                self.buscar_personajes(nombre_buscado)
 
             elif menu=='5':
                 self.cant_personajes_por_planeta()
 
             elif menu=='6':
-                None
+                self.graficos_caracteristicas_naves()
 
             elif menu=='7':
                 None
@@ -288,6 +290,16 @@ class App:
         
             self.vehiculos_obj.append(Vehiculo(informacion_vehiculo["name"],informacion_vehiculo["model"],informacion_vehiculo["vehicle_class"],informacion_vehiculo["manufacturer"],informacion_vehiculo["cost_in_credits"],informacion_vehiculo["length"],informacion_vehiculo["crew"],informacion_vehiculo["passengers"],informacion_vehiculo["max_atmosphering_speed"],informacion_vehiculo["cargo_capacity"],informacion_vehiculo["consumables"],pilotos_vehiculo))
 
+# CREACION DE LA FUNCION BUSCAR PERSONAJES EN LA SAGA (PARTE 4 DEL MENU)
+
+    def buscar_personajes(self, nombre_buscado):
+        encontrado=0
+        for personaje in self.personajes_obj:
+            if nombre_buscado.lower() in personaje.nombre.lower():
+                personaje.mostrar_personajes_opcion_cuatro(self.peliculas_obj,self.especies_obj,self.naves_obj,self.vehiculos_obj)
+                encontrado=1
+        if encontrado==0:
+            print('No se encontró este personaje en la saga.')
 
 # CREACION DE OBJETOS TIPO (Personaje) CON LOS DATOS DEL CSV
 
@@ -366,6 +378,125 @@ class App:
         plt.xticks(rotation=90) #Rotacion de la disposicion visula de cada planeta en el eje x para mejor estetica
         plt.show()
 
+# CREACION DE FUNCION PARA GRAFICAR CIERTAS CARACTERISTICAS DE CADA NAVE
+
+    def graficos_caracteristicas_naves(self):
+        while True:
+            opcion=input('''\nEscoja el indice numerico cuya opcion corresponda al gráfico que desea observar:
+    1. Longitud de las naves. 
+    2. Capacidad de carga.
+    3. Clasificacion de hiperimpulsor.
+    4. MGLT (Modern Galactic Light Time).
+    5. Volver al menu inicial.
+    --> ''')
+            
+            lista_naves_csv=[]
+            for nave in self.naves_csv_obj:
+                lista_naves_csv.append(nave.nombre)
+            
+            if opcion=='1':
+                longitud_naves_csv=[]
+                for nave in self.naves_csv_obj:
+                    longitud_naves_csv.append(nave.longitud)
+                fig, ax=plt.subplots()
+                ax.bar(lista_naves_csv,longitud_naves_csv)
+                plt.title('Naves vs. Longitud Naves')
+                plt.xlabel('Naves')
+                plt.ylabel('Longitud de Naves')
+                plt.xticks(rotation=90)
+                plt.show()
+
+            elif opcion=='2':
+                capacidad_de_carga_naves_csv=[]
+                for nave in self.naves_csv_obj:
+                    capacidad_de_carga_naves_csv.append(nave.capacidad_de_carga)
+                fig, ax=plt.subplots()
+                ax.bar(lista_naves_csv,capacidad_de_carga_naves_csv)
+                plt.title('Naves vs Capacidad de carga')
+                plt.xlabel('Naves')
+                plt.ylabel('Capacidad de carga de naves')
+                plt.xticks(rotation=90)
+                plt.show()
+
+            elif opcion=='3':
+                clasificacion_de_hiperimpulsor_navez_csv=[]
+                for nave in self.naves_csv_obj:
+                    clasificacion_de_hiperimpulsor_navez_csv.append(nave.clasificacion_de_hiperimpulsor)
+                fig, ax=plt.subplots()
+                ax.bar(lista_naves_csv,clasificacion_de_hiperimpulsor_navez_csv)
+                plt.title('Naves vs. Clasificacion del hiperimpulsor')
+                plt.xlabel('Naves')
+                plt.ylabel('Clasificacion del hiperimpulsor')
+                plt.xticks(rotation=90)
+                plt.show()
+            
+            elif opcion=='4':
+                mglt_naves_csv=[]
+                for nave in self.naves_csv_obj:
+                    mglt_naves_csv.append(nave.mglt)
+                fig,ax=plt.subplots()
+                ax.bar(lista_naves_csv,mglt_naves_csv)
+                plt.title('Naves vs. MGLT (Modern Galactic Light Time)')
+                plt.xlabel('Naves')
+                plt.ylabel('MGLT (Modern Galactic Light Time)')
+                plt.xticks(rotation=90)
+                plt.show()
+
+            elif opcion=='5':
+                break
+
+            else:
+                print('\nPor favor, ingrese una opcion contemplada en el menu.')
+
+# CREACION DE LA FUNCION PARA CALCULAR LAS ESTADISCITCAS (MODA, PROMEDIO, MAXIMO Y MINIMO) DE CADA CLASE DE NAVE
+
+    def estadisticas_sobre_naves(self):
+        lista_clase_naves_csv=[]
+        diccionario_estadisticas_naves={}
+
+        for nave in self.naves_csv_obj:
+            if nave.clase_de_nave not in lista_clase_naves_csv:
+                lista_clase_naves_csv.append(nave.clase_de_nave)
+                diccionario_estadisticas_naves[nave.clase_de_nave]={}
+
+                diccionario_estadisticas_naves[nave.clase_de_nave]['clasificacion_de_hiperimpulsor']=[]
+                if nave.clasificacion_de_hiperimpulsor!='':
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['clasificacion_de_hiperimpulsor'].append(float(nave.clasificacion_de_hiperimpulsor))
+                else:
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['clasificacion_de_hiperimpulsor'].append(0)
+                
+                diccionario_estadisticas_naves[nave.clase_de_nave]['mglt']=[]
+                if nave.mglt!='':
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['mglt'].append(float(nave.mglt))
+                else:
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['mglt'].append(0)
+                
+                diccionario_estadisticas_naves[nave.clase_de_nave]['velocidad_maxima']=[]
+                if nave.velocidad_maxima!='':
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['velocidad_maxima'].append(float(nave.velocidad_maxima))
+                else:
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['velocidad_maxima'].append(0)
+            
+            else:
+                if nave.clasificacion_de_hiperimpulsor!='':
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['clasificacion_de_hiperimpulsor'].append(float(nave.clasificacion_de_hiperimpulsor))
+                else:
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['clasificacion_de_hiperimpulsor'].append(0)
+                
+                if nave.mglt!='':
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['mglt'].append(float(nave.mglt))
+                else:
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['mgltr'].append(0)
+                
+                if nave.velocidad_maxima!='':
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['velocidad_maxima'].append(float(nave.velocidad_maxima))
+                else:
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['velocidad_maxima'].append(0)
+
+                if nave.costo_en_creditos!='':
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['costo_en_creditos'].append(float(nave.costo_en_creditos))
+                else:
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['costo_en_creditos'].append(0)
     
 ### CREACION DE OBJETOS TIPO (MISION) CON LOS DATOS DE LOS CSV
 

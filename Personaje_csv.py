@@ -7,6 +7,7 @@ class Personaje_cvs:
         self.altura=altura
         self.peso=peso
         self.color_cabello=color_cabello
+        self.color_ojos=color_ojos
         self.color_piel=color_piel
         self.nacimiento=nacimiento
         self.mundo_natal=mundo_natal
