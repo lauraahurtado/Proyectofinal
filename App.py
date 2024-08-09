@@ -1,5 +1,5 @@
 # IMPORTACION DE EXTENSIONES Y CLASES
-#angelina
+
 import requests as rq
 import json
 from Pelicula import Pelicula
