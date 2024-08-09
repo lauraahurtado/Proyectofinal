@@ -360,3 +360,43 @@ class App:
         plt.ylabel('Cantidad de personajes')
         plt.xticks(rotation=90) #Rotacion de la disposicion visula de cada planeta en el eje x para mejor estetica
         plt.show()
+
+# CREACION DE FUNCION PARA GRAFICAR CIERTAS CARACTERISTICAS DE CADA NAVE
+
+    def graficos_caracteristicas_naves(self):
+        while True:
+            opcion=input('''Escoja el indice numerico cuya opcion corresponda al gráfico que desea observar:
+    1. Longitud de las naves. 
+    2. Capacidad de carga.
+    3. Clasificacion de hiperimpulsor.
+    4. MGLT (Modern Galactic Light Time).
+    5. Retroceder.
+    --> ''')
+            
+            lista_naves_csv=[]
+            for nave in self.naves_csv_obj:
+                lista_naves_csv.append(nave.nombre)
+            
+            if opcion=='1':
+                longitud_naves_csv=[]
+                for nave in self.naves_csv_obj:
+                    longitud_naves_csv.append(nave.longitud)
+                fig, ax=plt.subplots()
+                ax.bar(lista_naves_csv,longitud_naves_csv)
+                plt.title('Naves vs. Longitud Naves')
+                plt.xlabel('Naves')
+                plt.ylabel('Longitud de Naves')
+                plt.xticks(rotation=90)
+                plt.show()
+
+            if opcion=='2':
+                capacidad_de_carga_naves_csv=[]
+                for nave in self.naves_csv_obj:
+                    capacidad_de_carga_naves_csv.append(nave.capacidad_de_carga)
+                fig, ax=plt.subplots()
+                ax.bar(lista_naves_csv,capacidad_de_carga_naves_csv)
+                plt.title('Naves vs Capacidad de carga')
+                plt.xlabel('Naves')
+                plt.ylabel('Capacidad de carga de naves')
+                plt.xticks(rotation=90)
+                plt.show()
