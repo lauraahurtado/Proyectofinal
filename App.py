@@ -1,4 +1,4 @@
-### IMPORTACION DE EXTENSIONES Y CLASES
+# IMPORTACION DE EXTENSIONES Y CLASES
 
 import requests as rq
 import json
@@ -61,7 +61,7 @@ class App:
 
 
 
-### MENÚ DEL PROGRAMA
+# MENÚ DEL PROGRAMA
         while True:
             menu=input('''Ingrese el índice numérico correspondiente a la opcion del menu que desea realizar:
 1. Ver lista de Peliculas
@@ -118,9 +118,9 @@ class App:
             else:
                 print('Ingrese una opcion contemplada en el menu: ')
 
+
     
-    
-### CREACION DE OBJETOS TIPO (Pelicula) CON LOS DATOS DE LA API
+# CREACION DE OBJETOS TIPO (Pelicula) CON LOS DATOS DE LA API
 
     def crear_peliculas(self,peliculas):
         count=0
@@ -192,7 +192,7 @@ class App:
                 count+=1
             print(self.peliculas_obj)
 
-### CREACION DE OBJETOS TIPO (Personaje) CON LOS DATOS DE LA API
+# CREACION DE OBJETOS TIPO (Personaje) CON LOS DATOS DE LA API
 
     def crear_personajes(self):
         informacion=rq.get('https://www.swapi.tech/api/people/').json()
@@ -204,7 +204,7 @@ class App:
             print('Personaje')
             self.personajes_obj.append(Personaje(id,informacion_personaje['result']['properties']["name"],informacion_personaje['result']['properties']["gender"],informacion_personaje['result']['properties']["height"],informacion_personaje['result']['properties']["mass"],informacion_personaje['result']['properties']["hair_color"],informacion_personaje['result']['properties']["eye_color"],informacion_personaje['result']['properties']["skin_color"],informacion_personaje['result']['properties']["birth_year"], informacion_personaje['result']['properties']["homeworld"]))
 
-### CREACION DE OBJETOS TIPO (Especies) CON LOS DATOS DE LA API
+# CREACION DE OBJETOS TIPO (Especies) CON LOS DATOS DE LA API
 
     def crear_especies(self):
         informacion=rq.get('https://www.swapi.tech/api/species/').json()
@@ -223,7 +223,7 @@ class App:
             
             self.especies_obj.append(Especie(id_especie,informacion_especie['properties']["name"],informacion_especie['properties']["classification"],informacion_especie['properties']["designation"],informacion_especie['properties']["average_height"],informacion_especie['properties']["average_lifespan"],informacion_especie['properties']["hair_colors"],informacion_especie['properties']["skin_colors"],informacion_especie['properties']["eye_colors"],informacion_especie['properties']["language"],informacion_especie['properties']["homeworld"],personajes_especie))
 
-### CREACION DE OBJETOS TIPO (Planeta) CON LOS DATOS DE LA API
+# CREACION DE OBJETOS TIPO (Planeta) CON LOS DATOS DE LA API
 
     def crear_planetas(self):
         informacion=rq.get('https://www.swapi.tech/api/planets/').json()
@@ -233,7 +233,7 @@ class App:
             self.planetas_obj.append(Planeta(informacion_planeta["name"],informacion_planeta["diameter"],informacion_planeta["rotation_period"],informacion_planeta["orbital_period"],informacion_planeta["gravity"],informacion_planeta["population"],informacion_planeta["climate"],informacion_planeta["terrain"],informacion_planeta["surface_water"]))
             print("planeta")
 
-### CREACION DE OBJETOS TIPO (Nave) CON LOS DATOS DE LA API
+# CREACION DE OBJETOS TIPO (Nave) CON LOS DATOS DE LA API
 
     def crear_naves(self):
         informacion=rq.get('https://www.swapi.tech/api/starships/').json()
@@ -251,7 +251,7 @@ class App:
                 pilotos_nave.append(Personaje(id,informacion["name"],informacion["gender"],informacion["height"],informacion["mass"],informacion["hair_color"],informacion["eye_color"],informacion["skin_color"],informacion["birth_year"],informacion["homeworld"]))
             self.naves_obj.append(Nave(informacion_nave["name"],informacion_nave["model"],informacion_nave["manufacturer"],informacion_nave["cost_in_credits"],informacion_nave["length"],informacion_nave["max_atmosphering_speed"],informacion_nave["crew"],informacion_nave["passengers"],informacion_nave["cargo_capacity"],informacion_nave["consumables"],informacion_nave["hyperdrive_rating"],informacion_nave["MGLT"],pilotos_nave))
 
-### CREACION DE OBJETOS TIPO (Vehiculo) CON LOS DATOS DE LA API
+# CREACION DE OBJETOS TIPO (Vehiculo) CON LOS DATOS DE LA API
 
 
     def crear_vehiculos(self):
@@ -305,7 +305,7 @@ class App:
                     self.armas_csv_obj.append(Arma_csv(fila[0],fila[1],fila[2],fila[3],fila[4],fila[5],fila[6],fila[7],fila[8]))
                 contador+=1
     
-    # CREACION DE OBJETOS (Planetas) CON LOS DATOS DE CSV.
+# CREACION DE OBJETOS (Planetas) CON LOS DATOS DE CSV.
 
     def crear_planetas_csv(self):
         with open ('starwars/csv/planets.csv') as archivo_csv:
@@ -316,7 +316,7 @@ class App:
                     self.planetas_csv_obj.append(Planeta_csv(fila[0],fila[1],fila[2],fila[3],fila[4],fila[5],fila[6],fila[7],fila[8],fila[9],fila[10],fila[11]))
                 contador+=1
 
-    # CREACION DE LA FUNCION CUYO OBJETIVO ES GRAFICAR LA CANTIDAD DE PERSONAJES QUE HAY POR PLANETA.
+# CREACION DE LA FUNCION CUYO OBJETIVO ES GRAFICAR LA CANTIDAD DE PERSONAJES QUE HAY POR PLANETA.
 
     def cant_personajes_por_planeta(self):
         lista_planetas_csv_personajes=[]
@@ -338,7 +338,7 @@ class App:
         self.grafico_cant_personajes_por_planeta(lista_planetas_csv_personajes,lista_cantidad_planetas_csv_personajes)
 
         
-    # CREACION DE LA FUNCION PARA GRAFICAR LA CANTIDAD DE PERSONAJES EXISTENTES POR PLANETA
+# CREACION DE LA FUNCION PARA GRAFICAR LA CANTIDAD DE PERSONAJES EXISTENTES POR PLANETA
      
     def grafico_cant_personajes_por_planeta(self,lista_planetas_csv_personajes,lista_cantidad_planetas_csv_personajes):
         fig, ax=plt.subplots()
