@@ -11,6 +11,6 @@ class Personaje_cvs:
         self.color_piel=color_piel
         self.nacimiento=nacimiento
         self.mundo_natal=mundo_natal
-        self.fallecmiento=fallecimiento
+        self.fallecimiento=fallecimiento
         self.descripcion=descripcion
         
