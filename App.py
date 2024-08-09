@@ -83,7 +83,24 @@ class App:
 
 
             elif menu=='2':
-                None
+                lista_indices=[]
+                lista_ordenada=[]
+                for y in range(0,len(self.especies_obj)):
+                    count=0
+                    minimo=1000
+                    objeto=-1
+                    for x in self.especies_obj:
+                        if int(x.id) <minimo and int(x.id) not in lista_indices:
+                            minimo=int(x.id)
+                            objeto=x
+                        count+=1
+                    if objeto!=-1:
+                        lista_indices.append(minimo)
+                        lista_ordenada.append(objeto)
+                    else:
+                        break
+                for especie in lista_ordenada:
+                    especie.mostrar_especies(self.peliculas_obj)
 
             elif menu=='3':
                 for planeta in self.planetas_obj:
