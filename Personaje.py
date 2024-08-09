@@ -38,7 +38,7 @@ class Personaje:
                     print(f'    Titulos de los episodios: {pelicula.titulo}')
         print(f'    Genero: {self.genero}')
         for especie in especies_obj:
-            for personaje in especie.nombres_personajes_pertenecientes_especies:
+            for personaje in especie.nombres_personajes_pertenecientes_especie:
                 if self.nombre==personaje.nombre:
                     print(f'    Especie: {especie.nombre}')
         for nave in naves_obj:
