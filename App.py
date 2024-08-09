@@ -119,7 +119,7 @@ class App:
                 None
 
             elif menu=='8':
-                None
+                self.crear_misiones()
 
             elif menu=='9':
                 None
@@ -128,7 +128,7 @@ class App:
                 None
 
             elif menu=='11':
-                
+                self.guardar_misiones()
                 print('Hasta la proxima aventura estelar')
                 break
 
@@ -464,3 +464,93 @@ class App:
             print('Ya han sido creadas el máximo de misiones (7)')
 
 #------------------------------
+
+
+    def guardar_misiones(self):
+        misiones=[]
+        for mision in self.misiones_obj:
+            mision_diccionario={}
+            mision_diccionario["numero_de_mision"]=mision.numero_de_mision
+
+            mision_diccionario["nombre"]=mision.nombre
+
+            mision_planeta_diccionario={}
+            mision_planeta_diccionario["id"]=mision.planeta.id
+            mision_planeta_diccionario["nombre"]=mision.planeta.nombre
+            mision_planeta_diccionario["diametro"]=mision.planeta.diametro
+            mision_planeta_diccionario["periodo_de_rotacion"]=mision.planeta.periodo_de_rotacion
+            mision_planeta_diccionario["periodo_de_orbita"]=mision.planeta.periodo_de_orbita
+            mision_planeta_diccionario["gravedad"]=mision.planeta.gravedad
+            mision_planeta_diccionario["poblacion"]=mision.planeta.poblacion
+            mision_planeta_diccionario["clima"]=mision.planeta.clima
+            mision_planeta_diccionario["terreno"]=mision.planeta.terreno
+            mision_planeta_diccionario["superficie_acuatica"]=mision.planeta.superficie_acuatica
+            mision_planeta_diccionario["residentes"]=mision.planeta.residentes
+            mision_planeta_diccionario["peliculas"]=mision.planeta.peliculas
+            mision_diccionario["planeta"]=mision_planeta_diccionario
+
+            mision_nave_diccionario={}
+            mision_nave_diccionario["id"]=mision.nave.id
+            mision_nave_diccionario["nombre"]=mision.nave.nombre
+            mision_nave_diccionario["modelo"]=mision.nave.modelo
+            mision_nave_diccionario["fabricante"]=mision.nave.fabricante
+            mision_nave_diccionario["costo_en_creditos"]=mision.nave.costo_en_creditos
+            mision_nave_diccionario["longitud"]=mision.nave.longitud
+            mision_nave_diccionario["velocidad_maxima"]=mision.nave.velocidad_maxima
+            mision_nave_diccionario["tripulacion"]=mision.nave.tripulacion
+            mision_nave_diccionario["pasajeros"]=mision.nave.pasajeros
+            mision_nave_diccionario["capacidad_de_carga"]=mision.nave.capacidad_de_carga
+            mision_nave_diccionario["consumibles"]=mision.nave.consumibles
+            mision_nave_diccionario["clasificacion_de_hiperimpulsor"]=mision.nave.clasificacion_de_hiperimpulsor
+            mision_nave_diccionario["mglt"]=mision.nave.mglt
+            mision_nave_diccionario["clase_de_nave"]=mision.nave.clase_de_nave
+            mision_nave_diccionario["pilotos"]=mision.nave.pilotos
+            mision_nave_diccionario["peliculas"]=mision.nave.peliculas
+            mision_diccionario["nave"]=mision_nave_diccionario
+
+            lista_armas=[]
+            for arma in mision.armas_utilizadas:
+                mision_arma_diccionario={}
+                mision_arma_diccionario["id"]=arma.id
+                mision_arma_diccionario["nombre"]=arma.nombre
+                mision_arma_diccionario["modelo"]=arma.modelo
+                mision_arma_diccionario["fabricante"]=arma.fabricante
+                mision_arma_diccionario["costo_en_creditos"]=arma.costo_en_creditos
+                mision_arma_diccionario["longitud"]=arma.longitud
+                mision_arma_diccionario["tipo"]=arma.tipo
+                mision_arma_diccionario["descripcion"]=arma.descripcion
+                mision_arma_diccionario["peliculas"]=arma.peliculas
+                lista_armas.append(mision_arma_diccionario)
+            mision_diccionario["armas_utilizadas"]=lista_armas
+
+            lista_integrantes=[]
+            for integrante in mision.integrantes_mision:
+                mision_integrante_diccionario={}
+                mision_integrante_diccionario["id"]=integrante.id
+                mision_integrante_diccionario["nombre"]=integrante.nombre
+                mision_integrante_diccionario["especie"]=integrante.especie
+                mision_integrante_diccionario["genero"]=integrante.genero
+                mision_integrante_diccionario["altura"]=integrante.altura
+                mision_integrante_diccionario["peso"]=integrante.peso
+                mision_integrante_diccionario["color_cabello"]=integrante.color_cabello
+                mision_integrante_diccionario["color_ojos"]=integrante.color_ojos
+                mision_integrante_diccionario["color_piel"]=integrante.color_piel
+                mision_integrante_diccionario["nacimiento"]=integrante.nacimiento
+                mision_integrante_diccionario["mundo_natal"]=integrante.mundo_natal
+                mision_integrante_diccionario["fallecimiento"]=integrante.fallecimiento
+                mision_integrante_diccionario["descripcion"]=integrante.descripcion
+                lista_integrantes.append(mision_integrante_diccionario)
+            mision_diccionario["integrantes_mision"]=lista_integrantes
+
+            misiones.append(mision_diccionario)
+
+        #with open(".txt","w") as f:
+            #f.write(json.dumps(misiones, indent=4))
+
+
+                
+
+
+                
+
+            
