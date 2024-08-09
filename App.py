@@ -65,18 +65,18 @@ class App:
         print('\n------------ BIENVENIDO A STARWARS METROPEDIA ------------')
         while True:
             menu=input('''\nIngrese el índice numérico correspondiente a la opcion del menu que desea realizar:
-1. Ver lista de Peliculas
-2. Ver listado de todas las especies de la saga, ordenados por el ID
-3. Ver lista de planetas
-4. Buscar un personaje de la saga
-5. Gráfico de cantidad de personajes nacidos en cada planeta
-6. Gráficos de características de naves
-7. Tabla estadística sobre naves
-8. Construir Mision
-9. Modificar Mision                       
-10. Visualizar Mision                                           
-11. Salir
----> ''')
+    1. Ver lista de Peliculas
+    2. Ver listado de todas las especies de la saga, ordenados por el ID
+    3. Ver lista de planetas
+    4. Buscar un personaje de la saga
+    5. Gráfico de cantidad de personajes nacidos en cada planeta
+    6. Gráficos de características de naves
+    7. Tabla estadística sobre naves
+    8. Construir Mision
+    9. Modificar Mision                       
+    10. Visualizar Mision                                           
+    11. Salir
+    ---> ''')
             
             if menu=="1":
                 for pelicula in self.peliculas_obj:
@@ -98,7 +98,7 @@ class App:
                 self.cant_personajes_por_planeta()
 
             elif menu=='6':
-                None
+                self.graficos_caracteristicas_naves()
 
             elif menu=='7':
                 None
@@ -365,12 +365,12 @@ class App:
 
     def graficos_caracteristicas_naves(self):
         while True:
-            opcion=input('''Escoja el indice numerico cuya opcion corresponda al gráfico que desea observar:
+            opcion=input('''\nEscoja el indice numerico cuya opcion corresponda al gráfico que desea observar:
     1. Longitud de las naves. 
     2. Capacidad de carga.
     3. Clasificacion de hiperimpulsor.
     4. MGLT (Modern Galactic Light Time).
-    5. Retroceder.
+    5. Volver al menu inicial.
     --> ''')
             
             lista_naves_csv=[]
@@ -389,7 +389,7 @@ class App:
                 plt.xticks(rotation=90)
                 plt.show()
 
-            if opcion=='2':
+            elif opcion=='2':
                 capacidad_de_carga_naves_csv=[]
                 for nave in self.naves_csv_obj:
                     capacidad_de_carga_naves_csv.append(nave.capacidad_de_carga)
@@ -400,3 +400,33 @@ class App:
                 plt.ylabel('Capacidad de carga de naves')
                 plt.xticks(rotation=90)
                 plt.show()
+
+            elif opcion=='3':
+                clasificacion_de_hiperimpulsor_navez_csv=[]
+                for nave in self.naves_csv_obj:
+                    clasificacion_de_hiperimpulsor_navez_csv.append(nave.clasificacion_de_hiperimpulsor)
+                fig, ax=plt.subplots()
+                ax.bar(lista_naves_csv,clasificacion_de_hiperimpulsor_navez_csv)
+                plt.title('Naves vs. Clasificacion del hiperimpulsor')
+                plt.xlabel('Naves')
+                plt.ylabel('clasificacion del hiperimpulsor')
+                plt.xticks(rotation=90)
+                plt.show()
+            
+            elif opcion=='4':
+                mglt_naves_csv=[]
+                for nave in self.naves_csv_obj:
+                    mglt_naves_csv.append(nave.mglt)
+                fig,ax=plt.subplots()
+                ax.bar(lista_naves_csv,mglt_naves_csv)
+                plt.title('Naves vs. MGLT (Modern Galactic Light Time)')
+                plt.xlabel('Naves')
+                plt.ylabel('MGLT (Modern Galactic Light Time)')
+                plt.xticks(rotation=90)
+                plt.show()
+
+            elif opcion=='5':
+                break
+
+            else:
+                print('\nPor favor, ingrese una opcion contemplada en el menu.')
