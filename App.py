@@ -409,7 +409,7 @@ class App:
                 ax.bar(lista_naves_csv,clasificacion_de_hiperimpulsor_navez_csv)
                 plt.title('Naves vs. Clasificacion del hiperimpulsor')
                 plt.xlabel('Naves')
-                plt.ylabel('clasificacion del hiperimpulsor')
+                plt.ylabel('Clasificacion del hiperimpulsor')
                 plt.xticks(rotation=90)
                 plt.show()
             
@@ -430,3 +430,53 @@ class App:
 
             else:
                 print('\nPor favor, ingrese una opcion contemplada en el menu.')
+
+# CREACION DE LA FUNCION PARA CALCULAR LAS ESTADISCITCAS (MODA, PROMEDIO, MAXIMO Y MINIMO) DE CADA CLASE DE NAVE
+
+    def estadisticas_sobre_naves(self):
+        lista_clase_naves_csv=[]
+        diccionario_estadisticas_naves={}
+
+        for nave in self.naves_csv_obj:
+            if nave.clase_de_nave not in lista_clase_naves_csv:
+                lista_clase_naves_csv.append(nave.clase_de_nave)
+                diccionario_estadisticas_naves[nave.clase_de_nave]={}
+
+                diccionario_estadisticas_naves[nave.clase_de_nave]['clasificacion_de_hiperimpulsor']=[]
+                if nave.clasificacion_de_hiperimpulsor!='':
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['clasificacion_de_hiperimpulsor'].append(float(nave.clasificacion_de_hiperimpulsor))
+                else:
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['clasificacion_de_hiperimpulsor'].append(0)
+                
+                diccionario_estadisticas_naves[nave.clase_de_nave]['mglt']=[]
+                if nave.mglt!='':
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['mglt'].append(float(nave.mglt))
+                else:
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['mglt'].append(0)
+                
+                diccionario_estadisticas_naves[nave.clase_de_nave]['velocidad_maxima']=[]
+                if nave.velocidad_maxima!='':
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['velocidad_maxima'].append(float(nave.velocidad_maxima))
+                else:
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['velocidad_maxima'].append(0)
+            
+            else:
+                if nave.clasificacion_de_hiperimpulsor!='':
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['clasificacion_de_hiperimpulsor'].append(float(nave.clasificacion_de_hiperimpulsor))
+                else:
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['clasificacion_de_hiperimpulsor'].append(0)
+                
+                if nave.mglt!='':
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['mglt'].append(float(nave.mglt))
+                else:
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['mgltr'].append(0)
+                
+                if nave.velocidad_maxima!='':
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['velocidad_maxima'].append(float(nave.velocidad_maxima))
+                else:
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['velocidad_maxima'].append(0)
+
+                if nave.costo_en_creditos!='':
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['costo_en_creditos'].append(float(nave.costo_en_creditos))
+                else:
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['costo_en_creditos'].append(0)
