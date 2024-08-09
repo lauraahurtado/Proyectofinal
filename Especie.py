@@ -9,10 +9,30 @@ class Especie:
         self.altura=altura
         self.vida_promedio=vida_promedio
         self.color_cabello=color_cabello
-        self.color_piel=color_cabello
+        self.color_piel=color_piel
         self.color_ojos=color_ojos
         self.lengua_materna=lengua_materna
         self.mundo_natal=mundo_natal
-        self.nombres_personajes_pertenecientes_especies=nombres_personajes_pertenecientes_especie
+        self.nombres_personajes_pertenecientes_especie=nombres_personajes_pertenecientes_especie
+
+    def mostrar_especies(self,peliculas_obj):
+        print(f'\tid: {self.id}')
+        print(f'\tNombre: {self.nombre}')
+        print(f'\tAltura: {self.altura}')
+        print(f'\tClasificacion: {self.clasificacion}')
+        print(f'\tNombre del planeta de origen: {rq.get(self.mundo_natal).json()['result']['properties']['name']}')
+        print(f'\tLengua materna: {self.lengua_materna}')
+        for personaje in self.nombres_personajes_pertenecientes_especie:
+            personaje.mostrar_nombre_personajes()
+        lista_episodios=[]
+        for x in peliculas_obj:
+            for y in x.especies:
+                if y.nombre==self.nombre:
+                    lista_episodios.append(x.titulo)
+        for episodio in lista_episodios:
+            print(f'\tEpisodio: {episodio}')
+        print()
+        
+
 
     
