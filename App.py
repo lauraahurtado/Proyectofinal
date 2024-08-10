@@ -675,15 +675,15 @@ class App:
 
             misiones.append(mision_diccionario)
 
-        #with open("GitHub/misiones.txt","w") as f:
-            #f.write(json.dumps(misiones, indent=4))
+        with open("guardar_misiones/misiones.txt","w") as f:
+            f.write(json.dumps(misiones, indent=4))
 
 ### CREACION DE LA FUNCION PARA CARGAR DEL (Archivo.txt) TODAS LAS MISIONES GUARDADAS PREVIAMENTE Y CARGARLAS EN EL PROGRAMA
 
     def cargar_misiones(self):
         try:
-            #with open("GitHub/misiones.txt","r") as f:
-                #misiones=json.loads(f.read())
+            with open("guardar_misiones/misiones.txt","r") as f:
+                misiones=json.loads(f.read())
 
             for mision in misiones:
                 nave=Nave_cvs(mision["nave"]["id"],mision["nave"]["nombre"],mision["nave"]["modelo"],mision["nave"]["fabricante"],mision["nave"]["costo_en_creditos"],mision["nave"]["longitud"],mision["nave"]["velocidad_maxima"],mision["nave"]["tripulacion"],mision["nave"]["pasajeros"],mision["nave"]["capacidad_de_carga"],mision["nave"]["consumibles"],mision["nave"]["clasificacion_de_hiperimpulsor"],mision["nave"]["mglt"],mision["nave"]["clase_de_nave"],mision["nave"]["pilotos"],mision["nave"]["peliculas"])
