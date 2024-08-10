@@ -41,7 +41,7 @@ class App:
         return informacion
     
     def start(self):
-        
+        self.cargar_misiones()
         try:
             peliculas=self.cargar_API('https://www.swapi.tech/api/films/')
             self.crear_peliculas(peliculas['result'])
@@ -990,8 +990,40 @@ class App:
 
             misiones.append(mision_diccionario)
 
-        #with open(".txt","w") as f:
-            #f.write(json.dumps(misiones, indent=4))
+        with open("guardar_misiones/misiones.txt","w") as f:
+            f.write(json.dumps(misiones, indent=4))
+
+### CREACION DE LA FUNCION PARA CARGAR DEL (Archivo.txt) TODAS LAS MISIONES GUARDADAS PREVIAMENTE Y CARGARLAS EN EL PROGRAMA
+
+    def cargar_misiones(self):
+        try:
+            with open("guardar_misiones/misiones.txt","r") as f:
+                misiones=json.loads(f.read())
+
+            for mision in misiones:
+                nave=Nave_cvs(mision["nave"]["id"],mision["nave"]["nombre"],mision["nave"]["modelo"],mision["nave"]["fabricante"],mision["nave"]["costo_en_creditos"],mision["nave"]["longitud"],mision["nave"]["velocidad_maxima"],mision["nave"]["tripulacion"],mision["nave"]["pasajeros"],mision["nave"]["capacidad_de_carga"],mision["nave"]["consumibles"],mision["nave"]["clasificacion_de_hiperimpulsor"],mision["nave"]["mglt"],mision["nave"]["clase_de_nave"],mision["nave"]["pilotos"],mision["nave"]["peliculas"])
+        
+                planeta=Planeta_csv(mision["planeta"]["id"],mision["planeta"]["nombre"],mision["planeta"]["diametro"],mision["planeta"]["periodo_de_rotacion"],mision["planeta"]["periodo_de_orbita"],mision["planeta"]["gravedad"],mision["planeta"]["poblacion"],mision["planeta"]["clima"],mision["planeta"]["terreno"],mision["planeta"]["superficie_acuatica"],mision["planeta"]["residentes"],mision["planeta"]["peliculas"])
+
+                lista_armas=[]
+                for arma in mision["armas_utilizadas"]:
+                    arma_a_cargar=Arma_csv(arma["id"],arma["nombre"],arma["modelo"],arma["fabricante"],arma["costo_en_creditos"],arma["longitud"],arma["tipo"],arma["descripcion"],arma["peliculas"])
+                lista_armas.append(arma_a_cargar)
+
+                lista_integrantes=[]
+                for integrante in mision["integrantes_mision"]:
+                    integrante_a_cargar=Personaje_cvs(integrante["id"],integrante["nombre"],integrante["especie"],integrante["genero"],integrante["altura"],integrante["peso"],integrante["color_cabello"],integrante["color_ojos"],integrante["color_piel"],integrante["nacimiento"],integrante["mundo_natal"],integrante["fallecimiento"],integrante["descripcion"])
+                lista_integrantes.append(integrante_a_cargar)
+
+                mision_a_cargar=Mision(mision["numero_de_mision"],mision["nombre"],planeta,nave,lista_armas,lista_integrantes)
+                self.misiones_obj.append(mision_a_cargar)
+
+            self.cantidad_misiones=len(self.misiones_obj)
+
+        except:
+            self.misiones_obj=[]
+            print('Fallo la carga de las misiones, vuelva a correr el programa')
+            
 
 
                 
