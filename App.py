@@ -118,7 +118,7 @@ class App:
                 self.graficos_caracteristicas_naves()
 
             elif menu=='7':
-                None
+                self.estadisticas_sobre_naves()
 
             elif menu=='8':
                 self.crear_misiones()
@@ -497,6 +497,8 @@ class App:
                     diccionario_estadisticas_naves[nave.clase_de_nave]['costo_en_creditos'].append(float(nave.costo_en_creditos))
                 else:
                     diccionario_estadisticas_naves[nave.clase_de_nave]['costo_en_creditos'].append(0)
+        
+        self.grafico_estadisticas_naves(diccionario_estadisticas_naves,lista_clase_naves_csv)
 
 # CREACION DE TABLA DE CIERTAS CARACTERISTICAS DE  LAS CLASES DE NAVES UTILIZANDO (MEDIA, PROMEDIO, MAXIMO Y MINIMO). (UTILIZANDO HERRAMIENTAS DE NUMPY)
     
@@ -580,6 +582,21 @@ class App:
             minimo_velocidad_maxima=np.round(minimo_velocidad_maxima,decimals=2)
             medidas_velocidad_maxima+=str(minimo_velocidad_maxima)
             lista_clases.append(medidas_velocidad_maxima)
+
+            #------ COSTO EN CREDITOS ------
+
+            datos.append(lista_clases)
+
+        contador=0
+        lista_clase_naves_estadisticas=[]
+        for clase in lista_clase_naves_csv:
+            diccionario_para_cada_clase_nave={}
+            diccionario_para_cada_clase_nave[clase]=datos[contador]
+            lista_clase_naves_estadisticas.append(diccionario_para_cada_clase_nave)
+            contador+=1
+            diccionario_para_cada_clase_nave=pd.DataFrame(diccionario_para_cada_clase_nave)
+            print(diccionario_para_cada_clase_nave)
+
 
 ### CREACION DE OBJETOS TIPO (MISION) CON LOS DATOS DE LOS CSV
 
