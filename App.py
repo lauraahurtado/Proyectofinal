@@ -547,7 +547,13 @@ class App:
             maximo_velocidad_maxima=np.max(maximo_velocidad_maxima)
             maximo_velocidad_maxima=np.round(maximo_velocidad_maxima,decimals=2)
             medidas_velocidad_maxima+=str(maximo_velocidad_maxima)+' Min: '
+
+            minimo_velocidad_maxima=np.array(dato['velocidad_maxima'])
+            minimo_velocidad_maxima=np.min(minimo_velocidad_maxima)
+            minimo_velocidad_maxima=np.round(minimo_velocidad_maxima,decimals=2)
+            medidas_velocidad_maxima+=str(minimo_velocidad_maxima)
             lista_clases.append(medidas_velocidad_maxima)
+            
 ### CREACION DE OBJETOS TIPO (MISION) CON LOS DATOS DE LOS CSV
 
     def crear_misiones(self):
