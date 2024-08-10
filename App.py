@@ -520,17 +520,17 @@ class App:
             moda_hiperimpulsor=np.round(moda_hiperimpulsor,decimals=2)
             valores_unicos, conteos=np.unique(moda_hiperimpulsor,return_counts=True)
             moda_hiperimpulsor=valores_unicos[np.argmax(conteos)]
-            medidas_clasificacion_de_hiperimpulsor+=str(moda_hiperimpulsor)+' Promedio: '
+            medidas_clasificacion_de_hiperimpulsor+=str(moda_hiperimpulsor)+' Promedio:'
 
             promedio_hiperimpulsor=np.array(dato['clasificacion_de_hiperimpulsor'])
             promedio_hiperimpulsor=np.mean(promedio_hiperimpulsor)
             promedio_hiperimpulsor=np.round(promedio_hiperimpulsor,decimals=2)
-            medidas_clasificacion_de_hiperimpulsor+=str(promedio_hiperimpulsor)+' Max: '
+            medidas_clasificacion_de_hiperimpulsor+=str(promedio_hiperimpulsor)+' Max:'
 
             maximo_hiperimpulsor=np.array(dato['clasificacion_de_hiperimpulsor'])
             maximo_hiperimpulsor=np.max(maximo_hiperimpulsor)
             maximo_hiperimpulsor=np.round(maximo_hiperimpulsor,decimals=2)
-            medidas_clasificacion_de_hiperimpulsor+=str(maximo_hiperimpulsor)+' Min: '
+            medidas_clasificacion_de_hiperimpulsor+=str(maximo_hiperimpulsor)+' Min:'
 
             minimo_hiperimpulsor=np.array(dato['clasificacion_de_hiperimpulsor'])
             minimo_hiperimpulsor=np.min(minimo_hiperimpulsor)
@@ -546,17 +546,17 @@ class App:
             valores_unicos, conteos=np.unique(moda_mglt,return_counts=True)
             moda_mglt=valores_unicos[np.argmax(conteos)]
             moda_mglt=np.round(moda_mglt,decimals=2)
-            medidas_mglt+=str(moda_mglt)+ ' Prom: '
+            medidas_mglt+=str(moda_mglt)+ ' Prom:'
             
             promedio_mglt=np.array(dato['mglt'])
             promedio_mglt=np.mean(promedio_mglt)
             promedio_mglt=np.round(promedio_mglt,decimals=2)
-            medidas_mglt+=str(promedio_mglt)+' Max: '
+            medidas_mglt+=str(promedio_mglt)+' Max:'
 
             maximo_mglt=np.array(dato['mglt'])
             maximo_mglt=np.max(maximo_mglt)
             maximo_mglt=np.round(maximo_mglt, decimals=2)
-            medidas_mglt+=str(maximo_mglt)+' Min: '
+            medidas_mglt+=str(maximo_mglt)+' Min:'
             
             minimo_mglt=np.array(dato['mglt'])
             minimo_mglt=np.min(minimo_mglt)
@@ -571,17 +571,17 @@ class App:
             moda_velocidad_maxima=np.round(moda_velocidad_maxima, decimals=2)
             valores_unicos, conteos=np.unique(moda_velocidad_maxima,return_counts=True)
             moda_velocidad_maxima=valores_unicos[np.argmax(conteos)]
-            medidas_velocidad_maxima+=str(moda_velocidad_maxima)+' Prom: '
+            medidas_velocidad_maxima+=str(moda_velocidad_maxima)+' Prom:'
 
             promedio_velocidad_maxima=np.array(dato['velocidad_maxima'])
             promedio_velocidad_maxima=np.mean(promedio_velocidad_maxima)
             promedio_velocidad_maxima=np.round(promedio_velocidad_maxima,decimals=2)
-            medidas_velocidad_maxima+=str(promedio_velocidad_maxima)
+            medidas_velocidad_maxima+=str(promedio_velocidad_maxima)+ ' Max:'
 
             maximo_velocidad_maxima=np.array(dato['velocidad_maxima'])
             maximo_velocidad_maxima=np.max(maximo_velocidad_maxima)
             maximo_velocidad_maxima=np.round(maximo_velocidad_maxima,decimals=2)
-            medidas_velocidad_maxima+=str(maximo_velocidad_maxima)+' Min: '
+            medidas_velocidad_maxima+=str(maximo_velocidad_maxima)+' Min:'
 
             minimo_velocidad_maxima=np.array(dato['velocidad_maxima'])
             minimo_velocidad_maxima=np.min(minimo_velocidad_maxima)
@@ -596,20 +596,20 @@ class App:
             moda_costo_en_creditos=np.round(moda_costo_en_creditos,decimals=2)
             valores_unicos, conteos=np.unique(moda_costo_en_creditos,return_counts=True)
             moda_costo_en_creditos=valores_unicos[np.argmax(conteos)]
-            medidas_costo_en_creditos+=str(moda_costo_en_creditos)+' Prom: '
+            medidas_costo_en_creditos+=str(moda_costo_en_creditos)+' Prom:'
 
             promedio_costo_en_creditos=np.array(dato['costo_en_creditos'])
             promedio_costo_en_creditos=np.mean([promedio_costo_en_creditos])
             promedio_costo_en_creditos=np.round(promedio_costo_en_creditos,decimals=2)
-            medidas_costo_en_creditos+=str(promedio_costo_en_creditos)+' Max: '
+            medidas_costo_en_creditos+=str(promedio_costo_en_creditos)+' Max:'
 
             maximo_costo_en_creditos=np.array(dato['costo_en_creditos'])
             maximo_costo_en_creditos=np.max(maximo_costo_en_creditos)
             maximo_costo_en_creditos=np.round(maximo_costo_en_creditos,decimals=2)
-            medidas_costo_en_creditos+=str(maximo_costo_en_creditos)+' Min: '
+            medidas_costo_en_creditos+=str(maximo_costo_en_creditos)+' Min:'
 
             minimo_costo_en_creditos=np.array(dato['costo_en_creditos'])
-            minimo_costo_en_creditos=np.max(minimo_costo_en_creditos)
+            minimo_costo_en_creditos=np.min(minimo_costo_en_creditos)
             minimo_costo_en_creditos=np.round(minimo_costo_en_creditos,decimals=2)
             medidas_costo_en_creditos+=str(minimo_costo_en_creditos)
             lista_clases.append(medidas_costo_en_creditos)
