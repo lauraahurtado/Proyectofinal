@@ -818,6 +818,9 @@ class App:
                         nueva_arma_a_seleccionar=input('Ingrese el numero de la arma que desea agregar: ')
                     self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas.append(self.armas_csv_obj[int(nueva_arma_a_agregar)-1])
 
+                else:
+                    print('\nYa ha escogido el maximo numero de armas.')
+
             elif opcion=='3':
                 if len(self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas)>0:
                     print()
@@ -831,7 +834,7 @@ class App:
                     self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas.pop(int(arma_a_eliminar)-1)
 
                 else:
-                    print('No hay armas escogidas, por lo que no se puede eliminar ninguna.')
+                    print('\nNo hay armas escogidas, por lo que no se puede eliminar ninguna.')
 
             elif opcion=='4':
                 None
@@ -870,7 +873,21 @@ class App:
                     nuevo_intregrante_a_seleccionar=input('Ingrese el numero del integrante con el que desea reemplazar al anterior: ')
                 self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision[int(integrante_a_modificar)-1]=self.personajes_csv_obj[int(nuevo_intregrante_a_seleccionar)-1]
             
-            
+            elif opcion=='2':
+                print()
+                if len(self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision)<7:
+                    contador=1
+                    for integrante in self.personajes_csv_obj:
+                        print(f'{contador}. {integrante.nombre}')
+                        contador+=1
+                    nuevo_intregrante_a_seleccionar=input('Ingrese el numero del integrante que desea agregar: ')
+                    while nuevo_intregrante_a_seleccionar.isnumeric()==False or int(nuevo_intregrante_a_seleccionar)>len(self.personajes_csv_obj):
+                        nuevo_intregrante_a_seleccionar=input('Ingrese el numero del integrante que desea agregar: ')
+                    self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision.append(self.personajes_csv_obj[int(nuevo_intregrante_a_seleccionar)-1])
+                
+                else:
+                    print('\nYa ha escogido el maximo numero de integrantes.')
+                    
 
     def guardar_misiones(self):
         misiones=[]
