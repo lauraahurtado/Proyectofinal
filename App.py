@@ -131,7 +131,7 @@ class App:
 
             elif menu=='11':
                 self.guardar_misiones()
-                print('Hasta la proxima aventura estelar')
+                print('\nHasta la proxima aventura estelar!')
                 break
 
             else:
