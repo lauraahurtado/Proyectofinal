@@ -124,7 +124,7 @@ class App:
                 self.crear_misiones()
 
             elif menu=='9':
-                None
+                self.modificar_misiones()
 
             elif menu=='10':
                 None
@@ -671,9 +671,9 @@ class App:
 
                 if len(lista_indice_armas)>0:
                     opcion=input('''\nPulse:
-(1) Para seguir eligiendo
-(2) Para finalizar la eleccion de armas
-''')
+1. Para seguir eligiendo
+2. Para finalizar la eleccion de armas
+--> ''')
                     while opcion!='1' and opcion!='2':
                         opcion=input('\nIngrese una opcion válida contemplada en el menú: ')
 
@@ -704,9 +704,9 @@ class App:
 
                 if len(lista_indice_integrantes_mision)>0:
                     opcion=input('''\nPulse:
-(1) Para seguir eligiendo
-(2) Para finalizar la eleccion de integrantes para la mision
-''')
+1. Para seguir eligiendo
+2. Para finalizar la eleccion de integrantes para la mision
+--> ''')
                     while opcion!='1' and opcion!='2':
                         opcion=input('\nIngrese una opcion válida contemplada en el menú')
 
@@ -771,7 +771,71 @@ class App:
                 nueva_nave_mision=input('Ingrese el numero correspondiente a la nueva nade a utilizar en la mision: ')
             self.misiones_obj[int(mision_a_modificar)-1].nave=self.naves_csv_obj[int(nueva_nave_mision)-1]
 
-        
+        elif atributo_a_modificar_de_la_mision=='4':
+            opcion=input('''\nIngrese:
+1. Para cambiar un arma previamente seleccionada por otra.
+2. Para agregar una nueva arma.
+3. Para eliminar un arma. 
+4. Retroceder al menu principal. 
+--> ''')
+            while opcion!='1' and opcion!='2' and opcion!='3' and opcion!='4':
+                opcion=input('Ingrese una opcion valida contemplada en el menu: ')
+            
+            if opcion=='1':
+                print()
+                contador=1
+                for arma in self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas:
+                    print(f'{contador}. {arma.nombre}')
+                    contador+=1
+                arma_a_modificar=input('\nIngrese el numero del arma a modificar: ')
+                while arma_a_modificar.isnumeric()==False or int(arma_a_modificar)>len(self.armas_csv_obj):
+                    arma_a_modificar=input('Ingrese el numero del arma a modificar: ')
+                
+                print()
+                contador=1
+                for arma in self.armas_csv_obj:
+                    print(f'{contador}. {arma.nombre}')
+                    contador+=1
+                nueva_arma_a_seleccionar=input('Ingrese el numero de la nueva arma que reemplazara a la anterior: ') 
+                while nueva_arma_a_seleccionar.isnumeric()==False or int(nueva_arma_a_seleccionar)>len(self.armas_csv_obj):
+                    nueva_arma_a_seleccionar=input('Ingrese el numero de la nueva arma que reemplazara a la anterior: ')
+                self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas[int(arma_a_modificar)-1]=self.armas_csv_obj[int(nueva_arma_a_seleccionar)-1]
+
+            elif opcion=='2':
+                if len(self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas)<7:
+                    print()
+                    contador=1
+                    for arma in self.armas_csv_obj:
+                        print(f'{contador}. {arma.nombre}')
+                        contador+=1
+                    nueva_arma_a_agregar=input('Ingrese el numero de la arma que desea agregar: ') 
+                    while nueva_arma_a_agregar.isnumeric()==False or int(nueva_arma_a_agregar)>len(self.armas_csv_obj):
+                        nueva_arma_a_seleccionar=input('Ingrese el numero de la arma que desea agregar: ')
+                    self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas.append(self.armas_csv_obj[int(nueva_arma_a_agregar)-1])
+
+            elif opcion=='3':
+                if len(self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas)>0:
+                    print()
+                    contador=1
+                    for arma in self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas:
+                        print(f'{contador}. {arma.nombre}')
+                        contador+=1
+                    arma_a_eliminar=input('Ingrese el numero del arma que desea eliminar: ')
+                    while arma_a_eliminar.isnumeric()==False or int(arma_a_eliminar)>len(self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas):
+                        arma_a_eliminar=input('Ingrese el numero del arma que desea eliminar: ')
+                    self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas.pop(int(arma_a_eliminar)-1)
+
+                else:
+                    print('No hay armas escogidas, por lo que no se puede eliminar ninguna.')
+
+            elif opcion=='4':
+                None
+
+            else:      
+                print('Ingrese una de las opciones indicadas.')   
+            
+
+
     def guardar_misiones(self):
         misiones=[]
         for mision in self.misiones_obj:
