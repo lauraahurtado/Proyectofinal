@@ -880,14 +880,37 @@ class App:
                     for integrante in self.personajes_csv_obj:
                         print(f'{contador}. {integrante.nombre}')
                         contador+=1
-                    nuevo_intregrante_a_seleccionar=input('Ingrese el numero del integrante que desea agregar: ')
-                    while nuevo_intregrante_a_seleccionar.isnumeric()==False or int(nuevo_intregrante_a_seleccionar)>len(self.personajes_csv_obj):
-                        nuevo_intregrante_a_seleccionar=input('Ingrese el numero del integrante que desea agregar: ')
-                    self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision.append(self.personajes_csv_obj[int(nuevo_intregrante_a_seleccionar)-1])
+                    nuevo_integrante_a_seleccionar=input('Ingrese el numero del integrante que desea agregar: ')
+                    while nuevo_integrante_a_seleccionar.isnumeric()==False or int(nuevo_integrante_a_seleccionar)>len(self.personajes_csv_obj):
+                        nuevo_integrante_a_seleccionar=input('Ingrese el numero del integrante que desea agregar: ')
+                    self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision.append(self.personajes_csv_obj[int(nuevo_integrante_a_seleccionar)-1])
                 
                 else:
                     print('\nYa ha escogido el maximo numero de integrantes.')
-                    
+                
+            elif opcion=='3':
+                if len(self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision)>0:
+                    print()
+                    contador=1
+                    for integrante in self.misiones_obj[int(mision_a_modificar)-1].inntegrantes_mision:
+                        print(f'{contador}. {integrante.nombre}')
+                        contador+=1
+                    integrante_a_eliminar=input('Ingrese el numero del integrante que desea eliminar: ')
+                    while integrante_a_eliminar.isnumeric()==False or int(integrante_a_eliminar)>len(self.personajes_csv_obj):
+                        nuevo_intregrante_a_seleccionar=input('Ingrese el numero del integrante que desea agregar: ')
+                    self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision.pop(int(integrante_a_eliminar)-1)
+                
+                else:
+                    print('No hay integrantes escogidos, por lo que no se puede elminar ningun integrante.')
+                
+            elif opcion=='4':
+                None
+            
+            else:
+                print('Ingrese una de las opciones indicadas.')
+
+
+# CREACION DE FUNCION PARA GUARDAR TODAS LAS MISIONES CREADAS POR EL USUARIO MIENTRAS EJECUTA EL PROGRAMA (SE GUARDA EN .txt)
 
     def guardar_misiones(self):
         misiones=[]
