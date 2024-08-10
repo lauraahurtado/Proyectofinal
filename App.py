@@ -633,7 +633,7 @@ class App:
     def crear_misiones(self):
         if self.cantidad_misiones<5:
             print()
-            nombre_mision=input('\n>> Nombre de la Mision: ')
+            nombre_mision=input('\n>> Nombre de la Mision: ').title()
 
             print()
             count=1
@@ -697,7 +697,7 @@ class App:
                 for integrante in self.personajes_csv_obj:
                     print(f'{count}-{integrante.nombre}')
                     count+=1
-                integrante_de_la_mision=input(f'\n>> Ingrese el indice numérico correspondiente al Integrante {len(lista_indice_integrantes_mision)+1} a elegir para que participe en la mision: ')
+                integrante_de_la_mision=input(f'>> Ingrese el indice numérico correspondiente al Integrante {len(lista_indice_integrantes_mision)+1} a elegir para que participe en la mision: ')
                 while integrante_de_la_mision.isnumeric()==False or int(integrante_de_la_mision)>len(self.personajes_csv_obj):
                     integrante_de_la_mision=input(f'>> Ingrese el indice numérico correspondiente al Integrante {len(lista_indice_integrantes_mision)+1} a elegir para que participe en la mision: ')
                 if int(integrante_de_la_mision)-1 not in lista_indice_integrantes_mision:
@@ -734,12 +734,14 @@ class App:
 # CREACION DE LA FUNCION PARA MODIFICAR LOS ATRIBUTOS DE CADA MISION CREADA POR EL USUARIO
 
     def modificar_misiones(self):
+        print()
         for mision in self.misiones_obj:
             print(f'>> ID de la Mision: {mision.numero_de_mision} - Nombre de la Mision: {mision.nombre}')
         mision_a_modificar=input('\nIngrese el ID de la mision que desea modificar: ')
         while mision_a_modificar.isnumeric()==False or int(mision_a_modificar)>len(self.misiones_obj):
             mision_a_modificar=input('\nIngrese el ID de la mision que desea modificar: ')
-        atributo_a_modificar_de_la_mision=input('''
+        print()
+        atributo_a_modificar_de_la_mision=input('''Seleccione uno de los parametros a modificar:
 1. Nombre de la mision.
 2. Planeta destino.
 3. Nave a utilizar.
@@ -751,8 +753,9 @@ class App:
             atributo_a_modificar_de_la_mision=input('\nIngrese una opcion valida contemplada en el menu: ')
         
         if atributo_a_modificar_de_la_mision=='1':
-            nuevo_nombre_mision=input('\nNuevo nombre de la Mision:')
+            nuevo_nombre_mision=input('\nNuevo nombre de la Mision: ').title()
             self.misiones_obj[int(mision_a_modificar)-1].nombre=nuevo_nombre_mision
+            print('\nNombre cambiado con exito!')
         
         elif atributo_a_modificar_de_la_mision=='2':
             print()
@@ -760,10 +763,11 @@ class App:
             for planeta in self.planetas_csv_obj:
                 print(f'{contador}. {planeta.nombre}')
                 contador+=1
-            nuevo_planeta_destino=input('\nIngrese el numero del nuevo planeta destino de la mision: ')
+            nuevo_planeta_destino=input('>> Ingrese el numero del nuevo planeta destino de la mision: ')
             while nuevo_planeta_destino.isnumeric()==False or int(nuevo_planeta_destino)>len(self.planetas_csv_obj):
-                nuevo_planeta_destino=input('Ingrese el numero del nuevo planeta destino: ')
+                nuevo_planeta_destino=input('>> Ingrese el numero del nuevo planeta destino de la mision: ')
             self.misiones_obj[int(mision_a_modificar)-1].planeta=self.planetas_csv_obj[int(nuevo_planeta_destino)-1]
+            print('\nPlaneta cambiado con exito!')
 
         elif atributo_a_modificar_de_la_mision=='3':
             print()
@@ -771,10 +775,11 @@ class App:
             for nave in self.naves_csv_obj:
                 print(f'{contador}. {nave.nombre}')
                 contador+=1
-            nueva_nave_mision=input('\nIngrese el numero correspondiente a la nueva nave a utilizar en la mision: ')
+            nueva_nave_mision=input('>> Ingrese el numero correspondiente a la nueva nave a utilizar en la mision: ')
             while nueva_nave_mision.isnumeric()==False or int(nueva_nave_mision)>len(self.naves_csv_obj):
-                nueva_nave_mision=input('Ingrese el numero correspondiente a la nueva nade a utilizar en la mision: ')
+                nueva_nave_mision=input('>> Ingrese el numero correspondiente a la nueva nade a utilizar en la mision: ')
             self.misiones_obj[int(mision_a_modificar)-1].nave=self.naves_csv_obj[int(nueva_nave_mision)-1]
+            print('\nNave cambiada con exito!')
 
         elif atributo_a_modificar_de_la_mision=='4':
             opcion=input('''\nIngrese:
@@ -792,19 +797,20 @@ class App:
                 for arma in self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas:
                     print(f'{contador}. {arma.nombre}')
                     contador+=1
-                arma_a_modificar=input('\nIngrese el numero del arma a modificar: ')
+                arma_a_modificar=input('>> Ingrese el numero del arma a modificar: ')
                 while arma_a_modificar.isnumeric()==False or int(arma_a_modificar)>len(self.armas_csv_obj):
-                    arma_a_modificar=input('Ingrese el numero del arma a modificar: ')
+                    arma_a_modificar=input('>> Ingrese el numero del arma a modificar: ')
                 
                 print()
                 contador=1
                 for arma in self.armas_csv_obj:
                     print(f'{contador}. {arma.nombre}')
                     contador+=1
-                nueva_arma_a_seleccionar=input('Ingrese el numero de la nueva arma que reemplazara a la anterior: ') 
+                nueva_arma_a_seleccionar=input('>> Ingrese el numero de la nueva arma que reemplazara a la anterior: ') 
                 while nueva_arma_a_seleccionar.isnumeric()==False or int(nueva_arma_a_seleccionar)>len(self.armas_csv_obj):
-                    nueva_arma_a_seleccionar=input('Ingrese el numero de la nueva arma que reemplazara a la anterior: ')
+                    nueva_arma_a_seleccionar=input('>> Ingrese el numero de la nueva arma que reemplazara a la anterior: ')
                 self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas[int(arma_a_modificar)-1]=self.armas_csv_obj[int(nueva_arma_a_seleccionar)-1]
+                print('\nArma cambiada con exito!')
 
             elif opcion=='2':
                 if len(self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas)<7:
@@ -813,10 +819,11 @@ class App:
                     for arma in self.armas_csv_obj:
                         print(f'{contador}. {arma.nombre}')
                         contador+=1
-                    nueva_arma_a_agregar=input('Ingrese el numero de la arma que desea agregar: ') 
+                    nueva_arma_a_agregar=input('>> Ingrese el numero de la arma que desea agregar: ') 
                     while nueva_arma_a_agregar.isnumeric()==False or int(nueva_arma_a_agregar)>len(self.armas_csv_obj):
-                        nueva_arma_a_seleccionar=input('Ingrese el numero de la arma que desea agregar: ')
+                        nueva_arma_a_seleccionar=input('>> Ingrese el numero de la arma que desea agregar: ')
                     self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas.append(self.armas_csv_obj[int(nueva_arma_a_agregar)-1])
+                    print('\nArma agregada con exito!')
 
                 else:
                     print('\nYa ha escogido el maximo numero de armas.')
@@ -828,10 +835,11 @@ class App:
                     for arma in self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas:
                         print(f'{contador}. {arma.nombre}')
                         contador+=1
-                    arma_a_eliminar=input('Ingrese el numero del arma que desea eliminar: ')
+                    arma_a_eliminar=input('>> Ingrese el numero del arma que desea eliminar: ')
                     while arma_a_eliminar.isnumeric()==False or int(arma_a_eliminar)>len(self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas):
-                        arma_a_eliminar=input('Ingrese el numero del arma que desea eliminar: ')
+                        arma_a_eliminar=input('>> Ingrese el numero del arma que desea eliminar: ')
                     self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas.pop(int(arma_a_eliminar)-1)
+                    print('\nArma eliminada con exito!')
 
                 else:
                     print('\nNo hay armas escogidas, por lo que no se puede eliminar ninguna.')
@@ -843,6 +851,7 @@ class App:
                 print('Ingrese una de las opciones indicadas.')   
             
         elif atributo_a_modificar_de_la_mision=='5':
+            print()
             opcion=input('''Ingrese:
 1. Para cambiar un integrante previamente seleccionado por otro.
 2. Para agregar un intregante nuevo.
@@ -856,22 +865,23 @@ class App:
             if opcion=='1':
                 print()
                 contador=1
-                for integrante in self.misiones_obj[int(mision_a_modificar)-1].intregrantes_mision:
+                for integrante in self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision:
                     print(f'{contador}. {integrante.nombre}')
                     contador+=1
-                integrante_a_modificar=input('Ingrese el numero de integrante que desea modificar: ')
-                while integrante_a_modificar.isnumeric()==False or int(integrante_a_modificar)>self.personajes_csv_obj:
-                    integrante_a_modificar=input('Ingrese el numero de integrante que desea modificar: ')
+                integrante_a_modificar=input('>> Ingrese el numero de integrante que desea modificar: ')
+                while integrante_a_modificar.isnumeric()==False or int(integrante_a_modificar)>len(self.personajes_csv_obj):
+                    integrante_a_modificar=input('>> Ingrese el numero de integrante que desea modificar: ')
                 
                 print()
                 contador=1
                 for integrante in self.personajes_csv_obj:
                     print(f'{contador}. {integrante.nombre}')
                     contador+=1
-                nuevo_intregrante_a_seleccionar=input('Ingrese el numero del integrante con el que desea reemplazar al anterior: ')
+                nuevo_intregrante_a_seleccionar=input('>> Ingrese el numero del integrante con el que desea reemplazar al anterior: ')
                 while nuevo_intregrante_a_seleccionar.isnumeric()==False or int(nuevo_intregrante_a_seleccionar)>len(self.personajes_csv_obj):
-                    nuevo_intregrante_a_seleccionar=input('Ingrese el numero del integrante con el que desea reemplazar al anterior: ')
+                    nuevo_intregrante_a_seleccionar=input('>> Ingrese el numero del integrante con el que desea reemplazar al anterior: ')
                 self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision[int(integrante_a_modificar)-1]=self.personajes_csv_obj[int(nuevo_intregrante_a_seleccionar)-1]
+                print('\nIntegrante cambiado con exito!')
             
             elif opcion=='2':
                 print()
@@ -880,10 +890,11 @@ class App:
                     for integrante in self.personajes_csv_obj:
                         print(f'{contador}. {integrante.nombre}')
                         contador+=1
-                    nuevo_integrante_a_seleccionar=input('Ingrese el numero del integrante que desea agregar: ')
+                    nuevo_integrante_a_seleccionar=input('>> Ingrese el numero del integrante que desea agregar: ')
                     while nuevo_integrante_a_seleccionar.isnumeric()==False or int(nuevo_integrante_a_seleccionar)>len(self.personajes_csv_obj):
-                        nuevo_integrante_a_seleccionar=input('Ingrese el numero del integrante que desea agregar: ')
+                        nuevo_integrante_a_seleccionar=input('>> Ingrese el numero del integrante que desea agregar: ')
                     self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision.append(self.personajes_csv_obj[int(nuevo_integrante_a_seleccionar)-1])
+                    print('\nIntegrante agregado con exito!')
                 
                 else:
                     print('\nYa ha escogido el maximo numero de integrantes.')
@@ -892,13 +903,14 @@ class App:
                 if len(self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision)>0:
                     print()
                     contador=1
-                    for integrante in self.misiones_obj[int(mision_a_modificar)-1].inntegrantes_mision:
+                    for integrante in self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision:
                         print(f'{contador}. {integrante.nombre}')
                         contador+=1
-                    integrante_a_eliminar=input('Ingrese el numero del integrante que desea eliminar: ')
+                    integrante_a_eliminar=input('>> Ingrese el numero del integrante que desea eliminar: ')
                     while integrante_a_eliminar.isnumeric()==False or int(integrante_a_eliminar)>len(self.personajes_csv_obj):
-                        nuevo_intregrante_a_seleccionar=input('Ingrese el numero del integrante que desea agregar: ')
+                        nuevo_intregrante_a_seleccionar=input('>> Ingrese el numero del integrante que desea agregar: ')
                     self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision.pop(int(integrante_a_eliminar)-1)
+                    print('\nIntegrante eliminado con exito!')
                 
                 else:
                     print('No hay integrantes escogidos, por lo que no se puede elminar ningun integrante.')
