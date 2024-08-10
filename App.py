@@ -476,7 +476,13 @@ class App:
                     diccionario_estadisticas_naves[nave.clase_de_nave]['velocidad_maxima'].append(float(nave.velocidad_maxima))
                 else:
                     diccionario_estadisticas_naves[nave.clase_de_nave]['velocidad_maxima'].append(0)
-            
+
+                diccionario_estadisticas_naves[nave.clase_de_nave]['costo_en_creditos']=[]
+                if nave.costo_en_creditos!='':
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['costo_en_creditos'].append(float(nave.costo_en_creditos))
+                else:
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['costo_en_creditos'].append(0)
+
             else:
                 if nave.clasificacion_de_hiperimpulsor!='':
                     diccionario_estadisticas_naves[nave.clase_de_nave]['clasificacion_de_hiperimpulsor'].append(float(nave.clasificacion_de_hiperimpulsor))
@@ -486,7 +492,7 @@ class App:
                 if nave.mglt!='':
                     diccionario_estadisticas_naves[nave.clase_de_nave]['mglt'].append(float(nave.mglt))
                 else:
-                    diccionario_estadisticas_naves[nave.clase_de_nave]['mgltr'].append(0)
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['mglt'].append(0)
                 
                 if nave.velocidad_maxima!='':
                     diccionario_estadisticas_naves[nave.clase_de_nave]['velocidad_maxima'].append(float(nave.velocidad_maxima))
@@ -521,10 +527,10 @@ class App:
             promedio_hiperimpulsor=np.round(promedio_hiperimpulsor,decimals=2)
             medidas_clasificacion_de_hiperimpulsor+=str(promedio_hiperimpulsor)+' Max: '
 
-            maxima_hiperimpulsor=np.array(dato['clasificacion_de_hiperimpulsor'])
-            maxima_hiperimpulsor=np.max(maxima_hiperimpulsor)
-            maxima_hiperimpulsor=np.round(maxima_hiperimpulsor,decimals=2)
-            medidas_clasificacion_de_hiperimpulsor+=str(maxima_hiperimpulsor)
+            maximo_hiperimpulsor=np.array(dato['clasificacion_de_hiperimpulsor'])
+            maximo_hiperimpulsor=np.max(maximo_hiperimpulsor)
+            maximo_hiperimpulsor=np.round(maximo_hiperimpulsor,decimals=2)
+            medidas_clasificacion_de_hiperimpulsor+=str(maximo_hiperimpulsor)
 
             minimo_hiperimpulsor=np.array(dato['clasificacion_de_hiperimpulsor'])
             minimo_hiperimpulsor=np.min(minimo_hiperimpulsor)
@@ -539,7 +545,7 @@ class App:
             moda_mglt=np.round(moda_mglt,decimals=2)
             valores_unicos, conteos=np.unique(moda_mglt,return_counts=True)
             moda_mglt=valores_unicos[np.argmax(conteos)]
-            moda_mglt=np.rounds(moda_mglt,decimals=2)
+            moda_mglt=np.round(moda_mglt,decimals=2)
             medidas_mglt+=str(moda_mglt)+ ' Prom: '
             
             promedio_mglt=np.array(dato['mglt'])
@@ -550,7 +556,7 @@ class App:
             maximo_mglt=np.array(dato['mglt'])
             maximo_mglt=np.max(maximo_mglt)
             maximo_mglt=np.round(maximo_mglt, decimals=2)
-            maximo_mglt+=str(maximo_mglt)+' Min: '
+            medidas_mglt+=str(maximo_mglt)+' Min: '
             
             minimo_mglt=np.array(dato['mglt'])
             minimo_mglt=np.min(minimo_mglt)
@@ -585,6 +591,30 @@ class App:
 
             #------ COSTO EN CREDITOS ------
 
+            medidas_costo_en_creditos='CEC- Moda:'
+            moda_costo_en_creditos=np.array(dato['costo_en_creditos'])
+            moda_costo_en_creditos=np.round(moda_costo_en_creditos,decimals=2)
+            valores_unicos, conteos=np.unique(moda_costo_en_creditos,return_counts=True)
+            moda_costo_en_creditos=valores_unicos[np.argmax(conteos)]
+            medidas_costo_en_creditos+=str(moda_costo_en_creditos)+' Prom: '
+
+            promedio_costo_en_creditos=np.array(dato['costo_en_creditos'])
+            promedio_costo_en_creditos=np.mean([promedio_costo_en_creditos])
+            promedio_costo_en_creditos=np.round(promedio_costo_en_creditos,decimals=2)
+            medidas_costo_en_creditos+=str(promedio_costo_en_creditos)+' Max: '
+
+            maximo_costo_en_creditos=np.array(dato['costo_en_creditos'])
+            maximo_costo_en_creditos=np.max(maximo_costo_en_creditos)
+            maximo_costo_en_creditos=np.round(maximo_costo_en_creditos,decimals=2)
+            medidas_costo_en_creditos+=str(maximo_costo_en_creditos)+' Min: '
+
+            minimo_costo_en_creditos=np.array(dato['costo_en_creditos'])
+            minimo_costo_en_creditos=np.max(minimo_costo_en_creditos)
+            minimo_costo_en_creditos=np.round(minimo_costo_en_creditos,decimals=2)
+            medidas_costo_en_creditos+=str(minimo_costo_en_creditos)
+            lista_clases.append(medidas_costo_en_creditos)
+            
+            
             datos.append(lista_clases)
 
         contador=0
