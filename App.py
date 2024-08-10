@@ -530,7 +530,7 @@ class App:
             maximo_hiperimpulsor=np.array(dato['clasificacion_de_hiperimpulsor'])
             maximo_hiperimpulsor=np.max(maximo_hiperimpulsor)
             maximo_hiperimpulsor=np.round(maximo_hiperimpulsor,decimals=2)
-            medidas_clasificacion_de_hiperimpulsor+=str(maximo_hiperimpulsor)
+            medidas_clasificacion_de_hiperimpulsor+=str(maximo_hiperimpulsor)+' Min: '
 
             minimo_hiperimpulsor=np.array(dato['clasificacion_de_hiperimpulsor'])
             minimo_hiperimpulsor=np.min(minimo_hiperimpulsor)
@@ -575,7 +575,7 @@ class App:
 
             promedio_velocidad_maxima=np.array(dato['velocidad_maxima'])
             promedio_velocidad_maxima=np.mean(promedio_velocidad_maxima)
-            promedio_velocidad_maxima=np.round(moda_velocidad_maxima,decimals=2)
+            promedio_velocidad_maxima=np.round(promedio_velocidad_maxima,decimals=2)
             medidas_velocidad_maxima+=str(promedio_velocidad_maxima)
 
             maximo_velocidad_maxima=np.array(dato['velocidad_maxima'])
@@ -632,24 +632,24 @@ class App:
 
     def crear_misiones(self):
         if self.cantidad_misiones<5:
-            nombre_mision=input('\tNombre de la Mision: ')
+            nombre_mision=input('\n>> Nombre de la Mision: ')
 
             count=1
             for planeta in self.planetas_csv_obj:
                 print(f'{count}-{planeta.nombre}')
                 count+=1
-            planeta_destino_mision=input('\tIngrese el indice numérico correspondiente al Planeta de Destino de la Mision que desea seleccionar: ')
+            planeta_destino_mision=input('>> Ingrese el indice numérico correspondiente al Planeta de Destino de la Mision que desea seleccionar: ')
             while planeta_destino_mision.isnumeric()==False or int(planeta_destino_mision)>len(self.planetas_csv_obj):
-                planeta_destino_mision=input('\tIngrese el índice numérico correspondiente del planeta de Destino de la Mision: ')
+                planeta_destino_mision=input('>> Ingrese el índice numérico correspondiente del planeta de Destino de la Mision: ')
             planeta_destino_mision=self.planetas_csv_obj[int(planeta_destino_mision)-1]
 
             count=1
             for nave in self.naves_csv_obj:
                 print(f'{count}-{nave.nombre}')
                 count+=1
-            nave_mision=input('\tIngrese el indice numérico correpondiente a la Nave a utilizar en la mision: ')
+            nave_mision=input('>> Ingrese el indice numérico correpondiente a la Nave a utilizar en la mision: ')
             while nave_mision.isnumeric()==False or int(nave_mision)>len(self.naves_csv_obj):
-                nave_mision=input('\tIngrese el indice numérico correspondiente a la Nave a utilizar en la mision: ')
+                nave_mision=input('>> Ingrese el indice numérico correspondiente a la Nave a utilizar en la mision: ')
             nave_mision=self.naves_csv_obj[int(nave_mision)-1]
 
             lista_indice_armas=[]
@@ -659,9 +659,9 @@ class App:
                 for arma in self.armas_csv_obj:
                     print(f'{count}-{arma.nombre}')
                     count+=1
-                arma_a_utilizar_mision=input(f'\tIngrese el indice numérico correspondiente al Arma {len(lista_indice_armas)+1} a utilizar en la mision: ')
+                arma_a_utilizar_mision=input(f'>> Ingrese el indice numérico correspondiente al Arma {len(lista_indice_armas)+1} a utilizar en la mision: ')
                 while arma_a_utilizar_mision.isnumeric()==False or int(arma_a_utilizar_mision)>len(self.armas_csv_obj):
-                    arma_a_utilizar_mision=input(f'\tIngrese el indice numérico correspondiente al Arma {len(lista_indice_armas)+1} a utilizar en la mision: ')
+                    arma_a_utilizar_mision=input(f'>> Ingrese el indice numérico correspondiente al Arma {len(lista_indice_armas)+1} a utilizar en la mision: ')
                 if int(arma_a_utilizar_mision)-1 not in lista_indice_armas:
                     lista_indice_armas.append(int(arma_a_utilizar_mision)-1)
                     arma_a_utilizar_mision=self.armas_csv_obj[int(arma_a_utilizar_mision)-1]
@@ -670,12 +670,12 @@ class App:
                     print('Ya fue escogida esta arma')
 
                 if len(lista_indice_armas)>0:
-                    opcion=input('''Pulse:
+                    opcion=input('''\nPulse:
 (1) Para seguir eligiendo
 (2) Para finalizar la eleccion de armas
 ''')
                     while opcion!='1' and opcion!='2':
-                        opcion=input('Ingrese una opcion válida contemplada en el menú: ')
+                        opcion=input('\nIngrese una opcion válida contemplada en el menú: ')
 
                     if opcion=='1':
                         continue
@@ -692,9 +692,9 @@ class App:
                 for integrante in self.personajes_csv_obj:
                     print(f'{count}-{integrante.nombre}')
                     count+=1
-                integrante_de_la_mision=input(f'\tIngrese el indice numérico correspondiente al Integrante {len(lista_indice_integrantes_mision)+1} a elegir para que participe en la mision: ')
+                integrante_de_la_mision=input(f'\n>> Ingrese el indice numérico correspondiente al Integrante {len(lista_indice_integrantes_mision)+1} a elegir para que participe en la mision: ')
                 while integrante_de_la_mision.isnumeric()==False or int(integrante_de_la_mision)>len(self.personajes_csv_obj):
-                    integrante_de_la_mision=input(f'\tIngrese el indice numérico correspondiente al Integrante {len(lista_indice_integrantes_mision)+1} a elegir para que participe en la mision: ')
+                    integrante_de_la_mision=input(f'>> Ingrese el indice numérico correspondiente al Integrante {len(lista_indice_integrantes_mision)+1} a elegir para que participe en la mision: ')
                 if int(integrante_de_la_mision)-1 not in lista_indice_integrantes_mision:
                     lista_indice_integrantes_mision.append(int(integrante_de_la_mision)-1)
                     integrante_de_la_mision=self.personajes_csv_obj[int(integrante_de_la_mision)-1]
@@ -703,12 +703,12 @@ class App:
                     print('Ya fue elegido este integrante para participar en la mision')
 
                 if len(lista_indice_integrantes_mision)>0:
-                    opcion=input('''Pulse:
+                    opcion=input('''\nPulse:
 (1) Para seguir eligiendo
 (2) Para finalizar la eleccion de integrantes para la mision
 ''')
                     while opcion!='1' and opcion!='2':
-                        opcion=input('Ingrese una opcion válida contemplada en el menú')
+                        opcion=input('\nIngrese una opcion válida contemplada en el menú')
 
                     if opcion=='1':
                         continue
@@ -719,14 +719,59 @@ class App:
             self.misiones_obj.append(Mision(self.cantidad_misiones+1,nombre_mision,planeta_destino_mision,nave_mision,lista_armas,lista_integrantes_mision))
             self.cantidad_misiones+=1
 
-            print(f'Su mision ha sido creada exitosamente')
+            print(f'\nSu mision ha sido creada exitosamente!')
 
         else:
             print('Ya han sido creadas el máximo de misiones (7)')
 
 #------------------------------
 
+# CREACION DE LA FUNCION PARA MODIFICAR LOS ATRIBUTOS DE CADA MISION CREADA POR EL USUARIO
 
+    def modificar_misiones(self):
+        for mision in self.misiones_obj:
+            print(f'>> ID de la Mision: {mision.numero_de_mision} - Nombre de la Mision: {mision.nombre}')
+        mision_a_modificar=input('\nIngrese el ID de la mision que desea modificar: ')
+        while mision_a_modificar.isnumeric()==False or int(mision_a_modificar)>len(self.misiones_obj):
+            mision_a_modificar=input('\nIngrese el ID de la mision que desea modificar: ')
+        atributo_a_modificar_de_la_mision=input('''
+1. Nombre de la mision.
+2. Planeta destino.
+3. Nave a utilizar.
+4. Armas a utilizar.
+5. Integrantes de la mision.
+--> ''')
+        
+        while atributo_a_modificar_de_la_mision!='1' and atributo_a_modificar_de_la_mision!='2' and atributo_a_modificar_de_la_mision!='3' and atributo_a_modificar_de_la_mision!='4' and atributo_a_modificar_de_la_mision!='5':
+            atributo_a_modificar_de_la_mision=input('\nIngrese una opcion valida contemplada en el menu: ')
+        
+        if atributo_a_modificar_de_la_mision=='1':
+            nuevo_nombre_mision=input('\nNuevo nombre de la Mision:')
+            self.misiones_obj[int(mision_a_modificar)-1].nombre=nuevo_nombre_mision
+        
+        elif atributo_a_modificar_de_la_mision=='2':
+            print()
+            contador=1
+            for planeta in self.planetas_csv_obj:
+                print(f'{contador}. {planeta.nombre}')
+                contador+=1
+            nuevo_planeta_destino=input('\nIngrese el numero del nuevo planeta destino de la mision: ')
+            while nuevo_planeta_destino.isnumeric()==False or int(nuevo_planeta_destino)>len(self.planetas_csv_obj):
+                nuevo_planeta_destino=input('Ingrese el numero del nuevo planeta destino: ')
+            self.misiones_obj[int(mision_a_modificar)-1].planeta=self.planetas_csv_obj[int(nuevo_planeta_destino)-1]
+
+        elif atributo_a_modificar_de_la_mision=='3':
+            print()
+            contador=1
+            for nave in self.naves_csv_obj:
+                print(f'{contador}. {nave.nombre}')
+                contador+=1
+            nueva_nave_mision=input('\nIngrese el numero correspondiente a la nueva nave a utilizar en la mision: ')
+            while nueva_nave_mision.isnumeric()==False or int(nueva_nave_mision)>len(self.naves_csv_obj):
+                nueva_nave_mision=input('Ingrese el numero correspondiente a la nueva nade a utilizar en la mision: ')
+            self.misiones_obj[int(mision_a_modificar)-1].nave=self.naves_csv_obj[int(nueva_nave_mision)-1]
+
+        
     def guardar_misiones(self):
         misiones=[]
         for mision in self.misiones_obj:
