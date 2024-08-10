@@ -530,7 +530,34 @@ class App:
             medidas_clasificacion_de_hiperimpulsor+=str(minimo_hiperimpulsor)
             lista_clases.append(medidas_clasificacion_de_hiperimpulsor)
 
+            #------ MGLT ------
+
+            medidas_mglt='MGLT- Moda:'
+            moda_mglt=np.array(dato['mglt'])
+            moda_mglt=np.round(moda_mglt,decimals=2)
+            valores_unicos, conteos=np.unique(moda_mglt,return_counts=True)
+            moda_mglt=valores_unicos[np.argmax(conteos)]
+            moda_mglt=np.rounds(moda_mglt,decimals=2)
+            medidas_mglt+=str(moda_mglt)+ ' Prom: '
+            
+            promedio_mglt=np.array(dato['mglt'])
+            promedio_mglt=np.mean(promedio_mglt)
+            promedio_mglt=np.round(promedio_mglt,decimals=2)
+            medidas_mglt+=str(promedio_mglt)+' Max: '
+
+            maximo_mglt=np.array(dato['mglt'])
+            maximo_mglt=np.max(maximo_mglt)
+            maximo_mglt=np.round(maximo_mglt, decimals=2)
+            maximo_mglt+=str(maximo_mglt)+' Min: '
+            
+            minimo_mglt=np.array(dato['mglt'])
+            minimo_mglt=np.min(minimo_mglt)
+            minimo_mglt=np.round(minimo_mglt,decimals=2)
+            medidas_mglt+=str(minimo_mglt)
+            lista_clases.append(medidas_mglt)
+
             #------ VELOCIDAD MAXIMA ------
+
             medidas_velocidad_maxima='Vmax- Moda:'
             moda_velocidad_maxima=np.array(dato['velocidad_maxima'])
             moda_velocidad_maxima=np.round(moda_velocidad_maxima, decimals=2)
@@ -553,7 +580,7 @@ class App:
             minimo_velocidad_maxima=np.round(minimo_velocidad_maxima,decimals=2)
             medidas_velocidad_maxima+=str(minimo_velocidad_maxima)
             lista_clases.append(medidas_velocidad_maxima)
-            
+
 ### CREACION DE OBJETOS TIPO (MISION) CON LOS DATOS DE LOS CSV
 
     def crear_misiones(self):
