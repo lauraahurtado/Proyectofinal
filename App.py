@@ -127,7 +127,7 @@ class App:
                 self.modificar_misiones()
 
             elif menu=='10':
-                None
+                self.elegir_mision_para_mostrarla()
 
             elif menu=='11':
                 self.guardar_misiones()
@@ -736,10 +736,10 @@ class App:
     def modificar_misiones(self):
         print()
         for mision in self.misiones_obj:
-            print(f'>> ID de la Mision: {mision.numero_de_mision} - Nombre de la Mision: {mision.nombre}')
-        mision_a_modificar=input('\nIngrese el ID de la mision que desea modificar: ')
+            print(f'- ID de la Mision: {mision.numero_de_mision} - Nombre de la Mision: {mision.nombre}')
+        mision_a_modificar=input('\n>> Ingrese el ID de la mision que desea modificar: ')
         while mision_a_modificar.isnumeric()==False or int(mision_a_modificar)>len(self.misiones_obj):
-            mision_a_modificar=input('\nIngrese el ID de la mision que desea modificar: ')
+            mision_a_modificar=input('\n>> Ingrese el ID de la mision que desea modificar: ')
         print()
         atributo_a_modificar_de_la_mision=input('''Seleccione uno de los parametros a modificar:
 1. Nombre de la mision.
@@ -921,6 +921,18 @@ class App:
             else:
                 print('Ingrese una de las opciones indicadas.')
 
+# CREACION DE FUNCION PARA VISUALIZAR TODOS LOS DATOS DE UNA MISION
+
+    def elegir_mision_para_mostrarla(self):
+        print()
+        for mision in self.misiones_obj:
+            print(f'ID de la Mision: {mision.numero_de_mision} - Nombre de la Mision: {mision.nombre}')
+        mision_a_visualizar=input('\n>> Ingrese el ID de la mision que desea visualizar: ')
+        print()
+        while mision_a_visualizar.isnumeric()==False or int(mision_a_visualizar)>len(self.misiones_obj[int(mision_a_visualizar)-1].integrantes_mision):
+            mision_a_visualizar=input('\n>> Ingrese el ID de la mision que desea visualizar: ')
+        self.misiones_obj[int(mision_a_visualizar)-1].visualizar_mision()
+        print()
 
 # CREACION DE FUNCION PARA GUARDAR TODAS LAS MISIONES CREADAS POR EL USUARIO MIENTRAS EJECUTA EL PROGRAMA (SE GUARDA EN .txt)
 
