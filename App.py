@@ -929,7 +929,7 @@ class App:
             print(f'ID de la Mision: {mision.numero_de_mision} - Nombre de la Mision: {mision.nombre}')
         mision_a_visualizar=input('\n>> Ingrese el ID de la mision que desea visualizar: ')
         print()
-        while mision_a_visualizar.isnumeric()==False or int(mision_a_visualizar)>len(self.misiones_obj[int(mision_a_visualizar)-1].integrantes_mision):
+        while mision_a_visualizar.isnumeric()==False or int(mision_a_visualizar)>len(self.misiones_obj):
             mision_a_visualizar=input('\n>> Ingrese el ID de la mision que desea visualizar: ')
         self.misiones_obj[int(mision_a_visualizar)-1].visualizar_mision()
         print()
