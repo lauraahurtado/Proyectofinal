@@ -632,8 +632,10 @@ class App:
 
     def crear_misiones(self):
         if self.cantidad_misiones<5:
+            print()
             nombre_mision=input('\n>> Nombre de la Mision: ')
 
+            print()
             count=1
             for planeta in self.planetas_csv_obj:
                 print(f'{count}-{planeta.nombre}')
@@ -643,6 +645,7 @@ class App:
                 planeta_destino_mision=input('>> Ingrese el índice numérico correspondiente del planeta de Destino de la Mision: ')
             planeta_destino_mision=self.planetas_csv_obj[int(planeta_destino_mision)-1]
 
+            print()
             count=1
             for nave in self.naves_csv_obj:
                 print(f'{count}-{nave.nombre}')
@@ -655,6 +658,7 @@ class App:
             lista_indice_armas=[]
             lista_armas=[]
             while len(lista_indice_armas)<7:
+                print()
                 count=1
                 for arma in self.armas_csv_obj:
                     print(f'{count}-{arma.nombre}')
@@ -688,6 +692,7 @@ class App:
             lista_indice_integrantes_mision=[]
             lista_integrantes_mision=[]
             while len(lista_indice_integrantes_mision)<7:
+                print()
                 count=1
                 for integrante in self.personajes_csv_obj:
                     print(f'{count}-{integrante.nombre}')
@@ -834,7 +839,38 @@ class App:
             else:      
                 print('Ingrese una de las opciones indicadas.')   
             
+        elif atributo_a_modificar_de_la_mision=='5':
+            opcion=input('''Ingrese:
+1. Para cambiar un integrante previamente seleccionado por otro.
+2. Para agregar un intregante nuevo.
+3. Para eliminar un intregrante.
+4. Retroceder al menu principal.
+--> ''')
+            
+            while opcion!='1' and opcion!='2' and opcion!='3' and opcion!='4':
+                opcion=input('Ingrese una opcion valida contemplada en el menu: ')
 
+            if opcion=='1':
+                print()
+                contador=1
+                for integrante in self.misiones_obj[int(mision_a_modificar)-1].intregrantes_mision:
+                    print(f'{contador}. {integrante.nombre}')
+                    contador+=1
+                integrante_a_modificar=input('Ingrese el numero de integrante que desea modificar: ')
+                while integrante_a_modificar.isnumeric()==False or int(integrante_a_modificar)>self.personajes_csv_obj:
+                    integrante_a_modificar=input('Ingrese el numero de integrante que desea modificar: ')
+                
+                print()
+                contador=1
+                for integrante in self.personajes_csv_obj:
+                    print(f'{contador}. {integrante.nombre}')
+                    contador+=1
+                nuevo_intregrante_a_seleccionar=input('Ingrese el numero del integrante con el que desea reemplazar al anterior: ')
+                while nuevo_intregrante_a_seleccionar.isnumeric()==False or int(nuevo_intregrante_a_seleccionar)>len(self.personajes_csv_obj):
+                    nuevo_intregrante_a_seleccionar=input('Ingrese el numero del integrante con el que desea reemplazar al anterior: ')
+                self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision[int(integrante_a_modificar)-1]=self.personajes_csv_obj[int(nuevo_intregrante_a_seleccionar)-1]
+            
+            
 
     def guardar_misiones(self):
         misiones=[]
