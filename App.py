@@ -497,7 +497,57 @@ class App:
                     diccionario_estadisticas_naves[nave.clase_de_nave]['costo_en_creditos'].append(float(nave.costo_en_creditos))
                 else:
                     diccionario_estadisticas_naves[nave.clase_de_nave]['costo_en_creditos'].append(0)
+
+# CREACION DE TABLA DE CIERTAS CARACTERISTICAS DE  LAS CLASES DE NAVES UTILIZANDO (MEDIA, PROMEDIO, MAXIMO Y MINIMO). (UTILIZANDO HERRAMIENTAS DE NUMPY)
     
+    def grafico_estadisticas_naves(self,diccionario_estadisticas_naves,lista_clase_naves_csv):
+        datos=[]
+        for clase, dato in diccionario_estadisticas_naves.items():
+            lista_clases=[]
+
+            #------ HIPERIMPULSOR ------
+
+            medidas_clasificacion_de_hiperimpulsor='CHD- Moda:'
+            moda_hiperimpulsor=np.array(dato['clasificacion_de_hiperimpulsor'])
+            moda_hiperimpulsor=np.round(moda_hiperimpulsor,decimals=2)
+            valores_unicos, conteos=np.unique(moda_hiperimpulsor,return_counts=True)
+            moda_hiperimpulsor=valores_unicos[np.argmax(conteos)]
+            medidas_clasificacion_de_hiperimpulsor+=str(moda_hiperimpulsor)+' Promedio: '
+
+            promedio_hiperimpulsor=np.array(dato['clasificacion_de_hiperimpulsor'])
+            promedio_hiperimpulsor=np.mean(promedio_hiperimpulsor)
+            promedio_hiperimpulsor=np.round(promedio_hiperimpulsor,decimals=2)
+            medidas_clasificacion_de_hiperimpulsor+=str(promedio_hiperimpulsor)+' Max: '
+
+            maxima_hiperimpulsor=np.array(dato['clasificacion_de_hiperimpulsor'])
+            maxima_hiperimpulsor=np.max(maxima_hiperimpulsor)
+            maxima_hiperimpulsor=np.round(maxima_hiperimpulsor,decimals=2)
+            medidas_clasificacion_de_hiperimpulsor+=str(maxima_hiperimpulsor)
+
+            minimo_hiperimpulsor=np.array(dato['clasificacion_de_hiperimpulsor'])
+            minimo_hiperimpulsor=np.min(minimo_hiperimpulsor)
+            minimo_hiperimpulsor=np.round(minimo_hiperimpulsor, decimals=2)
+            medidas_clasificacion_de_hiperimpulsor+=str(minimo_hiperimpulsor)
+            lista_clases.append(medidas_clasificacion_de_hiperimpulsor)
+
+            #------ VELOCIDAD MAXIMA ------
+            medidas_velocidad_maxima='Vmax- Moda:'
+            moda_velocidad_maxima=np.array(dato['velocidad_maxima'])
+            moda_velocidad_maxima=np.round(moda_velocidad_maxima, decimals=2)
+            valores_unicos, conteos=np.unique(moda_velocidad_maxima,return_counts=True)
+            moda_velocidad_maxima=valores_unicos[np.argmax(conteos)]
+            medidas_velocidad_maxima+=str(moda_velocidad_maxima)+' Prom: '
+
+            promedio_velocidad_maxima=np.array(dato['velocidad_maxima'])
+            promedio_velocidad_maxima=np.mean(promedio_velocidad_maxima)
+            promedio_velocidad_maxima=np.round(moda_velocidad_maxima,decimals=2)
+            medidas_velocidad_maxima+=str(promedio_velocidad_maxima)
+
+            maximo_velocidad_maxima=np.array(dato['velocidad_maxima'])
+            maximo_velocidad_maxima=np.max(maximo_velocidad_maxima)
+            maximo_velocidad_maxima=np.round(maximo_velocidad_maxima,decimals=2)
+            medidas_velocidad_maxima+=str(maximo_velocidad_maxima)+' Min: '
+            lista_clases.append(medidas_velocidad_maxima)
 ### CREACION DE OBJETOS TIPO (MISION) CON LOS DATOS DE LOS CSV
 
     def crear_misiones(self):
