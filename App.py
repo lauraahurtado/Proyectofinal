@@ -272,7 +272,6 @@ class App:
 
 # CREACION DE OBJETOS TIPO (Vehiculo) CON LOS DATOS DE LA API
 
-
     def crear_vehiculos(self):
         informacion=rq.get('https://www.swapi.tech/api/vehicles/?page=1&limit=40').json()
         for vehiculo in informacion['results']:
@@ -289,6 +288,7 @@ class App:
                 pilotos_vehiculo.append(Personaje(id,informacion["name"],informacion["gender"],informacion["height"],informacion["mass"],informacion["hair_color"],informacion["eye_color"],informacion["skin_color"],informacion["birth_year"],informacion["homeworld"]))
         
             self.vehiculos_obj.append(Vehiculo(informacion_vehiculo["name"],informacion_vehiculo["model"],informacion_vehiculo["vehicle_class"],informacion_vehiculo["manufacturer"],informacion_vehiculo["cost_in_credits"],informacion_vehiculo["length"],informacion_vehiculo["crew"],informacion_vehiculo["passengers"],informacion_vehiculo["max_atmosphering_speed"],informacion_vehiculo["cargo_capacity"],informacion_vehiculo["consumables"],pilotos_vehiculo))
+
 
 # CREACION DE LA FUNCION BUSCAR PERSONAJES EN LA SAGA (PARTE 4 DEL MENU)
 
@@ -312,6 +312,7 @@ class App:
                 encontrado=1
         if encontrado==0:
             print('No se encontró este personaje en la saga.')
+
 
 # CREACION DE OBJETOS TIPO (Personaje) CON LOS DATOS DEL CSV
 
@@ -356,6 +357,7 @@ class App:
                 if contador>0:
                     self.planetas_csv_obj.append(Planeta_csv(fila[0],fila[1],fila[2],fila[3],fila[4],fila[5],fila[6],fila[7],fila[8],fila[9],fila[10],fila[11]))
                 contador+=1
+
 
 # CREACION DE LA FUNCION CUYO OBJETIVO ES GRAFICAR LA CANTIDAD DE PERSONAJES QUE HAY POR PLANETA.
 
@@ -406,6 +408,7 @@ class App:
             None: Muestra el grafico directamente y no devuelve ningun valor.
             
         '''
+
         fig, ax=plt.subplots()
         ax.bar(lista_planetas_csv_personajes,lista_cantidad_planetas_csv_personajes)
         plt.title('Cantidad de personajes por planeta')
@@ -413,6 +416,7 @@ class App:
         plt.ylabel('Cantidad de personajes')
         plt.xticks(rotation=90) #Rotacion de la disposicion visula de cada planeta en el eje x para mejor estetica
         plt.show()
+
 
 # CREACION DE FUNCION PARA GRAFICAR CIERTAS CARACTERISTICAS DE CADA NAVE
 
@@ -496,6 +500,7 @@ class App:
             else:
                 print('\nPor favor, ingrese una opcion contemplada en el menu.')
 
+
 # CREACION DE LA FUNCION PARA CALCULAR LAS ESTADISCITCAS (MODA, PROMEDIO, MAXIMO Y MINIMO) DE CADA CLASE DE NAVE
 
     def estadisticas_sobre_naves(self):
@@ -568,16 +573,19 @@ class App:
         
         self.grafico_estadisticas_naves(diccionario_estadisticas_naves,lista_clase_naves_csv)
 
+
 # CREACION DE TABLA DE CIERTAS CARACTERISTICAS DE  LAS CLASES DE NAVES UTILIZANDO (MEDIA, PROMEDIO, MAXIMO Y MINIMO). (UTILIZANDO HERRAMIENTAS DE NUMPY)
     
     def grafico_estadisticas_naves(self,diccionario_estadisticas_naves,lista_clase_naves_csv):
-        '''Se encarga de generar un DataFrame con los resultados para cada clase de nave.
+        '''
+        Se encarga de generar un DataFrame con los resultados para cada clase de nave.
         
             Args:
                 diccionario_estadisticas_naves (dict): diccionario con las estadisticas de cada nave.
                 lista_clase_nave_csv (list): lista con los nombres de las clases de naves.
             
         '''
+
         datos=[]
         for clase, dato in diccionario_estadisticas_naves.items():
             lista_clases=[]
@@ -800,9 +808,22 @@ class App:
 
 #------------------------------
 
+
 # CREACION DE LA FUNCION PARA MODIFICAR LOS ATRIBUTOS DE CADA MISION CREADA POR EL USUARIO
 
     def modificar_misiones(self):
+        '''
+        Permite que el usuario pueda modificar los atributos de una mision existente.
+        
+            Args:
+                self: una instancia de la clase que contiene la informacion de las misiones,
+                planetas, naves, integrantes y armas.
+            
+            Returns:
+                None: Modifica directamente los objetos de mision en el atributo 'self.misiones_obj'.
+                
+        '''
+
         print()
         for mision in self.misiones_obj:
             print(f'- ID de la Mision: {mision.numero_de_mision} - Nombre de la Mision: {mision.nombre}')
@@ -990,9 +1011,22 @@ class App:
             else:
                 print('Ingrese una de las opciones indicadas.')
 
+
 # CREACION DE FUNCION PARA VISUALIZAR TODOS LOS DATOS DE UNA MISION
 
     def elegir_mision_para_mostrarla(self):
+        '''
+        Permite que el usuario seleccione una mision ingresando su ID para visualizar toda la informacion 
+        detallada de la misma.
+
+            Args:
+                self: Una instancia de la clase que contiene la informacion de las misiones.
+
+            Returns:
+                None.
+
+        '''
+
         print()
         for mision in self.misiones_obj:
             print(f'ID de la Mision: {mision.numero_de_mision} - Nombre de la Mision: {mision.nombre}')
@@ -1002,6 +1036,7 @@ class App:
             mision_a_visualizar=input('\n>> Ingrese el ID de la mision que desea visualizar: ')
         self.misiones_obj[int(mision_a_visualizar)-1].visualizar_mision()
         print()
+
 
 # CREACION DE FUNCION PARA GUARDAR TODAS LAS MISIONES CREADAS POR EL USUARIO MIENTRAS EJECUTA EL PROGRAMA (SE GUARDA EN .txt)
 
