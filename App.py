@@ -293,6 +293,18 @@ class App:
 # CREACION DE LA FUNCION BUSCAR PERSONAJES EN LA SAGA (PARTE 4 DEL MENU)
 
     def buscar_personajes(self, nombre_buscado):
+        """
+        Se encraga de encontrar un personaje por su nombre en la base de datos para
+         despues suministrar su información detallada.
+
+            Args:
+                nombre_buscado (str): El nombre del personaje a buscar.
+
+            Returns:
+                None: La función imprime la información directamente en la consola.
+        
+        """
+        
         encontrado=0
         for personaje in self.personajes_obj:
             if nombre_buscado.lower() in personaje.nombre.lower():
@@ -381,6 +393,18 @@ class App:
 # CREACION DE FUNCION PARA GRAFICAR CIERTAS CARACTERISTICAS DE CADA NAVE
 
     def graficos_caracteristicas_naves(self):
+        '''
+        Presenta un menu con distintas opciones de graficas de caracteristicas de las naves. Al seleccionar
+        una opcion se genera automaticamente un grafico con la informacion solicitada.
+        
+            Args:
+                self (object): Objeto que contiene la lista de naves (self.naves_csv_obj).
+                
+            Returns:
+                None: El metodo muestra los graficos y no devuelve ningun valor.
+        
+        '''
+        
         while True:
             opcion=input('''\nEscoja el indice numerico cuya opcion corresponda al gráfico que desea observar:
     1. Longitud de las naves. 
@@ -451,6 +475,19 @@ class App:
 # CREACION DE LA FUNCION PARA CALCULAR LAS ESTADISCITCAS (MODA, PROMEDIO, MAXIMO Y MINIMO) DE CADA CLASE DE NAVE
 
     def estadisticas_sobre_naves(self):
+        '''
+        Se encarga de iterar sobre la lista de objetos tipo nave y agrupar los datos por cada clase de nave 
+        para despues calcular su moda, promedio, maximo y minimo.
+
+            Args:
+            self (object): Objeto que contiene la lista de naves (self.naves_csv_obj).
+
+            Returns: 
+                dict: un diccionario en el cual las claves son las clases de naves y los valores son mas 
+                diccionarios con listas de los valores de las caracteristicas de las naves.
+        
+        '''
+
         lista_clase_naves_csv=[]
         diccionario_estadisticas_naves={}
 

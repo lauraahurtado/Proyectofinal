@@ -14,7 +14,7 @@ class Pelicula:
 
     def mostrar_peliculas(self):
         print(f'\n>>  Título: {self.titulo}')
-        print(f'    Número del episodio: {self.numero_del_episodio}')
-        print(f'    Fecha de Lanzamiento: {self.fecha_de_lanzamiento}')
-        print(f'    Opening crawl: \n{self.opening_crawl}')
-        print(f'    Nombre del director: {self.nombre_del_director}')
+        print(f'    - Número del episodio: {self.numero_del_episodio}')
+        print(f'    - Fecha de Lanzamiento: {self.fecha_de_lanzamiento}')
+        print(f'    - Opening crawl: \n{self.opening_crawl}')
+        print(f'    - Nombre del director: {self.nombre_del_director}')
