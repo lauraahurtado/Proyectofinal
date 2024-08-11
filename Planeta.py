@@ -1,3 +1,4 @@
+import requests as rq
 class Planeta:
     def __init__(self, nombre, diametro, periodo_de_rotacion, periodo_de_orbita, gravedad, poblacion, clima, terreno, superficie_acuatica):
         self.nombre=nombre
@@ -21,15 +22,17 @@ class Planeta:
             for y in x.planetas:
                 if y.nombre==self.nombre:
                     lista_episodios.append(y.nombre)
-        for episodio in lista_episodios:
-            print(f'    - Episodio: {episodio}')
+        print(f'    - Nombres de los episodios en los que aparece: {lista_episodios}')
+        #for episodio in lista_episodios:
+            #print(f'    - Episodio: {episodio}')
 
         lista_personajes=[]
         for personaje in personajes_obj:
             if self.nombre==personaje.mundo_natal:
-                lista_personajes.append(personaje)
-        for personaje in lista_personajes:
-            episodio.mostrar_nombre_personajes()
+                lista_personajes.append(personaje.nombre)
+        print(f'    - Nombres de los personajes originarios del planeta: {lista_personajes}')
+        #for personaje in lista_personajes:
+            #personaje.mostrar_nombre_personajes()
             
 
         
