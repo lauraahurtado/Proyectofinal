@@ -26,12 +26,11 @@ class Personaje:
         print(f'\tMundo Natal: {self.mundo_natal}')
 
     def mostrar_nombre_personajes(self):
-        print(f'    - Nombre: {self.nombre}')
+        print(f'        - {self.nombre}')
 
     def mostrar_personajes_opcion_cuatro(self,peliculas_obj,especies_obj,naves_obj,vehiculos_obj):
         print(f'\n>>  Nombre: {self.nombre}')
-        informacion=rq.get(self.mundo_natal).json()
-        print(f'    - Nombre del planeta origen: {informacion['result']['properties']['name']}')
+        print(f'    - Nombre del planeta origen: {self.mundo_natal}')
         for pelicula in peliculas_obj:
             for personaje in pelicula.personajes:
                 if self.nombre==personaje.nombre:
