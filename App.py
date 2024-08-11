@@ -360,6 +360,18 @@ class App:
 # CREACION DE LA FUNCION CUYO OBJETIVO ES GRAFICAR LA CANTIDAD DE PERSONAJES QUE HAY POR PLANETA.
 
     def cant_personajes_por_planeta(self):
+        '''
+        Se encarga de analizar una lista de personajes y cuenta la cantidad de personajes provenientes
+        de cada planeta. Luego genera un grafico para visualizar los resultados.
+        
+        Args:
+            self (object): Objeto que contiene la lista de personajes (self.personajes_csv_obj).
+            
+        Returns:
+            None: genera un grafico y no devuelve ningun valor.
+        
+        '''
+
         lista_planetas_csv_personajes=[]
         lista_cantidad_planetas_csv_personajes=[]
         for personaje in self.personajes_csv_obj:
@@ -382,6 +394,18 @@ class App:
 # CREACION DE LA FUNCION PARA GRAFICAR LA CANTIDAD DE PERSONAJES EXISTENTES POR PLANETA
      
     def grafico_cant_personajes_por_planeta(self,lista_planetas_csv_personajes,lista_cantidad_planetas_csv_personajes):
+        '''
+        Crea un grafico que permite visualizar la cantidad de personajes por planeta. 
+        
+        Args:
+            lista_planetas_csv_personajes (list): lista con los nombres de los planetas.
+            lista_cantidad_planetas_csv_personajes (list): lista con numeros enteros que indican
+                                                           la cantidad de personajes por planeta.
+        
+        Returns:
+            None: Muestra el grafico directamente y no devuelve ningun valor.
+            
+        '''
         fig, ax=plt.subplots()
         ax.bar(lista_planetas_csv_personajes,lista_cantidad_planetas_csv_personajes)
         plt.title('Cantidad de personajes por planeta')
@@ -477,14 +501,15 @@ class App:
     def estadisticas_sobre_naves(self):
         '''
         Se encarga de iterar sobre la lista de objetos tipo nave y agrupar los datos por cada clase de nave 
-        para despues calcular su moda, promedio, maximo y minimo.
+        para despues calcular su moda, promedio, maximo y minimo. Posteriormente genera una tabla con los datos.
 
             Args:
             self (object): Objeto que contiene la lista de naves (self.naves_csv_obj).
 
             Returns: 
-                dict: un diccionario en el cual las claves son las clases de naves y los valores son mas 
-                diccionarios con listas de los valores de las caracteristicas de las naves.
+                None: no devuelve un valor explicito pero genera un diccionario en el cual las claves son las clases 
+                de naves y los valores son mas diccionarios con listas de los valores de las caracteristicas de las naves.
+                Luego se encarga de mostrar un grafico con esa informacion.
         
         '''
 
@@ -546,6 +571,13 @@ class App:
 # CREACION DE TABLA DE CIERTAS CARACTERISTICAS DE  LAS CLASES DE NAVES UTILIZANDO (MEDIA, PROMEDIO, MAXIMO Y MINIMO). (UTILIZANDO HERRAMIENTAS DE NUMPY)
     
     def grafico_estadisticas_naves(self,diccionario_estadisticas_naves,lista_clase_naves_csv):
+        '''Se encarga de generar un DataFrame con los resultados para cada clase de nave.
+        
+            Args:
+                diccionario_estadisticas_naves (dict): diccionario con las estadisticas de cada nave.
+                lista_clase_nave_csv (list): lista con los nombres de las clases de naves.
+            
+        '''
         datos=[]
         for clase, dato in diccionario_estadisticas_naves.items():
             lista_clases=[]
