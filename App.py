@@ -317,6 +317,17 @@ class App:
 # CREACION DE OBJETOS TIPO (Personaje) CON LOS DATOS DEL CSV
 
     def crear_personajes_csv(self):
+        '''
+        Genera una lista de objetos de tipo (Personajes) a partir de los datos contenidos en el archivo 'characters.csv'
+        
+            Args:
+                self: hace referencia al objeto solicitado.
+                
+            Returns:
+                None. Solamente crea los objetos tipo (Personajes), agregandolos a una lista de objetos.
+                
+        '''
+
         with open('starwars/csv/characters.csv',newline='') as archivo_csv:
             lector_csv=csv.reader(archivo_csv,delimiter=',')
             contador=0
@@ -325,9 +336,21 @@ class App:
                     self.personajes_csv_obj.append(Personaje_cvs(fila[0],fila[1],fila[2],fila[3],fila[4],fila[5],fila[6],fila[7],fila[8],fila[9],fila[10],fila[11],fila[12]))
                 contador+=1
 
+
 # CREACION DE OBJETOS TIPO (Nave) CON LOS DATOS DEL CSV.
 
     def crear_naves_csv(self):
+        '''
+        Genera una lista de objetos de tipo (Naves) a partir de los datos contenidos en el archivo 'starships.csv'
+        
+            Args:
+                self: hace referencia al objeto solicitado.
+                
+            Returns:
+                None. Solamente crea los objetos tipo (Naves), agregandolos a una lista de objetos.
+                
+        '''
+        
         with open ('starwars/csv/starships.csv',newline='') as archivo_csv:
             lector_csv=csv.reader(archivo_csv,delimiter=',')
             contador=0
@@ -336,9 +359,21 @@ class App:
                     self.naves_csv_obj.append(Nave_cvs(fila[0],fila[1],fila[2],fila[3],fila[4],fila[5],fila[6],fila[7],fila[8],fila[9],fila[10],fila[11],fila[12],fila[13],fila[14],fila[15]))
                 contador+=1
     
+
 # CREACION DE OBJETOS (Armas) CON LOS DATOS DEL CSV.
 
     def crear_armas_csv(self):
+        '''
+        Genera una lista de objetos de tipo (Armas) a partir de los datos contenidos en el archivo 'weapons.csv'
+        
+            Args:
+                self: hace referencia al objeto solicitado.
+                
+            Returns:
+                None. Solamente crea los objetos tipo (Armas), agregandolos a una lista de objetos.
+                
+        '''
+
         with open('starwars/csv/weapons.csv',newline='') as archivo_csv:
             lector_csv=csv.reader(archivo_csv,delimiter=',')
             contador=0
@@ -347,9 +382,21 @@ class App:
                     self.armas_csv_obj.append(Arma_csv(fila[0],fila[1],fila[2],fila[3],fila[4],fila[5],fila[6],fila[7],fila[8]))
                 contador+=1
     
+    
 # CREACION DE OBJETOS (Planetas) CON LOS DATOS DE CSV.
 
     def crear_planetas_csv(self):
+        '''
+        Genera una lista de objetos de tipo (Planetas) a partir de los datos contenidos en el archivo 'planets.csv'
+        
+            Args:
+                self: hace referencia al objeto solicitado.
+                
+            Returns:
+                None. Solamente crea los objetos tipo (Planetas), agregandolos a una lista de objetos.
+                
+        '''
+
         with open ('starwars/csv/planets.csv') as archivo_csv:
             lector_csv=csv.reader(archivo_csv,delimiter=',')
             contador=0
