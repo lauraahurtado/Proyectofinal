@@ -43,12 +43,18 @@ class App:
     def start(self):
         self.cargar_misiones()
         try:
+            print('Cargando la informacion de las peliculas... ')
             peliculas=self.cargar_API('https://www.swapi.tech/api/films/')
             self.crear_peliculas(peliculas['result'])
+            print('Cargando la informacion de los personajes...')
             self.crear_personajes()
+            print('Cargando la informacion de las especies...')
             self.crear_especies()
+            print('Cargando la informacion de los planetas...')
             self.crear_planetas()
+            print('Cargando la informacion de las naves...')
             self.crear_naves()
+            print('Cargando la informacion de los vehiculos...')
             self.crear_vehiculos()
             None
         except:
@@ -155,7 +161,6 @@ class App:
         count=0
         for pelicula in peliculas:
             if count==0:
-                print('pelicula')
                 personajes_pelicula=[]
                 planetas_pelicula=[]
                 naves_pelicula=[]
@@ -163,25 +168,21 @@ class App:
                 especies_pelicula=[]
 
                 for personaje in pelicula['properties']['characters']:
-                    print('pelicula personaje')
                     informacion=rq.get(personaje).json()
                     id=informacion["result"]["uid"]
                     informacion=informacion['result']['properties']
                     personajes_pelicula.append(Personaje(id,informacion["name"],informacion["gender"],informacion["height"],informacion["mass"],informacion["hair_color"],informacion["eye_color"],informacion["skin_color"],informacion["birth_year"],informacion["homeworld"]))
 
                 for planeta in pelicula['properties']['planets']:
-                    print('pelicula planeta')
                     informacion=rq.get(planeta).json()
                     informacion=informacion['result']['properties']
                     planetas_pelicula.append(Planeta(informacion["name"],informacion["diameter"],informacion["rotation_period"],informacion["orbital_period"],informacion["gravity"],informacion["population"],informacion["climate"],informacion["terrain"],informacion["surface_water"]))
 
                 for nave in pelicula['properties']['starships']:
-                    print('pelicula nave')
                     informacion=rq.get(nave).json()
                     informacion=informacion['result']['properties']
                     pilotos_nave=[]
                     for piloto in informacion['pilots']:
-                        print('piloto-nave')
                         informacion_nave=rq.get(piloto).json()
                         id=informacion_nave['result']['uid']
                         informacion_nave=informacion_nave['result']['properties']
@@ -189,13 +190,11 @@ class App:
                     naves_pelicula.append(Nave(informacion["name"],informacion["model"],informacion["manufacturer"],informacion["cost_in_credits"],informacion["length"],informacion["max_atmosphering_speed"],informacion["crew"],informacion["passengers"],informacion["cargo_capacity"],informacion["consumables"],informacion["hyperdrive_rating"],informacion["MGLT"],pilotos_nave))
 
                 for vehiculo in pelicula['properties']['vehicles']:
-                    print('pelicula vehiculo')
                     informacion=rq.get(vehiculo).json()
                     informacion=informacion['result']['properties']
                     pilotos_vehiculo=[]
 
                     for piloto in informacion['pilots']:
-                        print('piloto-vehiculo')
                         informacion_vehiculo=rq.get(piloto).json()
                         id=informacion_vehiculo['result']['uid']
                         informacion_vehiculo=informacion_vehiculo['result']['properties']
@@ -203,14 +202,12 @@ class App:
                     vehiculos_pelicula.append(Vehiculo(informacion["name"],informacion["model"],informacion["vehicle_class"],informacion["manufacturer"],informacion["cost_in_credits"],informacion["length"],informacion["crew"],informacion["passengers"],informacion["max_atmosphering_speed"],informacion["cargo_capacity"],informacion["consumables"],pilotos_vehiculo))
 
                 for especie in pelicula['properties']['species']:
-                    print('pelicula especie')
                     personajes_especie=[]
 
                     informacion=rq.get(especie).json()
                     id_especie=informacion["result"]["uid"]
                     informacion=informacion['result']['properties']
                     for personaje_esp in informacion['people']:
-                        print('pelicula especie personaje')
                         informacion_especie=rq.get(personaje_esp).json()
                         id_personaje=informacion_especie["result"]["uid"]
                         informacion_especie=informacion_especie['result']['properties']
@@ -219,7 +216,7 @@ class App:
 
                 self.peliculas_obj.append(Pelicula(pelicula["properties"]["title"],pelicula["properties"]["episode_id"],pelicula["properties"]["release_date"],pelicula["properties"]["opening_crawl"],pelicula["properties"]["director"],personajes_pelicula, planetas_pelicula, naves_pelicula, vehiculos_pelicula, especies_pelicula, pelicula["properties"]["producer"]))
                 count+=1
-            print(self.peliculas_obj)
+            
 
 # CREACION DE OBJETOS TIPO (Personaje) CON LOS DATOS DE LA API
 
@@ -238,8 +235,8 @@ class App:
         for personaje in informacion:
             id=personaje['uid']
             informacion_personaje=rq.get(personaje['url']).json()
-            print('Personaje')
-            self.personajes_obj.append(Personaje(id,informacion_personaje['result']['properties']["name"],informacion_personaje['result']['properties']["gender"],informacion_personaje['result']['properties']["height"],informacion_personaje['result']['properties']["mass"],informacion_personaje['result']['properties']["hair_color"],informacion_personaje['result']['properties']["eye_color"],informacion_personaje['result']['properties']["skin_color"],informacion_personaje['result']['properties']["birth_year"], informacion_personaje['result']['properties']["homeworld"]))
+            self.personajes_obj.append(Personaje(id,informacion_personaje['result']['properties']["name"],informacion_personaje['result']['properties']["gender"],informacion_personaje['result']['properties']["height"],informacion_personaje['result']['properties']["mass"],informacion_personaje['result']['properties']["hair_color"],informacion_personaje['result']['properties']["eye_color"],informacion_personaje['result']['properties']["skin_color"],informacion_personaje['result']['properties']["birth_year"], rq.get(informacion_personaje['result']['properties']["homeworld"]).json()['result']['properties']['name']))
+        
 
 # CREACION DE OBJETOS TIPO (Especies) CON LOS DATOS DE LA API
 
@@ -258,9 +255,7 @@ class App:
             informacion_especie=rq.get(especie['url']).json()
             informacion_especie=informacion_especie['result']
             personajes_especie=[]
-            print('especie')
             for personaje_esp in informacion_especie['properties']['people']:
-                print('especie-personaje')
                 informacion_personaje=rq.get(personaje_esp).json()
                 id=informacion_personaje['result']['uid']
                 informacion_personaje=informacion_personaje['result']['properties']
@@ -284,7 +279,7 @@ class App:
             informacion_planeta=rq.get(planeta['url']).json()
             informacion_planeta=informacion_planeta['result']['properties']
             self.planetas_obj.append(Planeta(informacion_planeta["name"],informacion_planeta["diameter"],informacion_planeta["rotation_period"],informacion_planeta["orbital_period"],informacion_planeta["gravity"],informacion_planeta["population"],informacion_planeta["climate"],informacion_planeta["terrain"],informacion_planeta["surface_water"]))
-            print("planeta")
+
 
 # CREACION DE OBJETOS TIPO (Nave) CON LOS DATOS DE LA API
 
@@ -301,11 +296,9 @@ class App:
         for nave in informacion['results']:
             informacion_nave=rq.get(nave["url"]).json()
             informacion_nave=informacion_nave['result']['properties']
-            print("nave")
 
             pilotos_nave=[]
             for piloto in informacion_nave['pilots']:
-                print('piloto-nave')
                 informacion=rq.get(piloto).json()
                 id=informacion['result']['uid']
                 informacion=informacion['result']['properties']
@@ -327,11 +320,9 @@ class App:
         for vehiculo in informacion['results']:
             informacion_vehiculo=rq.get(vehiculo["url"]).json()
             informacion_vehiculo=informacion_vehiculo['result']['properties']
-            print("vehiculo")
 
             pilotos_vehiculo=[]
             for piloto in informacion_vehiculo['pilots']:
-                print('piloto-nave')
                 informacion=rq.get(piloto).json()
                 id=informacion['result']['uid']
                 informacion=informacion['result']['properties']
@@ -1180,8 +1171,8 @@ class App:
             self: Hace referencia al objeto solicitado 
         
         Returns:
-            None. Guarda los datos de las misiones en un archivo .txt dentro de un diccionario que contentiene una lista de 
-            diccionarios, donde cada diccionario dentro de la lista representa una mmision creada con todos sus datos
+            None. Guarda los datos de las misiones en un archivo .txt dentro de una lista de 
+            diccionarios, donde cada diccionario dentro de la lista representa una mision creada con todos sus datos
             correspondientes'''
         misiones=[]
         for mision in self.misiones_obj:
@@ -1266,7 +1257,7 @@ class App:
 ### CREACION DE LA FUNCION PARA CARGAR DEL (Archivo.txt) TODAS LAS MISIONES GUARDADAS PREVIAMENTE Y CARGARLAS EN EL PROGRAMA
 
     def cargar_misiones(self):
-        ''' Carga las misiones creadas previamente al programa desde un archivo .txt, donde se encuentran guardades estas
+        ''' Carga las misiones creadas previamente al programa desde un archivo .txt, donde se encuentran guardadas estas
 
         Argumentos:
             self: Hace referencia al objeto solicitado 
