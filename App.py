@@ -314,7 +314,6 @@ class App:
 
 # CREACION DE OBJETOS TIPO (Vehiculo) CON LOS DATOS DE LA API
 
-
     def crear_vehiculos(self):
         '''Genera una lista de objetos de tipo (Vehiculo) a partir de los datos contenidos en la API 
         
@@ -340,6 +339,7 @@ class App:
         
             self.vehiculos_obj.append(Vehiculo(informacion_vehiculo["name"],informacion_vehiculo["model"],informacion_vehiculo["vehicle_class"],informacion_vehiculo["manufacturer"],informacion_vehiculo["cost_in_credits"],informacion_vehiculo["length"],informacion_vehiculo["crew"],informacion_vehiculo["passengers"],informacion_vehiculo["max_atmosphering_speed"],informacion_vehiculo["cargo_capacity"],informacion_vehiculo["consumables"],pilotos_vehiculo))
 
+
 # CREACION DE LA FUNCION BUSCAR PERSONAJES EN LA SAGA (PARTE 4 DEL MENU)
 
     def buscar_personajes(self, nombre_buscado):
@@ -363,9 +363,21 @@ class App:
         if encontrado==0:
             print('No se encontró este personaje en la saga.')
 
+
 # CREACION DE OBJETOS TIPO (Personaje) CON LOS DATOS DEL CSV
 
     def crear_personajes_csv(self):
+        '''
+        Genera una lista de objetos de tipo (Personajes) a partir de los datos contenidos en el archivo 'characters.csv'
+        
+            Args:
+                self: hace referencia al objeto solicitado.
+                
+            Returns:
+                None. Solamente crea los objetos tipo (Personajes), agregandolos a una lista de objetos.
+                
+        '''
+
         with open('starwars/csv/characters.csv',newline='') as archivo_csv:
             lector_csv=csv.reader(archivo_csv,delimiter=',')
             contador=0
@@ -374,9 +386,21 @@ class App:
                     self.personajes_csv_obj.append(Personaje_cvs(fila[0],fila[1],fila[2],fila[3],fila[4],fila[5],fila[6],fila[7],fila[8],fila[9],fila[10],fila[11],fila[12]))
                 contador+=1
 
+
 # CREACION DE OBJETOS TIPO (Nave) CON LOS DATOS DEL CSV.
 
     def crear_naves_csv(self):
+        '''
+        Genera una lista de objetos de tipo (Naves) a partir de los datos contenidos en el archivo 'starships.csv'
+        
+            Args:
+                self: hace referencia al objeto solicitado.
+                
+            Returns:
+                None. Solamente crea los objetos tipo (Naves), agregandolos a una lista de objetos.
+                
+        '''
+        
         with open ('starwars/csv/starships.csv',newline='') as archivo_csv:
             lector_csv=csv.reader(archivo_csv,delimiter=',')
             contador=0
@@ -385,9 +409,21 @@ class App:
                     self.naves_csv_obj.append(Nave_cvs(fila[0],fila[1],fila[2],fila[3],fila[4],fila[5],fila[6],fila[7],fila[8],fila[9],fila[10],fila[11],fila[12],fila[13],fila[14],fila[15]))
                 contador+=1
     
+
 # CREACION DE OBJETOS (Armas) CON LOS DATOS DEL CSV.
 
     def crear_armas_csv(self):
+        '''
+        Genera una lista de objetos de tipo (Armas) a partir de los datos contenidos en el archivo 'weapons.csv'
+        
+            Args:
+                self: hace referencia al objeto solicitado.
+                
+            Returns:
+                None. Solamente crea los objetos tipo (Armas), agregandolos a una lista de objetos.
+                
+        '''
+
         with open('starwars/csv/weapons.csv',newline='') as archivo_csv:
             lector_csv=csv.reader(archivo_csv,delimiter=',')
             contador=0
@@ -396,9 +432,21 @@ class App:
                     self.armas_csv_obj.append(Arma_csv(fila[0],fila[1],fila[2],fila[3],fila[4],fila[5],fila[6],fila[7],fila[8]))
                 contador+=1
     
+
 # CREACION DE OBJETOS (Planetas) CON LOS DATOS DE CSV.
 
     def crear_planetas_csv(self):
+        '''
+        Genera una lista de objetos de tipo (Planetas) a partir de los datos contenidos en el archivo 'planets.csv'
+        
+            Args:
+                self: hace referencia al objeto solicitado.
+                
+            Returns:
+                None. Solamente crea los objetos tipo (Planetas), agregandolos a una lista de objetos.
+                
+        '''
+
         with open ('starwars/csv/planets.csv') as archivo_csv:
             lector_csv=csv.reader(archivo_csv,delimiter=',')
             contador=0
@@ -407,9 +455,22 @@ class App:
                     self.planetas_csv_obj.append(Planeta_csv(fila[0],fila[1],fila[2],fila[3],fila[4],fila[5],fila[6],fila[7],fila[8],fila[9],fila[10],fila[11]))
                 contador+=1
 
+
 # CREACION DE LA FUNCION CUYO OBJETIVO ES GRAFICAR LA CANTIDAD DE PERSONAJES QUE HAY POR PLANETA.
 
     def cant_personajes_por_planeta(self):
+        '''
+        Se encarga de analizar una lista de personajes y cuenta la cantidad de personajes provenientes
+        de cada planeta. Luego genera un grafico para visualizar los resultados.
+        
+            Args:
+                self (object): Objeto que contiene la lista de personajes (self.personajes_csv_obj).
+                
+            Returns:
+                None: genera un grafico y no devuelve ningun valor.
+        
+        '''
+
         lista_planetas_csv_personajes=[]
         lista_cantidad_planetas_csv_personajes=[]
         for personaje in self.personajes_csv_obj:
@@ -432,6 +493,22 @@ class App:
 # CREACION DE LA FUNCION PARA GRAFICAR LA CANTIDAD DE PERSONAJES EXISTENTES POR PLANETA
      
     def grafico_cant_personajes_por_planeta(self,lista_planetas_csv_personajes,lista_cantidad_planetas_csv_personajes):
+        '''
+        Crea un grafico que permite visualizar la cantidad de personajes por planeta. 
+        
+            Args:
+                lista_planetas_csv_personajes (list): lista con los nombres de los planetas.
+                lista_cantidad_planetas_csv_personajes (list): lista con numeros enteros que indican
+                                                               la cantidad de personajes por planeta.
+            
+            Returns:
+                None: Muestra el grafico directamente y no devuelve ningun valor. 
+            
+            Nota:
+                Debe cerrar la pestaña del grafico una vez mostrado para seguir ejecutando el programa.
+            
+        '''
+
         fig, ax=plt.subplots()
         ax.bar(lista_planetas_csv_personajes,lista_cantidad_planetas_csv_personajes)
         plt.title('Cantidad de personajes por planeta')
@@ -439,6 +516,7 @@ class App:
         plt.ylabel('Cantidad de personajes')
         plt.xticks(rotation=90) #Rotacion de la disposicion visula de cada planeta en el eje x para mejor estetica
         plt.show()
+
 
 # CREACION DE FUNCION PARA GRAFICAR CIERTAS CARACTERISTICAS DE CADA NAVE
 
@@ -471,49 +549,63 @@ class App:
             if opcion=='1':
                 longitud_naves_csv=[]
                 for nave in self.naves_csv_obj:
-                    longitud_naves_csv.append(nave.longitud)
+                    longitud_naves_csv.append(float(nave.longitud))
                 fig, ax=plt.subplots()
                 ax.bar(lista_naves_csv,longitud_naves_csv)
                 plt.title('Naves vs. Longitud Naves')
                 plt.xlabel('Naves')
                 plt.ylabel('Longitud de Naves')
                 plt.xticks(rotation=90)
+                plt.yscale('log')
                 plt.show()
 
             elif opcion=='2':
                 capacidad_de_carga_naves_csv=[]
                 for nave in self.naves_csv_obj:
-                    capacidad_de_carga_naves_csv.append(nave.capacidad_de_carga)
+                    if nave.capacidad_de_carga=='':
+                        capacidad_de_carga_naves_csv.append(0)
+                    else:
+                        capacidad_de_carga_naves_csv.append(float(nave.capacidad_de_carga))
+                
                 fig, ax=plt.subplots()
                 ax.bar(lista_naves_csv,capacidad_de_carga_naves_csv)
                 plt.title('Naves vs Capacidad de carga')
                 plt.xlabel('Naves')
                 plt.ylabel('Capacidad de carga de naves')
                 plt.xticks(rotation=90)
+                plt.yscale('log')
                 plt.show()
 
             elif opcion=='3':
                 clasificacion_de_hiperimpulsor_navez_csv=[]
                 for nave in self.naves_csv_obj:
-                    clasificacion_de_hiperimpulsor_navez_csv.append(nave.clasificacion_de_hiperimpulsor)
+                    if nave.clasificacion_de_hiperimpulsor=='':
+                        clasificacion_de_hiperimpulsor_navez_csv.append(0)
+                    else:
+                        clasificacion_de_hiperimpulsor_navez_csv.append(float(nave.clasificacion_de_hiperimpulsor))
                 fig, ax=plt.subplots()
                 ax.bar(lista_naves_csv,clasificacion_de_hiperimpulsor_navez_csv)
                 plt.title('Naves vs. Clasificacion del hiperimpulsor')
                 plt.xlabel('Naves')
                 plt.ylabel('Clasificacion del hiperimpulsor')
                 plt.xticks(rotation=90)
+                plt.yscale('log')
                 plt.show()
             
             elif opcion=='4':
                 mglt_naves_csv=[]
                 for nave in self.naves_csv_obj:
-                    mglt_naves_csv.append(nave.mglt)
+                    if nave.mglt=='':
+                        mglt_naves_csv.append(0)
+                    else:
+                        mglt_naves_csv.append(float(nave.mglt))
                 fig,ax=plt.subplots()
                 ax.bar(lista_naves_csv,mglt_naves_csv)
                 plt.title('Naves vs. MGLT (Modern Galactic Light Time)')
                 plt.xlabel('Naves')
                 plt.ylabel('MGLT (Modern Galactic Light Time)')
                 plt.xticks(rotation=90)
+                plt.yscale('log')
                 plt.show()
 
             elif opcion=='5':
@@ -522,19 +614,21 @@ class App:
             else:
                 print('\nPor favor, ingrese una opcion contemplada en el menu.')
 
+
 # CREACION DE LA FUNCION PARA CALCULAR LAS ESTADISCITCAS (MODA, PROMEDIO, MAXIMO Y MINIMO) DE CADA CLASE DE NAVE
 
     def estadisticas_sobre_naves(self):
         '''
         Se encarga de iterar sobre la lista de objetos tipo nave y agrupar los datos por cada clase de nave 
-        para despues calcular su moda, promedio, maximo y minimo.
+        para despues calcular su moda, promedio, maximo y minimo. Posteriormente genera una tabla con los datos.
 
             Args:
             self (object): Objeto que contiene la lista de naves (self.naves_csv_obj).
 
             Returns: 
-                dict: un diccionario en el cual las claves son las clases de naves y los valores son mas 
-                diccionarios con listas de los valores de las caracteristicas de las naves.
+                None: no devuelve un valor explicito pero genera un diccionario en el cual las claves son las clases 
+                de naves y los valores son mas diccionarios con listas de los valores de las caracteristicas de las naves.
+                Luego se encarga de mostrar un grafico con esa informacion.
         
         '''
 
@@ -593,9 +687,19 @@ class App:
         
         self.grafico_estadisticas_naves(diccionario_estadisticas_naves,lista_clase_naves_csv)
 
+
 # CREACION DE TABLA DE CIERTAS CARACTERISTICAS DE  LAS CLASES DE NAVES UTILIZANDO (MEDIA, PROMEDIO, MAXIMO Y MINIMO). (UTILIZANDO HERRAMIENTAS DE NUMPY)
     
     def grafico_estadisticas_naves(self,diccionario_estadisticas_naves,lista_clase_naves_csv):
+        '''
+        Se encarga de generar un DataFrame con los resultados para cada clase de nave.
+        
+            Args:
+                diccionario_estadisticas_naves (dict): diccionario con las estadisticas de cada nave.
+                lista_clase_nave_csv (list): lista con los nombres de las clases de naves.
+            
+        '''
+
         datos=[]
         for clase, dato in diccionario_estadisticas_naves.items():
             lista_clases=[]
@@ -829,9 +933,22 @@ class App:
 
 #------------------------------
 
+
 # CREACION DE LA FUNCION PARA MODIFICAR LOS ATRIBUTOS DE CADA MISION CREADA POR EL USUARIO
 
     def modificar_misiones(self):
+        '''
+        Permite que el usuario pueda modificar los atributos de una mision existente.
+        
+            Args:
+                self: una instancia de la clase que contiene la informacion de las misiones,
+                planetas, naves, integrantes y armas.
+            
+            Returns:
+                None: Modifica directamente los objetos de mision en el atributo 'self.misiones_obj'.
+                
+        '''
+
         print()
         for mision in self.misiones_obj:
             print(f'- ID de la Mision: {mision.numero_de_mision} - Nombre de la Mision: {mision.nombre}')
@@ -1019,9 +1136,22 @@ class App:
             else:
                 print('Ingrese una de las opciones indicadas.')
 
+
 # CREACION DE FUNCION PARA VISUALIZAR TODOS LOS DATOS DE UNA MISION
 
     def elegir_mision_para_mostrarla(self):
+        '''
+        Permite que el usuario seleccione una mision ingresando su ID para visualizar toda la informacion 
+        detallada de la misma.
+
+            Args:
+                self: Una instancia de la clase que contiene la informacion de las misiones.
+
+            Returns:
+                None.
+
+        '''
+
         print()
         for mision in self.misiones_obj:
             print(f'ID de la Mision: {mision.numero_de_mision} - Nombre de la Mision: {mision.nombre}')
@@ -1031,6 +1161,7 @@ class App:
             mision_a_visualizar=input('\n>> Ingrese el ID de la mision que desea visualizar: ')
         self.misiones_obj[int(mision_a_visualizar)-1].visualizar_mision()
         print()
+
 
 # CREACION DE FUNCION PARA GUARDAR TODAS LAS MISIONES CREADAS POR EL USUARIO MIENTRAS EJECUTA EL PROGRAMA (SE GUARDA EN .txt)
 
