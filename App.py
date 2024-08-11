@@ -529,25 +529,33 @@ class App:
             elif opcion=='3':
                 clasificacion_de_hiperimpulsor_navez_csv=[]
                 for nave in self.naves_csv_obj:
-                    clasificacion_de_hiperimpulsor_navez_csv.append(nave.clasificacion_de_hiperimpulsor)
+                    if nave.clasificacion_de_hiperimpulsor=='':
+                        clasificacion_de_hiperimpulsor_navez_csv.append(0)
+                    else:
+                        clasificacion_de_hiperimpulsor_navez_csv.append(nave.clasificacion_de_hiperimpulsor)
                 fig, ax=plt.subplots()
                 ax.bar(lista_naves_csv,clasificacion_de_hiperimpulsor_navez_csv)
                 plt.title('Naves vs. Clasificacion del hiperimpulsor')
                 plt.xlabel('Naves')
                 plt.ylabel('Clasificacion del hiperimpulsor')
                 plt.xticks(rotation=90)
+                plt.yscale('log')
                 plt.show()
             
             elif opcion=='4':
                 mglt_naves_csv=[]
                 for nave in self.naves_csv_obj:
-                    mglt_naves_csv.append(nave.mglt)
+                    if nave.mglt=='':
+                        mglt_naves_csv.append(0)
+                    else:
+                        mglt_naves_csv.append(nave.mglt)
                 fig,ax=plt.subplots()
                 ax.bar(lista_naves_csv,mglt_naves_csv)
                 plt.title('Naves vs. MGLT (Modern Galactic Light Time)')
                 plt.xlabel('Naves')
                 plt.ylabel('MGLT (Modern Galactic Light Time)')
                 plt.xticks(rotation=90)
+                plt.yscale('log')
                 plt.show()
 
             elif opcion=='5':
