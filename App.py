@@ -214,7 +214,7 @@ class App:
 # CREACION DE OBJETOS TIPO (Personaje) CON LOS DATOS DE LA API
 
     def crear_personajes(self):
-        informacion=rq.get('https://www.swapi.tech/api/people/').json()
+        informacion=rq.get('https://www.swapi.tech/api/people/?page=1&limit=90').json()
         informacion_original=informacion
         informacion=informacion['results']
         for personaje in informacion:
@@ -226,7 +226,7 @@ class App:
 # CREACION DE OBJETOS TIPO (Especies) CON LOS DATOS DE LA API
 
     def crear_especies(self):
-        informacion=rq.get('https://www.swapi.tech/api/species/').json()
+        informacion=rq.get('https://www.swapi.tech/api/species/?page=1&limit=60').json()
         for especie in informacion['results']:
             id_especie=especie['uid']
             informacion_especie=rq.get(especie['url']).json()
@@ -245,7 +245,7 @@ class App:
 # CREACION DE OBJETOS TIPO (Planeta) CON LOS DATOS DE LA API
 
     def crear_planetas(self):
-        informacion=rq.get('https://www.swapi.tech/api/planets/').json()
+        informacion=rq.get('https://www.swapi.tech/api/planets/?page=1&limit=60').json()
         for planeta in informacion['results']:
             informacion_planeta=rq.get(planeta['url']).json()
             informacion_planeta=informacion_planeta['result']['properties']
@@ -255,7 +255,7 @@ class App:
 # CREACION DE OBJETOS TIPO (Nave) CON LOS DATOS DE LA API
 
     def crear_naves(self):
-        informacion=rq.get('https://www.swapi.tech/api/starships/').json()
+        informacion=rq.get('https://www.swapi.tech/api/starships/?page=1&limit=40').json()
         for nave in informacion['results']:
             informacion_nave=rq.get(nave["url"]).json()
             informacion_nave=informacion_nave['result']['properties']
@@ -274,7 +274,7 @@ class App:
 
 
     def crear_vehiculos(self):
-        informacion=rq.get('https://www.swapi.tech/api/vehicles/').json()
+        informacion=rq.get('https://www.swapi.tech/api/vehicles/?page=1&limit=40').json()
         for vehiculo in informacion['results']:
             informacion_vehiculo=rq.get(vehiculo["url"]).json()
             informacion_vehiculo=informacion_vehiculo['result']['properties']
