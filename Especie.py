@@ -16,12 +16,12 @@ class Especie:
         self.nombres_personajes_pertenecientes_especie=nombres_personajes_pertenecientes_especie
 
     def mostrar_especies(self,peliculas_obj):
-        print(f'\tid: {self.id}')
-        print(f'\tNombre: {self.nombre}')
-        print(f'\tAltura: {self.altura}')
-        print(f'\tClasificacion: {self.clasificacion}')
-        print(f'\tNombre del planeta de origen: {rq.get(self.mundo_natal).json()['result']['properties']['name']}')
-        print(f'\tLengua materna: {self.lengua_materna}')
+        print(f'\n>>  id: {self.id}')
+        print(f'    - Nombre: {self.nombre}')
+        print(f'    - Altura: {self.altura}')
+        print(f'    - Clasificacion: {self.clasificacion}')
+        print(f'    - Nombre del planeta de origen: {rq.get(self.mundo_natal).json()['result']['properties']['name']}')
+        print(f'    - Lengua materna: {self.lengua_materna}')
         for personaje in self.nombres_personajes_pertenecientes_especie:
             personaje.mostrar_nombre_personajes()
         lista_episodios=[]
@@ -30,8 +30,7 @@ class Especie:
                 if y.nombre==self.nombre:
                     lista_episodios.append(x.titulo)
         for episodio in lista_episodios:
-            print(f'\tEpisodio: {episodio}')
-        print()
+            print(f'    - Episodio: {episodio}')
         
 
 

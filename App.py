@@ -532,7 +532,7 @@ class App:
                     if nave.clasificacion_de_hiperimpulsor=='':
                         clasificacion_de_hiperimpulsor_navez_csv.append(0)
                     else:
-                        clasificacion_de_hiperimpulsor_navez_csv.append(nave.clasificacion_de_hiperimpulsor)
+                        clasificacion_de_hiperimpulsor_navez_csv.append(float(nave.clasificacion_de_hiperimpulsor))
                 fig, ax=plt.subplots()
                 ax.bar(lista_naves_csv,clasificacion_de_hiperimpulsor_navez_csv)
                 plt.title('Naves vs. Clasificacion del hiperimpulsor')
@@ -548,7 +548,7 @@ class App:
                     if nave.mglt=='':
                         mglt_naves_csv.append(0)
                     else:
-                        mglt_naves_csv.append(nave.mglt)
+                        mglt_naves_csv.append(float(nave.mglt))
                 fig,ax=plt.subplots()
                 ax.bar(lista_naves_csv,mglt_naves_csv)
                 plt.title('Naves vs. MGLT (Modern Galactic Light Time)')
