@@ -118,20 +118,20 @@ class App:
                 self.graficos_caracteristicas_naves()
 
             elif menu=='7':
-                None
+                self.estadisticas_sobre_naves()
 
             elif menu=='8':
                 self.crear_misiones()
 
             elif menu=='9':
-                None
+                self.modificar_misiones()
 
             elif menu=='10':
-                None
+                self.elegir_mision_para_mostrarla()
 
             elif menu=='11':
                 self.guardar_misiones()
-                print('Hasta la proxima aventura estelar')
+                print('\nHasta la proxima aventura estelar!')
                 break
 
             else:
@@ -476,7 +476,13 @@ class App:
                     diccionario_estadisticas_naves[nave.clase_de_nave]['velocidad_maxima'].append(float(nave.velocidad_maxima))
                 else:
                     diccionario_estadisticas_naves[nave.clase_de_nave]['velocidad_maxima'].append(0)
-            
+
+                diccionario_estadisticas_naves[nave.clase_de_nave]['costo_en_creditos']=[]
+                if nave.costo_en_creditos!='':
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['costo_en_creditos'].append(float(nave.costo_en_creditos))
+                else:
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['costo_en_creditos'].append(0)
+
             else:
                 if nave.clasificacion_de_hiperimpulsor!='':
                     diccionario_estadisticas_naves[nave.clase_de_nave]['clasificacion_de_hiperimpulsor'].append(float(nave.clasificacion_de_hiperimpulsor))
@@ -486,7 +492,7 @@ class App:
                 if nave.mglt!='':
                     diccionario_estadisticas_naves[nave.clase_de_nave]['mglt'].append(float(nave.mglt))
                 else:
-                    diccionario_estadisticas_naves[nave.clase_de_nave]['mgltr'].append(0)
+                    diccionario_estadisticas_naves[nave.clase_de_nave]['mglt'].append(0)
                 
                 if nave.velocidad_maxima!='':
                     diccionario_estadisticas_naves[nave.clase_de_nave]['velocidad_maxima'].append(float(nave.velocidad_maxima))
@@ -497,41 +503,169 @@ class App:
                     diccionario_estadisticas_naves[nave.clase_de_nave]['costo_en_creditos'].append(float(nave.costo_en_creditos))
                 else:
                     diccionario_estadisticas_naves[nave.clase_de_nave]['costo_en_creditos'].append(0)
+        
+        self.grafico_estadisticas_naves(diccionario_estadisticas_naves,lista_clase_naves_csv)
+
+# CREACION DE TABLA DE CIERTAS CARACTERISTICAS DE  LAS CLASES DE NAVES UTILIZANDO (MEDIA, PROMEDIO, MAXIMO Y MINIMO). (UTILIZANDO HERRAMIENTAS DE NUMPY)
     
+    def grafico_estadisticas_naves(self,diccionario_estadisticas_naves,lista_clase_naves_csv):
+        datos=[]
+        for clase, dato in diccionario_estadisticas_naves.items():
+            lista_clases=[]
+
+            #------ HIPERIMPULSOR ------
+
+            medidas_clasificacion_de_hiperimpulsor='CHD- Moda:'
+            moda_hiperimpulsor=np.array(dato['clasificacion_de_hiperimpulsor'])
+            moda_hiperimpulsor=np.round(moda_hiperimpulsor,decimals=2)
+            valores_unicos, conteos=np.unique(moda_hiperimpulsor,return_counts=True)
+            moda_hiperimpulsor=valores_unicos[np.argmax(conteos)]
+            medidas_clasificacion_de_hiperimpulsor+=str(moda_hiperimpulsor)+' Promedio:'
+
+            promedio_hiperimpulsor=np.array(dato['clasificacion_de_hiperimpulsor'])
+            promedio_hiperimpulsor=np.mean(promedio_hiperimpulsor)
+            promedio_hiperimpulsor=np.round(promedio_hiperimpulsor,decimals=2)
+            medidas_clasificacion_de_hiperimpulsor+=str(promedio_hiperimpulsor)+' Max:'
+
+            maximo_hiperimpulsor=np.array(dato['clasificacion_de_hiperimpulsor'])
+            maximo_hiperimpulsor=np.max(maximo_hiperimpulsor)
+            maximo_hiperimpulsor=np.round(maximo_hiperimpulsor,decimals=2)
+            medidas_clasificacion_de_hiperimpulsor+=str(maximo_hiperimpulsor)+' Min:'
+
+            minimo_hiperimpulsor=np.array(dato['clasificacion_de_hiperimpulsor'])
+            minimo_hiperimpulsor=np.min(minimo_hiperimpulsor)
+            minimo_hiperimpulsor=np.round(minimo_hiperimpulsor, decimals=2)
+            medidas_clasificacion_de_hiperimpulsor+=str(minimo_hiperimpulsor)
+            lista_clases.append(medidas_clasificacion_de_hiperimpulsor)
+
+            #------ MGLT ------
+
+            medidas_mglt='MGLT- Moda:'
+            moda_mglt=np.array(dato['mglt'])
+            moda_mglt=np.round(moda_mglt,decimals=2)
+            valores_unicos, conteos=np.unique(moda_mglt,return_counts=True)
+            moda_mglt=valores_unicos[np.argmax(conteos)]
+            moda_mglt=np.round(moda_mglt,decimals=2)
+            medidas_mglt+=str(moda_mglt)+ ' Prom:'
+            
+            promedio_mglt=np.array(dato['mglt'])
+            promedio_mglt=np.mean(promedio_mglt)
+            promedio_mglt=np.round(promedio_mglt,decimals=2)
+            medidas_mglt+=str(promedio_mglt)+' Max:'
+
+            maximo_mglt=np.array(dato['mglt'])
+            maximo_mglt=np.max(maximo_mglt)
+            maximo_mglt=np.round(maximo_mglt, decimals=2)
+            medidas_mglt+=str(maximo_mglt)+' Min:'
+            
+            minimo_mglt=np.array(dato['mglt'])
+            minimo_mglt=np.min(minimo_mglt)
+            minimo_mglt=np.round(minimo_mglt,decimals=2)
+            medidas_mglt+=str(minimo_mglt)
+            lista_clases.append(medidas_mglt)
+
+            #------ VELOCIDAD MAXIMA ------
+
+            medidas_velocidad_maxima='Vmax- Moda:'
+            moda_velocidad_maxima=np.array(dato['velocidad_maxima'])
+            moda_velocidad_maxima=np.round(moda_velocidad_maxima, decimals=2)
+            valores_unicos, conteos=np.unique(moda_velocidad_maxima,return_counts=True)
+            moda_velocidad_maxima=valores_unicos[np.argmax(conteos)]
+            medidas_velocidad_maxima+=str(moda_velocidad_maxima)+' Prom:'
+
+            promedio_velocidad_maxima=np.array(dato['velocidad_maxima'])
+            promedio_velocidad_maxima=np.mean(promedio_velocidad_maxima)
+            promedio_velocidad_maxima=np.round(promedio_velocidad_maxima,decimals=2)
+            medidas_velocidad_maxima+=str(promedio_velocidad_maxima)+ ' Max:'
+
+            maximo_velocidad_maxima=np.array(dato['velocidad_maxima'])
+            maximo_velocidad_maxima=np.max(maximo_velocidad_maxima)
+            maximo_velocidad_maxima=np.round(maximo_velocidad_maxima,decimals=2)
+            medidas_velocidad_maxima+=str(maximo_velocidad_maxima)+' Min:'
+
+            minimo_velocidad_maxima=np.array(dato['velocidad_maxima'])
+            minimo_velocidad_maxima=np.min(minimo_velocidad_maxima)
+            minimo_velocidad_maxima=np.round(minimo_velocidad_maxima,decimals=2)
+            medidas_velocidad_maxima+=str(minimo_velocidad_maxima)
+            lista_clases.append(medidas_velocidad_maxima)
+
+            #------ COSTO EN CREDITOS ------
+
+            medidas_costo_en_creditos='CEC- Moda:'
+            moda_costo_en_creditos=np.array(dato['costo_en_creditos'])
+            moda_costo_en_creditos=np.round(moda_costo_en_creditos,decimals=2)
+            valores_unicos, conteos=np.unique(moda_costo_en_creditos,return_counts=True)
+            moda_costo_en_creditos=valores_unicos[np.argmax(conteos)]
+            medidas_costo_en_creditos+=str(moda_costo_en_creditos)+' Prom:'
+
+            promedio_costo_en_creditos=np.array(dato['costo_en_creditos'])
+            promedio_costo_en_creditos=np.mean([promedio_costo_en_creditos])
+            promedio_costo_en_creditos=np.round(promedio_costo_en_creditos,decimals=2)
+            medidas_costo_en_creditos+=str(promedio_costo_en_creditos)+' Max:'
+
+            maximo_costo_en_creditos=np.array(dato['costo_en_creditos'])
+            maximo_costo_en_creditos=np.max(maximo_costo_en_creditos)
+            maximo_costo_en_creditos=np.round(maximo_costo_en_creditos,decimals=2)
+            medidas_costo_en_creditos+=str(maximo_costo_en_creditos)+' Min:'
+
+            minimo_costo_en_creditos=np.array(dato['costo_en_creditos'])
+            minimo_costo_en_creditos=np.min(minimo_costo_en_creditos)
+            minimo_costo_en_creditos=np.round(minimo_costo_en_creditos,decimals=2)
+            medidas_costo_en_creditos+=str(minimo_costo_en_creditos)
+            lista_clases.append(medidas_costo_en_creditos)
+            
+            
+            datos.append(lista_clases)
+
+        contador=0
+        lista_clase_naves_estadisticas=[]
+        for clase in lista_clase_naves_csv:
+            diccionario_para_cada_clase_nave={}
+            diccionario_para_cada_clase_nave[clase]=datos[contador]
+            lista_clase_naves_estadisticas.append(diccionario_para_cada_clase_nave)
+            contador+=1
+            diccionario_para_cada_clase_nave=pd.DataFrame(diccionario_para_cada_clase_nave)
+            print(diccionario_para_cada_clase_nave)
+
+
 ### CREACION DE OBJETOS TIPO (MISION) CON LOS DATOS DE LOS CSV
 
     def crear_misiones(self):
         if self.cantidad_misiones<5:
-            nombre_mision=input('\tNombre de la Mision: ')
+            print()
+            nombre_mision=input('\n>> Nombre de la Mision: ').title()
 
+            print()
             count=1
             for planeta in self.planetas_csv_obj:
                 print(f'{count}-{planeta.nombre}')
                 count+=1
-            planeta_destino_mision=input('\tIngrese el indice numérico correspondiente al Planeta de Destino de la Mision que desea seleccionar: ')
+            planeta_destino_mision=input('>> Ingrese el indice numérico correspondiente al Planeta de Destino de la Mision que desea seleccionar: ')
             while planeta_destino_mision.isnumeric()==False or int(planeta_destino_mision)>len(self.planetas_csv_obj):
-                planeta_destino_mision=input('\tIngrese el índice numérico correspondiente del planeta de Destino de la Mision: ')
+                planeta_destino_mision=input('>> Ingrese el índice numérico correspondiente del planeta de Destino de la Mision: ')
             planeta_destino_mision=self.planetas_csv_obj[int(planeta_destino_mision)-1]
 
+            print()
             count=1
             for nave in self.naves_csv_obj:
                 print(f'{count}-{nave.nombre}')
                 count+=1
-            nave_mision=input('\tIngrese el indice numérico correpondiente a la Nave a utilizar en la mision: ')
+            nave_mision=input('>> Ingrese el indice numérico correpondiente a la Nave a utilizar en la mision: ')
             while nave_mision.isnumeric()==False or int(nave_mision)>len(self.naves_csv_obj):
-                nave_mision=input('\tIngrese el indice numérico correspondiente a la Nave a utilizar en la mision: ')
+                nave_mision=input('>> Ingrese el indice numérico correspondiente a la Nave a utilizar en la mision: ')
             nave_mision=self.naves_csv_obj[int(nave_mision)-1]
 
             lista_indice_armas=[]
             lista_armas=[]
             while len(lista_indice_armas)<7:
+                print()
                 count=1
                 for arma in self.armas_csv_obj:
                     print(f'{count}-{arma.nombre}')
                     count+=1
-                arma_a_utilizar_mision=input(f'\tIngrese el indice numérico correspondiente al Arma {len(lista_indice_armas)+1} a utilizar en la mision: ')
+                arma_a_utilizar_mision=input(f'>> Ingrese el indice numérico correspondiente al Arma {len(lista_indice_armas)+1} a utilizar en la mision: ')
                 while arma_a_utilizar_mision.isnumeric()==False or int(arma_a_utilizar_mision)>len(self.armas_csv_obj):
-                    arma_a_utilizar_mision=input(f'\tIngrese el indice numérico correspondiente al Arma {len(lista_indice_armas)+1} a utilizar en la mision: ')
+                    arma_a_utilizar_mision=input(f'>> Ingrese el indice numérico correspondiente al Arma {len(lista_indice_armas)+1} a utilizar en la mision: ')
                 if int(arma_a_utilizar_mision)-1 not in lista_indice_armas:
                     lista_indice_armas.append(int(arma_a_utilizar_mision)-1)
                     arma_a_utilizar_mision=self.armas_csv_obj[int(arma_a_utilizar_mision)-1]
@@ -540,12 +674,12 @@ class App:
                     print('Ya fue escogida esta arma')
 
                 if len(lista_indice_armas)>0:
-                    opcion=input('''Pulse:
-(1) Para seguir eligiendo
-(2) Para finalizar la eleccion de armas
-''')
+                    opcion=input('''\nPulse:
+1. Para seguir eligiendo
+2. Para finalizar la eleccion de armas
+--> ''')
                     while opcion!='1' and opcion!='2':
-                        opcion=input('Ingrese una opcion válida contemplada en el menú: ')
+                        opcion=input('\nIngrese una opcion válida contemplada en el menú: ')
 
                     if opcion=='1':
                         continue
@@ -558,13 +692,14 @@ class App:
             lista_indice_integrantes_mision=[]
             lista_integrantes_mision=[]
             while len(lista_indice_integrantes_mision)<7:
+                print()
                 count=1
                 for integrante in self.personajes_csv_obj:
                     print(f'{count}-{integrante.nombre}')
                     count+=1
-                integrante_de_la_mision=input(f'\tIngrese el indice numérico correspondiente al Integrante {len(lista_indice_integrantes_mision)+1} a elegir para que participe en la mision: ')
+                integrante_de_la_mision=input(f'>> Ingrese el indice numérico correspondiente al Integrante {len(lista_indice_integrantes_mision)+1} a elegir para que participe en la mision: ')
                 while integrante_de_la_mision.isnumeric()==False or int(integrante_de_la_mision)>len(self.personajes_csv_obj):
-                    integrante_de_la_mision=input(f'\tIngrese el indice numérico correspondiente al Integrante {len(lista_indice_integrantes_mision)+1} a elegir para que participe en la mision: ')
+                    integrante_de_la_mision=input(f'>> Ingrese el indice numérico correspondiente al Integrante {len(lista_indice_integrantes_mision)+1} a elegir para que participe en la mision: ')
                 if int(integrante_de_la_mision)-1 not in lista_indice_integrantes_mision:
                     lista_indice_integrantes_mision.append(int(integrante_de_la_mision)-1)
                     integrante_de_la_mision=self.personajes_csv_obj[int(integrante_de_la_mision)-1]
@@ -573,12 +708,12 @@ class App:
                     print('Ya fue elegido este integrante para participar en la mision')
 
                 if len(lista_indice_integrantes_mision)>0:
-                    opcion=input('''Pulse:
-(1) Para seguir eligiendo
-(2) Para finalizar la eleccion de integrantes para la mision
-''')
+                    opcion=input('''\nPulse:
+1. Para seguir eligiendo
+2. Para finalizar la eleccion de integrantes para la mision
+--> ''')
                     while opcion!='1' and opcion!='2':
-                        opcion=input('Ingrese una opcion válida contemplada en el menú')
+                        opcion=input('\nIngrese una opcion válida contemplada en el menú')
 
                     if opcion=='1':
                         continue
@@ -589,13 +724,217 @@ class App:
             self.misiones_obj.append(Mision(self.cantidad_misiones+1,nombre_mision,planeta_destino_mision,nave_mision,lista_armas,lista_integrantes_mision))
             self.cantidad_misiones+=1
 
-            print(f'Su mision ha sido creada exitosamente')
+            print(f'\nSu mision ha sido creada exitosamente!')
 
         else:
             print('Ya han sido creadas el máximo de misiones (7)')
 
 #------------------------------
 
+# CREACION DE LA FUNCION PARA MODIFICAR LOS ATRIBUTOS DE CADA MISION CREADA POR EL USUARIO
+
+    def modificar_misiones(self):
+        print()
+        for mision in self.misiones_obj:
+            print(f'- ID de la Mision: {mision.numero_de_mision} - Nombre de la Mision: {mision.nombre}')
+        mision_a_modificar=input('\n>> Ingrese el ID de la mision que desea modificar: ')
+        while mision_a_modificar.isnumeric()==False or int(mision_a_modificar)>len(self.misiones_obj):
+            mision_a_modificar=input('\n>> Ingrese el ID de la mision que desea modificar: ')
+        print()
+        atributo_a_modificar_de_la_mision=input('''Seleccione uno de los parametros a modificar:
+1. Nombre de la mision.
+2. Planeta destino.
+3. Nave a utilizar.
+4. Armas a utilizar.
+5. Integrantes de la mision.
+--> ''')
+        
+        while atributo_a_modificar_de_la_mision!='1' and atributo_a_modificar_de_la_mision!='2' and atributo_a_modificar_de_la_mision!='3' and atributo_a_modificar_de_la_mision!='4' and atributo_a_modificar_de_la_mision!='5':
+            atributo_a_modificar_de_la_mision=input('\nIngrese una opcion valida contemplada en el menu: ')
+        
+        if atributo_a_modificar_de_la_mision=='1':
+            nuevo_nombre_mision=input('\nNuevo nombre de la Mision: ').title()
+            self.misiones_obj[int(mision_a_modificar)-1].nombre=nuevo_nombre_mision
+            print('\nNombre cambiado con exito!')
+        
+        elif atributo_a_modificar_de_la_mision=='2':
+            print()
+            contador=1
+            for planeta in self.planetas_csv_obj:
+                print(f'{contador}. {planeta.nombre}')
+                contador+=1
+            nuevo_planeta_destino=input('>> Ingrese el numero del nuevo planeta destino de la mision: ')
+            while nuevo_planeta_destino.isnumeric()==False or int(nuevo_planeta_destino)>len(self.planetas_csv_obj):
+                nuevo_planeta_destino=input('>> Ingrese el numero del nuevo planeta destino de la mision: ')
+            self.misiones_obj[int(mision_a_modificar)-1].planeta=self.planetas_csv_obj[int(nuevo_planeta_destino)-1]
+            print('\nPlaneta cambiado con exito!')
+
+        elif atributo_a_modificar_de_la_mision=='3':
+            print()
+            contador=1
+            for nave in self.naves_csv_obj:
+                print(f'{contador}. {nave.nombre}')
+                contador+=1
+            nueva_nave_mision=input('>> Ingrese el numero correspondiente a la nueva nave a utilizar en la mision: ')
+            while nueva_nave_mision.isnumeric()==False or int(nueva_nave_mision)>len(self.naves_csv_obj):
+                nueva_nave_mision=input('>> Ingrese el numero correspondiente a la nueva nade a utilizar en la mision: ')
+            self.misiones_obj[int(mision_a_modificar)-1].nave=self.naves_csv_obj[int(nueva_nave_mision)-1]
+            print('\nNave cambiada con exito!')
+
+        elif atributo_a_modificar_de_la_mision=='4':
+            opcion=input('''\nIngrese:
+1. Para cambiar un arma previamente seleccionada por otra.
+2. Para agregar una nueva arma.
+3. Para eliminar un arma. 
+4. Retroceder al menu principal. 
+--> ''')
+            while opcion!='1' and opcion!='2' and opcion!='3' and opcion!='4':
+                opcion=input('Ingrese una opcion valida contemplada en el menu: ')
+            
+            if opcion=='1':
+                print()
+                contador=1
+                for arma in self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas:
+                    print(f'{contador}. {arma.nombre}')
+                    contador+=1
+                arma_a_modificar=input('>> Ingrese el numero del arma a modificar: ')
+                while arma_a_modificar.isnumeric()==False or int(arma_a_modificar)>len(self.armas_csv_obj):
+                    arma_a_modificar=input('>> Ingrese el numero del arma a modificar: ')
+                
+                print()
+                contador=1
+                for arma in self.armas_csv_obj:
+                    print(f'{contador}. {arma.nombre}')
+                    contador+=1
+                nueva_arma_a_seleccionar=input('>> Ingrese el numero de la nueva arma que reemplazara a la anterior: ') 
+                while nueva_arma_a_seleccionar.isnumeric()==False or int(nueva_arma_a_seleccionar)>len(self.armas_csv_obj):
+                    nueva_arma_a_seleccionar=input('>> Ingrese el numero de la nueva arma que reemplazara a la anterior: ')
+                self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas[int(arma_a_modificar)-1]=self.armas_csv_obj[int(nueva_arma_a_seleccionar)-1]
+                print('\nArma cambiada con exito!')
+
+            elif opcion=='2':
+                if len(self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas)<7:
+                    print()
+                    contador=1
+                    for arma in self.armas_csv_obj:
+                        print(f'{contador}. {arma.nombre}')
+                        contador+=1
+                    nueva_arma_a_agregar=input('>> Ingrese el numero de la arma que desea agregar: ') 
+                    while nueva_arma_a_agregar.isnumeric()==False or int(nueva_arma_a_agregar)>len(self.armas_csv_obj):
+                        nueva_arma_a_seleccionar=input('>> Ingrese el numero de la arma que desea agregar: ')
+                    self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas.append(self.armas_csv_obj[int(nueva_arma_a_agregar)-1])
+                    print('\nArma agregada con exito!')
+
+                else:
+                    print('\nYa ha escogido el maximo numero de armas.')
+
+            elif opcion=='3':
+                if len(self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas)>0:
+                    print()
+                    contador=1
+                    for arma in self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas:
+                        print(f'{contador}. {arma.nombre}')
+                        contador+=1
+                    arma_a_eliminar=input('>> Ingrese el numero del arma que desea eliminar: ')
+                    while arma_a_eliminar.isnumeric()==False or int(arma_a_eliminar)>len(self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas):
+                        arma_a_eliminar=input('>> Ingrese el numero del arma que desea eliminar: ')
+                    self.misiones_obj[int(mision_a_modificar)-1].armas_utilizadas.pop(int(arma_a_eliminar)-1)
+                    print('\nArma eliminada con exito!')
+
+                else:
+                    print('\nNo hay armas escogidas, por lo que no se puede eliminar ninguna.')
+
+            elif opcion=='4':
+                None
+
+            else:      
+                print('Ingrese una de las opciones indicadas.')   
+            
+        elif atributo_a_modificar_de_la_mision=='5':
+            print()
+            opcion=input('''Ingrese:
+1. Para cambiar un integrante previamente seleccionado por otro.
+2. Para agregar un intregante nuevo.
+3. Para eliminar un intregrante.
+4. Retroceder al menu principal.
+--> ''')
+            
+            while opcion!='1' and opcion!='2' and opcion!='3' and opcion!='4':
+                opcion=input('Ingrese una opcion valida contemplada en el menu: ')
+
+            if opcion=='1':
+                print()
+                contador=1
+                for integrante in self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision:
+                    print(f'{contador}. {integrante.nombre}')
+                    contador+=1
+                integrante_a_modificar=input('>> Ingrese el numero de integrante que desea modificar: ')
+                while integrante_a_modificar.isnumeric()==False or int(integrante_a_modificar)>len(self.personajes_csv_obj):
+                    integrante_a_modificar=input('>> Ingrese el numero de integrante que desea modificar: ')
+                
+                print()
+                contador=1
+                for integrante in self.personajes_csv_obj:
+                    print(f'{contador}. {integrante.nombre}')
+                    contador+=1
+                nuevo_intregrante_a_seleccionar=input('>> Ingrese el numero del integrante con el que desea reemplazar al anterior: ')
+                while nuevo_intregrante_a_seleccionar.isnumeric()==False or int(nuevo_intregrante_a_seleccionar)>len(self.personajes_csv_obj):
+                    nuevo_intregrante_a_seleccionar=input('>> Ingrese el numero del integrante con el que desea reemplazar al anterior: ')
+                self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision[int(integrante_a_modificar)-1]=self.personajes_csv_obj[int(nuevo_intregrante_a_seleccionar)-1]
+                print('\nIntegrante cambiado con exito!')
+            
+            elif opcion=='2':
+                print()
+                if len(self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision)<7:
+                    contador=1
+                    for integrante in self.personajes_csv_obj:
+                        print(f'{contador}. {integrante.nombre}')
+                        contador+=1
+                    nuevo_integrante_a_seleccionar=input('>> Ingrese el numero del integrante que desea agregar: ')
+                    while nuevo_integrante_a_seleccionar.isnumeric()==False or int(nuevo_integrante_a_seleccionar)>len(self.personajes_csv_obj):
+                        nuevo_integrante_a_seleccionar=input('>> Ingrese el numero del integrante que desea agregar: ')
+                    self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision.append(self.personajes_csv_obj[int(nuevo_integrante_a_seleccionar)-1])
+                    print('\nIntegrante agregado con exito!')
+                
+                else:
+                    print('\nYa ha escogido el maximo numero de integrantes.')
+                
+            elif opcion=='3':
+                if len(self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision)>0:
+                    print()
+                    contador=1
+                    for integrante in self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision:
+                        print(f'{contador}. {integrante.nombre}')
+                        contador+=1
+                    integrante_a_eliminar=input('>> Ingrese el numero del integrante que desea eliminar: ')
+                    while integrante_a_eliminar.isnumeric()==False or int(integrante_a_eliminar)>len(self.personajes_csv_obj):
+                        nuevo_intregrante_a_seleccionar=input('>> Ingrese el numero del integrante que desea agregar: ')
+                    self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision.pop(int(integrante_a_eliminar)-1)
+                    print('\nIntegrante eliminado con exito!')
+                
+                else:
+                    print('No hay integrantes escogidos, por lo que no se puede elminar ningun integrante.')
+                
+            elif opcion=='4':
+                None
+            
+            else:
+                print('Ingrese una de las opciones indicadas.')
+
+# CREACION DE FUNCION PARA VISUALIZAR TODOS LOS DATOS DE UNA MISION
+
+    def elegir_mision_para_mostrarla(self):
+        print()
+        for mision in self.misiones_obj:
+            print(f'ID de la Mision: {mision.numero_de_mision} - Nombre de la Mision: {mision.nombre}')
+        mision_a_visualizar=input('\n>> Ingrese el ID de la mision que desea visualizar: ')
+        print()
+        while mision_a_visualizar.isnumeric()==False or int(mision_a_visualizar)>len(self.misiones_obj):
+            mision_a_visualizar=input('\n>> Ingrese el ID de la mision que desea visualizar: ')
+        self.misiones_obj[int(mision_a_visualizar)-1].visualizar_mision()
+        print()
+
+# CREACION DE FUNCION PARA GUARDAR TODAS LAS MISIONES CREADAS POR EL USUARIO MIENTRAS EJECUTA EL PROGRAMA (SE GUARDA EN .txt)
 
     def guardar_misiones(self):
         misiones=[]
