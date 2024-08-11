@@ -382,7 +382,7 @@ class App:
                     self.armas_csv_obj.append(Arma_csv(fila[0],fila[1],fila[2],fila[3],fila[4],fila[5],fila[6],fila[7],fila[8]))
                 contador+=1
     
-    
+
 # CREACION DE OBJETOS (Planetas) CON LOS DATOS DE CSV.
 
     def crear_planetas_csv(self):
@@ -413,11 +413,11 @@ class App:
         Se encarga de analizar una lista de personajes y cuenta la cantidad de personajes provenientes
         de cada planeta. Luego genera un grafico para visualizar los resultados.
         
-        Args:
-            self (object): Objeto que contiene la lista de personajes (self.personajes_csv_obj).
-            
-        Returns:
-            None: genera un grafico y no devuelve ningun valor.
+            Args:
+                self (object): Objeto que contiene la lista de personajes (self.personajes_csv_obj).
+                
+            Returns:
+                None: genera un grafico y no devuelve ningun valor.
         
         '''
 
@@ -446,13 +446,16 @@ class App:
         '''
         Crea un grafico que permite visualizar la cantidad de personajes por planeta. 
         
-        Args:
-            lista_planetas_csv_personajes (list): lista con los nombres de los planetas.
-            lista_cantidad_planetas_csv_personajes (list): lista con numeros enteros que indican
-                                                           la cantidad de personajes por planeta.
-        
-        Returns:
-            None: Muestra el grafico directamente y no devuelve ningun valor.
+            Args:
+                lista_planetas_csv_personajes (list): lista con los nombres de los planetas.
+                lista_cantidad_planetas_csv_personajes (list): lista con numeros enteros que indican
+                                                               la cantidad de personajes por planeta.
+            
+            Returns:
+                None: Muestra el grafico directamente y no devuelve ningun valor. 
+            
+            Nota:
+                Debe cerrar la pestaña del grafico una vez mostrado para seguir ejecutando el programa.
             
         '''
 
@@ -496,25 +499,31 @@ class App:
             if opcion=='1':
                 longitud_naves_csv=[]
                 for nave in self.naves_csv_obj:
-                    longitud_naves_csv.append(nave.longitud)
+                    longitud_naves_csv.append(float(nave.longitud))
                 fig, ax=plt.subplots()
                 ax.bar(lista_naves_csv,longitud_naves_csv)
                 plt.title('Naves vs. Longitud Naves')
                 plt.xlabel('Naves')
                 plt.ylabel('Longitud de Naves')
                 plt.xticks(rotation=90)
+                plt.yscale('log')
                 plt.show()
 
             elif opcion=='2':
                 capacidad_de_carga_naves_csv=[]
                 for nave in self.naves_csv_obj:
-                    capacidad_de_carga_naves_csv.append(nave.capacidad_de_carga)
+                    if nave.capacidad_de_carga=='':
+                        capacidad_de_carga_naves_csv.append(0)
+                    else:
+                        capacidad_de_carga_naves_csv.append(float(nave.capacidad_de_carga))
+                
                 fig, ax=plt.subplots()
                 ax.bar(lista_naves_csv,capacidad_de_carga_naves_csv)
                 plt.title('Naves vs Capacidad de carga')
                 plt.xlabel('Naves')
                 plt.ylabel('Capacidad de carga de naves')
                 plt.xticks(rotation=90)
+                plt.yscale('log')
                 plt.show()
 
             elif opcion=='3':
