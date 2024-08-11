@@ -142,6 +142,16 @@ class App:
 # CREACION DE OBJETOS TIPO (Pelicula) CON LOS DATOS DE LA API
 
     def crear_peliculas(self,peliculas):
+        '''Crea una lista de objetos tipo (Pelicula) a partir de datos de la SWAPI
+        
+        Argumentos: 
+            self: Hace referencia al objeto solicitado 
+            peliculas: Es una lista de diccionario, que se compone de distintos diccionarios, 
+            en donde cada diccionario constituye un pelicula, que guarda todos sus datos correspondientes
+        
+        Returns:
+            None. Solamente crea las peliculas, agregandolas a una lista de objetos.
+        '''
         count=0
         for pelicula in peliculas:
             if count==0:
@@ -214,6 +224,14 @@ class App:
 # CREACION DE OBJETOS TIPO (Personaje) CON LOS DATOS DE LA API
 
     def crear_personajes(self):
+        '''Genera una lista de objetos de tipo (Personaje) a partir de los datos contenidos en la API 
+        
+        Argumentos:
+            self: Hace referencia al objeto solicitado 
+        
+        Returns:
+            None. Solamente crea los objetos tipo (Personaje), agregandolos a una lista de objetos.
+        '''
         informacion=rq.get('https://www.swapi.tech/api/people/?page=1&limit=90').json()
         informacion_original=informacion
         informacion=informacion['results']
@@ -226,6 +244,14 @@ class App:
 # CREACION DE OBJETOS TIPO (Especies) CON LOS DATOS DE LA API
 
     def crear_especies(self):
+        '''Genera una lista de objetos de tipo (Especie) a partir de los datos contenidos en la API 
+        
+        Argumentos:
+            self: Hace referencia al objeto solicitado 
+        
+        Returns:
+            None. Solamente crea los objetos tipo (Especie), agregandolos a una lista de objetos.
+        '''
         informacion=rq.get('https://www.swapi.tech/api/species/?page=1&limit=60').json()
         for especie in informacion['results']:
             id_especie=especie['uid']
@@ -245,6 +271,14 @@ class App:
 # CREACION DE OBJETOS TIPO (Planeta) CON LOS DATOS DE LA API
 
     def crear_planetas(self):
+        '''Genera una lista de objetos de tipo (Planeta) a partir de los datos contenidos en la API 
+        
+        Argumentos:
+            self: Hace referencia al objeto solicitado 
+        
+        Returns:
+            None. Solamente crea los objetos tipo (Planeta), agregandolas a una lista de objetos.
+        '''
         informacion=rq.get('https://www.swapi.tech/api/planets/?page=1&limit=60').json()
         for planeta in informacion['results']:
             informacion_planeta=rq.get(planeta['url']).json()
@@ -255,6 +289,14 @@ class App:
 # CREACION DE OBJETOS TIPO (Nave) CON LOS DATOS DE LA API
 
     def crear_naves(self):
+        '''Genera una lista de objetos de tipo (Nave a partir de los datos contenidos en la API 
+        
+        Argumentos:
+            self: Hace referencia al objeto solicitado 
+        
+        Returns:
+            None. Solamente crea los objetos tipo (Nave), agregandolas a una lista de objetos.'''
+        
         informacion=rq.get('https://www.swapi.tech/api/starships/?page=1&limit=40').json()
         for nave in informacion['results']:
             informacion_nave=rq.get(nave["url"]).json()
@@ -273,6 +315,14 @@ class App:
 # CREACION DE OBJETOS TIPO (Vehiculo) CON LOS DATOS DE LA API
 
     def crear_vehiculos(self):
+        '''Genera una lista de objetos de tipo (Vehiculo) a partir de los datos contenidos en la API 
+        
+        Argumentos:
+            self: Hace referencia al objeto solicitado 
+        
+        Returns:
+            None. Solamente crea los objetos tipo (Vehiculo), agregandolas a una lista de objetos.'''
+        
         informacion=rq.get('https://www.swapi.tech/api/vehicles/?page=1&limit=40').json()
         for vehiculo in informacion['results']:
             informacion_vehiculo=rq.get(vehiculo["url"]).json()
@@ -772,6 +822,17 @@ class App:
 ### CREACION DE OBJETOS TIPO (MISION) CON LOS DATOS DE LOS CSV
 
     def crear_misiones(self):
+        '''Crea una mision, solicitandole al usuario informacion sobre (el planeta de destino), 
+        (la nave a usar en la mision), (las armas a utilizar) y (los integrantes de la mision), 
+        informacion que es extraida del archivo zip llamado starwars.zip, la cual se le muestra de
+        forma amigable al usuario y se le permite escoger entre las opciones
+
+        Argumentos:
+            self: Hace referencia al objeto solicitado 
+        
+        Returns:
+            None. Solamente crea los objetos tipo (Mision), agregandolas a una lista de objetos.
+        '''
         if self.cantidad_misiones<5:
             print()
             nombre_mision=input('\n>> Nombre de la Mision: ').title()
@@ -1105,6 +1166,15 @@ class App:
 # CREACION DE FUNCION PARA GUARDAR TODAS LAS MISIONES CREADAS POR EL USUARIO MIENTRAS EJECUTA EL PROGRAMA (SE GUARDA EN .txt)
 
     def guardar_misiones(self):
+        ''' Serializa y guarda las misiones creadas en un archivo .txt
+
+        Argumentos:
+            self: Hace referencia al objeto solicitado 
+        
+        Returns:
+            None. Guarda los datos de las misiones en un archivo .txt dentro de un diccionario que contentiene una lista de 
+            diccionarios, donde cada diccionario dentro de la lista representa una mmision creada con todos sus datos
+            correspondientes'''
         misiones=[]
         for mision in self.misiones_obj:
             mision_diccionario={}
@@ -1188,6 +1258,13 @@ class App:
 ### CREACION DE LA FUNCION PARA CARGAR DEL (Archivo.txt) TODAS LAS MISIONES GUARDADAS PREVIAMENTE Y CARGARLAS EN EL PROGRAMA
 
     def cargar_misiones(self):
+        ''' Carga las misiones creadas previamente al programa desde un archivo .txt, donde se encuentran guardades estas
+
+        Argumentos:
+            self: Hace referencia al objeto solicitado 
+        
+        Returns:
+            None. Carga al programa los datos de las misiones ya creadas, guardados en el archivo (misiones.txt)'''
         try:
             with open("guardar_misiones/misiones.txt","r") as f:
                 misiones=json.loads(f.read())
