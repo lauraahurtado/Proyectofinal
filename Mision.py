@@ -8,7 +8,7 @@ class Mision:
         self.integrantes_mision=integrantes_mision
     
     def visualizar_mision(self):
-        print(f'>>  Nombre de la Mision: {self.nombre}')
+        print(f'\n>>  Nombre de la Mision: {self.nombre}')
         print(f'    - Nombre del planeta: {self.planeta.nombre}')
         print(f'    - Nombre de la nave: {self.nave.nombre}')
         print(f'    - Lista de armas: ')
