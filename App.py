@@ -1282,12 +1282,12 @@ class App:
                 lista_armas=[]
                 for arma in mision["armas_utilizadas"]:
                     arma_a_cargar=Arma_csv(arma["id"],arma["nombre"],arma["modelo"],arma["fabricante"],arma["costo_en_creditos"],arma["longitud"],arma["tipo"],arma["descripcion"],arma["peliculas"])
-                lista_armas.append(arma_a_cargar)
+                    lista_armas.append(arma_a_cargar)
 
                 lista_integrantes=[]
                 for integrante in mision["integrantes_mision"]:
                     integrante_a_cargar=Personaje_cvs(integrante["id"],integrante["nombre"],integrante["especie"],integrante["genero"],integrante["altura"],integrante["peso"],integrante["color_cabello"],integrante["color_ojos"],integrante["color_piel"],integrante["nacimiento"],integrante["mundo_natal"],integrante["fallecimiento"],integrante["descripcion"])
-                lista_integrantes.append(integrante_a_cargar)
+                    lista_integrantes.append(integrante_a_cargar)
 
                 mision_a_cargar=Mision(mision["numero_de_mision"],mision["nombre"],planeta,nave,lista_armas,lista_integrantes)
                 self.misiones_obj.append(mision_a_cargar)
