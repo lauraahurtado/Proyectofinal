@@ -21,7 +21,7 @@ class Planeta:
         for x in peliculas_obj:
             for y in x.planetas:
                 if y.nombre==self.nombre:
-                    lista_episodios.append(y.nombre)
+                    lista_episodios.append(x.titulo)
         print(f'    - Nombres de los episodios en los que aparece: {lista_episodios}')
 
         lista_personajes=[]

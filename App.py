@@ -834,7 +834,7 @@ class App:
                 print(f'{count}-{planeta.nombre}')
                 count+=1
             planeta_destino_mision=input('>> Ingrese el indice numérico correspondiente al Planeta de Destino de la Mision que desea seleccionar: ')
-            while planeta_destino_mision.isnumeric()==False or int(planeta_destino_mision)>len(self.planetas_csv_obj):
+            while planeta_destino_mision.isnumeric()==False or int(planeta_destino_mision)>len(self.planetas_csv_obj) or int(planeta_destino_mision)<=0:
                 planeta_destino_mision=input('>> Ingrese el índice numérico correspondiente del planeta de Destino de la Mision: ')
             planeta_destino_mision=self.planetas_csv_obj[int(planeta_destino_mision)-1]
 
@@ -1011,6 +1011,7 @@ class App:
                 while arma_a_modificar.isnumeric()==False or int(arma_a_modificar)>len(self.armas_csv_obj) or int(arma_a_modificar)<=0:
                     arma_a_modificar=input('>> Ingrese el numero del arma a modificar: ')
                 
+                print()
                 contador=1
                 for arma in self.armas_csv_obj:
                     print(f'{contador}. {arma.nombre}')
