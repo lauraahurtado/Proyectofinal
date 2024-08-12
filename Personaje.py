@@ -31,23 +31,33 @@ class Personaje:
     def mostrar_personajes_opcion_cuatro(self,peliculas_obj,especies_obj,naves_obj,vehiculos_obj):
         print(f'\n>>  Nombre: {self.nombre}')
         print(f'    - Nombre del planeta origen: {self.mundo_natal}')
+        contador=1
+        print(f'    - Titulos de los episodios:')
         for pelicula in peliculas_obj:
             for personaje in pelicula.personajes:
                 if self.nombre==personaje.nombre:
-                    print(f'    - Titulos de los episodios: {pelicula.titulo}')
+                    print(f'        {contador}. {pelicula.titulo}')
+                    contador+=1
         print(f'    - Genero: {self.genero}')
+        print(f'    - Especie:')
         for especie in especies_obj:
             for personaje in especie.nombres_personajes_pertenecientes_especie:
                 if self.nombre==personaje.nombre:
-                    print(f'    - Especie: {especie.nombre}')
+                    print(f'        * {especie.nombre}')
+        contador1=1
+        print(f'    - Nave:')
         for nave in naves_obj:
             for piloto in nave.pilotos:
                 if self.nombre==piloto.nombre:
-                    print(f'    - Nave: {nave.nombre}')
+                    print(f'        {contador1}. {nave.nombre}')
+                    contador1+=1
+        contador2=1
+        print(f'    - Vehiculo:')
         for vehiculo in vehiculos_obj:
             for piloto in vehiculo.pilotos:
                 if self.nombre==piloto.nombre:
-                    print(f'    - Vehiculo: {vehiculo.nombre}')
+                    print(f'        {contador2}. {vehiculo.nombre}')
+                    contador2+=1
 
         
         
