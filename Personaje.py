@@ -25,8 +25,8 @@ class Personaje:
         print(f'\tFecha de Nacimiento: {self.nacimiento}')
         print(f'\tMundo Natal: {self.mundo_natal}')
 
-    def mostrar_nombre_personajes(self):
-        print(f'        * {self.nombre}')
+    def mostrar_nombre_personajes(self,contador1):
+        print(f'        {contador1}. {self.nombre}')
 
     def mostrar_personajes_opcion_cuatro(self,peliculas_obj,especies_obj,naves_obj,vehiculos_obj):
         print(f'\n>>  Nombre: {self.nombre}')

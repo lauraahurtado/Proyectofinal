@@ -23,15 +23,20 @@ class Especie:
         print(f'    - Nombre del planeta de origen: {rq.get(self.mundo_natal).json()['result']['properties']['name']}')
         print(f'    - Lengua materna: {self.lengua_materna}')
         print(f'    - Nombres de los personajes pertenecientes a la especie: ')
+        contador1=1
         for personaje in self.nombres_personajes_pertenecientes_especie:
-            personaje.mostrar_nombre_personajes()
+            personaje.mostrar_nombre_personajes(contador1)
+            contador1+=1
         lista_episodios=[]
         for x in peliculas_obj:
             for y in x.especies:
                 if y.nombre==self.nombre:
                     lista_episodios.append(x.titulo)
+        contador=1
+        print(f'    - Episodios:')
         for episodio in lista_episodios:
-            print(f'    - Episodio: {episodio}')
+            print(f'        {contador}. {episodio}')
+            contador+=1
         
 
 
