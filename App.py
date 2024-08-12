@@ -844,7 +844,7 @@ class App:
                 print(f'{count}-{nave.nombre}')
                 count+=1
             nave_mision=input('>> Ingrese el indice numérico correpondiente a la Nave a utilizar en la mision: ')
-            while nave_mision.isnumeric()==False or int(nave_mision)>len(self.naves_csv_obj):
+            while nave_mision.isnumeric()==False or int(nave_mision)>len(self.naves_csv_obj) or int(nave_mision)<=0:
                 nave_mision=input('>> Ingrese el indice numérico correspondiente a la Nave a utilizar en la mision: ')
             nave_mision=self.naves_csv_obj[int(nave_mision)-1]
 
@@ -857,7 +857,7 @@ class App:
                     print(f'{count}-{arma.nombre}')
                     count+=1
                 arma_a_utilizar_mision=input(f'>> Ingrese el indice numérico correspondiente al Arma {len(lista_indice_armas)+1} a utilizar en la mision: ')
-                while arma_a_utilizar_mision.isnumeric()==False or int(arma_a_utilizar_mision)>len(self.armas_csv_obj):
+                while arma_a_utilizar_mision.isnumeric()==False or int(arma_a_utilizar_mision)>len(self.armas_csv_obj) or int(arma_a_utilizar_mision)<=0:
                     arma_a_utilizar_mision=input(f'>> Ingrese el indice numérico correspondiente al Arma {len(lista_indice_armas)+1} a utilizar en la mision: ')
                 if int(arma_a_utilizar_mision)-1 not in lista_indice_armas:
                     lista_indice_armas.append(int(arma_a_utilizar_mision)-1)
@@ -891,7 +891,7 @@ class App:
                     print(f'{count}-{integrante.nombre}')
                     count+=1
                 integrante_de_la_mision=input(f'>> Ingrese el indice numérico correspondiente al Integrante {len(lista_indice_integrantes_mision)+1} a elegir para que participe en la mision: ')
-                while integrante_de_la_mision.isnumeric()==False or int(integrante_de_la_mision)>len(self.personajes_csv_obj):
+                while integrante_de_la_mision.isnumeric()==False or int(integrante_de_la_mision)>len(self.personajes_csv_obj) or int(integrante_de_la_mision)<=0:
                     integrante_de_la_mision=input(f'>> Ingrese el indice numérico correspondiente al Integrante {len(lista_indice_integrantes_mision)+1} a elegir para que participe en la mision: ')
                 if int(integrante_de_la_mision)-1 not in lista_indice_integrantes_mision:
                     lista_indice_integrantes_mision.append(int(integrante_de_la_mision)-1)
@@ -906,7 +906,7 @@ class App:
 2. Para finalizar la eleccion de integrantes para la mision
 --> ''')
                     while opcion!='1' and opcion!='2':
-                        opcion=input('\nIngrese una opcion válida contemplada en el menú')
+                        opcion=input('\nIngrese una opcion válida contemplada en el menú: ')
 
                     if opcion=='1':
                         continue
@@ -965,24 +965,26 @@ class App:
         
         elif atributo_a_modificar_de_la_mision=='2':
             print()
+            planeta_actual=self.misiones_obj[int(mision_a_modificar)-1].planeta
             contador=1
             for planeta in self.planetas_csv_obj:
                 print(f'{contador}. {planeta.nombre}')
                 contador+=1
             nuevo_planeta_destino=input('>> Ingrese el numero del nuevo planeta destino de la mision: ')
-            while nuevo_planeta_destino.isnumeric()==False or int(nuevo_planeta_destino)>len(self.planetas_csv_obj) or int(nuevo_planeta_destino)<=0:
+            while nuevo_planeta_destino.isnumeric()==False or int(nuevo_planeta_destino)>len(self.planetas_csv_obj) or int(nuevo_planeta_destino)<=0 or planeta_actual.nombre==self.planetas_csv_obj[int(nuevo_planeta_destino)-1].nombre:
                 nuevo_planeta_destino=input('>> Ingrese el numero del nuevo planeta destino de la mision: ')
             self.misiones_obj[int(mision_a_modificar)-1].planeta=self.planetas_csv_obj[int(nuevo_planeta_destino)-1]
             print('\nPlaneta cambiado con exito!')
 
         elif atributo_a_modificar_de_la_mision=='3':
             print()
+            nave_actual=self.misiones_obj[int(mision_a_modificar)-1].nave
             contador=1
             for nave in self.naves_csv_obj:
                 print(f'{contador}. {nave.nombre}')
                 contador+=1
             nueva_nave_mision=input('>> Ingrese el numero correspondiente a la nueva nave a utilizar en la mision: ')
-            while nueva_nave_mision.isnumeric()==False or int(nueva_nave_mision)>len(self.naves_csv_obj) or int(nueva_nave_mision)<=0:
+            while nueva_nave_mision.isnumeric()==False or int(nueva_nave_mision)>len(self.naves_csv_obj) or int(nueva_nave_mision)<=0 or nave_actual.nombre==self.naves_csv_obj[int(nueva_nave_mision)-1].nombre:
                 nueva_nave_mision=input('>> Ingrese el numero correspondiente a la nueva nade a utilizar en la mision: ')
             self.misiones_obj[int(mision_a_modificar)-1].nave=self.naves_csv_obj[int(nueva_nave_mision)-1]
             print('\nNave cambiada con exito!')
@@ -1125,7 +1127,7 @@ class App:
                         contador+=1
                     integrante_a_eliminar=input('>> Ingrese el numero del integrante que desea eliminar: ')
                     while integrante_a_eliminar.isnumeric()==False or int(integrante_a_eliminar)>len(self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision) or int(integrante_a_eliminar)<=0:
-                        integrante_a_eliminar=input('>> Ingrese el numero del integrante que desea agregar: ')
+                        integrante_a_eliminar=input('>> Ingrese el numero del integrante que desea eliminar: ')
                     self.misiones_obj[int(mision_a_modificar)-1].integrantes_mision.pop(int(integrante_a_eliminar)-1)
                     print('\nIntegrante eliminado con exito!')
                 
@@ -1159,7 +1161,7 @@ class App:
             print(f'ID de la Mision: {mision.numero_de_mision} - Nombre de la Mision: {mision.nombre}')
         mision_a_visualizar=input('\n>> Ingrese el ID de la mision que desea visualizar: ')
         print()
-        while mision_a_visualizar.isnumeric()==False or int(mision_a_visualizar)>len(self.misiones_obj):
+        while mision_a_visualizar.isnumeric()==False or int(mision_a_visualizar)>len(self.misiones_obj) or int(mision_a_visualizar)<=0:
             mision_a_visualizar=input('\n>> Ingrese el ID de la mision que desea visualizar: ')
         self.misiones_obj[int(mision_a_visualizar)-1].visualizar_mision()
         print()
